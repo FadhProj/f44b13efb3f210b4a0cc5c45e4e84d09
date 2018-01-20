@@ -1,0 +1,34 @@
+PropertyItem[] PI = OI.PropertyItems;
+            foreach (var item in PI)
+            {
+                Console.WriteLine("Id = " + item.Id.ToString() + " Len =  " + item.Len.ToString() + " Type = " + item.Type.ToString() + " ");
+                for (int I = 0; I < item.Value.Length; I++)
+                {
+                    if (item.Type == 2)
+                    {
+                        Console.Write((char)(item.Value[I]));
+                    }
+                    else
+                    {
+                        Console.Write(System.Convert.ToString(item.Value[I], 16).ToUpper() + " ");
+                    }
+                }
+                Console.WriteLine();
+            }
+            //if (PI[0].Type != 2)
+            //{
+                PI[1].Id = 0X321;
+                PI[1].Type = 2;
+                String S = "123156456464";
+                PI[1].Len = S.Length + 1;
+                PI[1].Value = new byte[PI[1].Len];
+                for (int I = 0; I < S.Length; I++)
+                {
+                    PI[1].Value[I] = Convert.ToByte(S[I]);
+                }
+                PI[1].Len = PI[1].Value.Length;
+                OI.SetPropertyItem(PI[1]);
+                OI.Save("D:\\Test2.jpg");
+            //}
+
+            Console.WriteLine(PI.Length);
