@@ -31,17 +31,17 @@ namespace MyProgram
         private int blok;
         private Pos[] defBlok;
         private int nPadW, nPadH;
-        private Color[] valPadW, valPadH;
+        private int[] valPadW, valPadH;
 
         public Bitmap Image { get => image; }
         public int Blok { get => blok; }
         internal Pos[] DefBlok { get => defBlok; }
         public int PadW { get => nPadW; set => nPadW = value; }
         public int PadH { get => nPadH; set => nPadH = value; }
-        public int NPadW { get => nPadW; set => nPadW = value; }
-        public int NPadH { get => nPadH; set => nPadH = value; }
-        public Color[] ValPadW { get => valPadW; set => valPadW = value; }
-        public Color[] ValPadH { get => valPadH; set => valPadH = value; }
+        //public int NPadW { get => nPadW; set => nPadW = value; }
+        //public int NPadH { get => nPadH; set => nPadH = value; }
+        public int[] ValPadW { get => valPadW; set => valPadW = value; }
+        public int[] ValPadH { get => valPadH; set => valPadH = value; }
 
         public Iimage(Bitmap image)
         {
@@ -115,6 +115,8 @@ namespace MyProgram
             if (d)
             {
                 //initialisasi value padding
+                //ValPadH = valPadH;
+                //ValPadW = valPadW;
                 copyToImage();
             }
             setDefBlok(this.image);
@@ -126,16 +128,20 @@ namespace MyProgram
             {
                 for (int x = image.Width - nPadW; x < image.Width; x++)
                 {
-                    valPadW[w] = image.GetPixel(x, y);
-                    w++;
+                    valPadW[w] = image.GetPixel(x, y).R;
+                    valPadW[w+1] = image.GetPixel(x, y).G;
+                    valPadW[w+2] = image.GetPixel(x, y).B;
+                    w+=3;
                 }
                 if (y >= image.Height - nPadH)
                 {
 
                     for (int x = 0; x < image.Width; x++)
                     {
-                        valPadH[h] = image.GetPixel(x, y);
-                        h++;
+                        valPadH[h] = image.GetPixel(x, y).R;
+                        valPadH[h+1] = image.GetPixel(x, y).G;
+                        valPadH[h+2] = image.GetPixel(x, y).B;
+                        h+=3;
                     }
                 }
             }
@@ -147,10 +153,10 @@ namespace MyProgram
             {
                 for (int x = image.Width - nPadW; x < image.Width; x++)
                 {
-                    Console.Write("{0} || ", image.GetPixel(x, y));
-                    image.SetPixel(x, y, valPadW[w]);
-                    w++;
-                    Console.WriteLine("{0} || {1} {2}", image.GetPixel(x, y), x, y);
+                    //Console.Write("{0} || ", image.GetPixel(x, y));
+                    image.SetPixel(x, y, Color.FromArgb(valPadW[w], valPadW[w + 1], valPadW[w + 2]));
+                    w+=3;
+                    //Console.WriteLine("{0} || {1} {2}", image.GetPixel(x, y), x, y);
 
                 }
                 if (y >= image.Height - nPadH)
@@ -158,11 +164,11 @@ namespace MyProgram
 
                     for (int x = 0; x < image.Width; x++)
                     {
-                        Console.Write("{0} || ", image.GetPixel(x, y));
+                        //Console.Write("{0} || ", image.GetPixel(x, y));
 
-                        image.SetPixel(x, y, valPadH[h]);
-                        h++;
-                        Console.WriteLine("{0} || {1} {2}", image.GetPixel(x, y), x, y);
+                        image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h + 1], valPadH[h + 2]));
+                        h+=3;
+                        //Console.WriteLine("{0} || {1} {2}", image.GetPixel(x, y), x, y);
 
                     }
                 }
@@ -173,8 +179,8 @@ namespace MyProgram
         {
             if (e)
             {
-                this.valPadW = new Color[PadW * image.Height];
-                this.valPadH = new Color[PadH * image.Width];
+                this.valPadW = new int[PadW * image.Height * 3];
+                this.valPadH = new int[PadH * image.Width * 3];
                 Console.WriteLine("{0} {1} ", valPadH.Length, valPadH);
                 Console.WriteLine("{0} {1} ", valPadW.Length, valPadW);
                 Console.WriteLine("{0} {1} ", image.Width, image.Height);

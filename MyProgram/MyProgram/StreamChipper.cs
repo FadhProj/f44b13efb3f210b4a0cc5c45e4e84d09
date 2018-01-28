@@ -71,7 +71,7 @@ namespace MyProgram
         public void xorBlok(ref Iimage img, int key, int n)
         {
             int R, G, B, a = 0;
-            Console.WriteLine("Xor Blok");
+            //Console.WriteLine("Xor Blok");
             for (int i = img.DefBlok[n].N; i < img.DefBlok[n].N + 3; i++)
             {
                 for (int j = img.DefBlok[n].M; j < img.DefBlok[n].M + 3; j++)

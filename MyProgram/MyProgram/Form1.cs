@@ -53,54 +53,107 @@ namespace MyProgram
             oStream.PRGA(ref originalImage);
 
             originalImage.closePadding(true);
-            //originalImage.Image.Save("D:\\55555.jpg");
-            /*
-            string value;
-            PropertyItem PI = originalImage.Image.PropertyItems[0];
-            PI.Id = 0X320;
-            PI.Type = 2;
-            value = key;
-            PI.Len = key.Length;
-            PI. x `````````````````````````
-            for (int i = 0; i < value.Length; i++)
+
+            PropertyItem pi = OI.PropertyItems[0];
+            pi.Id = 0X320;
+            pi.Type = 2;
+            pi.Len = key.Length + originalImage.ValPadW.Length + originalImage.ValPadW.Length + 3 ;
+            pi.Value = new byte[pi.Len];
+
+            int i;
+            for (i = 0 ; i < key.Length; i++)
             {
-                PI.Value[i] = Convert.ToByte(value[i]);
+                pi.Value[i] = Convert.ToByte(key[i]);
             }
-            originalImage.Image.SetPropertyItem(PI);*/
-            int c = ColorTranslator.ToWin32(originalImage.ValPadW[0]);
-            Console.WriteLine( c );
-            Console.WriteLine(ColorTranslator.FromWin32(c));
+            pi.Value[i] = Convert.ToByte(null);
+            i++;
+            //Console.WriteLine(pi.Value);
+            for (int j = i; j < originalImage.ValPadW.Length ; j++)
+            {
+                pi.Value[j] = Convert.ToByte(originalImage.ValPadW[j]);
+            }
+            i = j;
+            pi.Value[i] = Convert.ToByte(null);
+            i++;
+            for (int j = i; j < originalImage.ValPadH.Length; j++)
+            {
+                pi.Value[j] = Convert.ToByte(originalImage.ValPadH[j]);
+            }
+
+            for (int k = 0; k < pi.Value.Length; k++)
+            {
+                Console.WriteLine(pi.Value[k])
+            }
+            originalImage.Image.SetPropertyItem(pi);
+            //pi = originalImage.Image.PropertyItems[0];
+            //pi.Id = 0X321;
+           // pi.Type = 2;
+            //pi.Len = 10;
+            //pi.Value = new byte[pi.Len];
+            //originalImage.Image.SetPropertyItem(pi);
+            originalImage.Image.Save("D:\\" + date.ToString("MMM. dd, yyyy H-mm-ss") + ".jpg");
+            //OI.Save("D:\\678678.jpg");
+            Console.WriteLine(pi.Id);
+            Console.WriteLine(pi.Len);
+            Console.WriteLine(pi.Type);*/
 
 
-            int value;
+
+        }
+
+        private void btMeta_Click(object sender, EventArgs e)
+        {
+            Bitmap OI = null;
+            //RichTextBox rb = new RichTextBox();
+            //rtbMeta.AppendText("asdasda" + Environment.NewLine);
+            //rtbMeta.AppendText("asdasdads" + Environment.NewLine);
             
-            //originalImage.Image.Save("D:\\QWEQWEQ123123.jpg");
-            OI = new Bitmap("D:\\test.jpg");
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png";
+            date = DateTime.Now;
+            tbDate.Text = date.ToString();
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                pbMeta.Image = new Bitmap(open.FileName);
+                //ext = open.DefaultExt;
+                OI = (Bitmap)pbMeta.Image;
+            }
+
+           
             PropertyItem[] PI = OI.PropertyItems;
             foreach (var item in PI)
             {
-                Console.WriteLine("Id = " + item.Id.ToString() + " Len =  " + item.Len.ToString() + " Type = " + item.Type.ToString() + " ");
+                char c = ' ' ; string s = " ";
+                rtbMeta.AppendText("Id = " + item.Id.ToString() + " Len =  " + item.Len.ToString() + " Type = " + item.Type.ToString() + " " +Environment.NewLine);
                 for (int I = 0; I < item.Value.Length; I++)
                 {
                     if (item.Type == 2)
                     {
-                        Console.Write((char)(item.Value[I]));
+                        c += (char)(item.Value[I]);
                     }
                     else
                     {
-                        Console.Write(System.Convert.ToString(item.Value[I], 16).ToUpper() + " ");
+                        s += System.Convert.ToString(item.Value[I], 16).ToUpper() + " ";
                     }
                 }
-                Console.WriteLine();
+
+                if (item.Type == 2)
+                    rtbMeta.AppendText("type 2" + Environment.NewLine);
+                else
+                {
+                    rtbMeta.AppendText(s + Environment.NewLine);
+                }
+
+                
             }
             /*PropertyItem pi = OI.PropertyItems[0];
-            pi.Id = 0X5034;
+            pi.Id = 0X320;
             pi.Type = 2;
             pi.Len = 10;
             pi.Value = new byte[pi.Len];
             OI.SetPropertyItem(pi);
             pi = OI.PropertyItems[0];
-            pi.Id = 0X5038;
+            pi.Id = 0X321;
             pi.Type = 2;
             pi.Len = 10;
             pi.Value = new byte[pi.Len];
@@ -109,8 +162,6 @@ namespace MyProgram
             Console.WriteLine(pi.Id);
             Console.WriteLine(pi.Len);
             Console.WriteLine(pi.Type);*/
-            
-
 
         }
     }
