@@ -53,6 +53,7 @@ namespace MyProgram
             oStream.PRGA(ref originalImage);
 
             originalImage.closePadding(true);
+            //originalImage.Image.Save("D:\\55555.jpg");
             /*
             string value;
             PropertyItem PI = originalImage.Image.PropertyItems[0];
@@ -60,7 +61,7 @@ namespace MyProgram
             PI.Type = 2;
             value = key;
             PI.Len = key.Length;
-            PI.Value = new byte[PI.Len];
+            PI. x `````````````````````````
             for (int i = 0; i < value.Length; i++)
             {
                 PI.Value[i] = Convert.ToByte(value[i]);
@@ -70,20 +71,45 @@ namespace MyProgram
             Console.WriteLine( c );
             Console.WriteLine(ColorTranslator.FromWin32(c));
 
+
             int value;
-
-            PropertyItem PI = OI.PropertyItems[0];
-            PI.Id = 0X5011;
-            PI.Type = 7;
-            PI.Len = 10;
-            PI.Value = new byte[PI.Len];
-            OI.SetPropertyItem(PI);
-            PI = OI.PropertyItems[0];
-            OI.Save("D:\\as123da23.jpg");
-            Console.WriteLine(PI.Id);
-            Console.WriteLine(PI.Len);
-            Console.WriteLine(PI.Type);
-
+            
+            //originalImage.Image.Save("D:\\QWEQWEQ123123.jpg");
+            OI = new Bitmap("D:\\test.jpg");
+            PropertyItem[] PI = OI.PropertyItems;
+            foreach (var item in PI)
+            {
+                Console.WriteLine("Id = " + item.Id.ToString() + " Len =  " + item.Len.ToString() + " Type = " + item.Type.ToString() + " ");
+                for (int I = 0; I < item.Value.Length; I++)
+                {
+                    if (item.Type == 2)
+                    {
+                        Console.Write((char)(item.Value[I]));
+                    }
+                    else
+                    {
+                        Console.Write(System.Convert.ToString(item.Value[I], 16).ToUpper() + " ");
+                    }
+                }
+                Console.WriteLine();
+            }
+            /*PropertyItem pi = OI.PropertyItems[0];
+            pi.Id = 0X5034;
+            pi.Type = 2;
+            pi.Len = 10;
+            pi.Value = new byte[pi.Len];
+            OI.SetPropertyItem(pi);
+            pi = OI.PropertyItems[0];
+            pi.Id = 0X5038;
+            pi.Type = 2;
+            pi.Len = 10;
+            pi.Value = new byte[pi.Len];
+            OI.SetPropertyItem(pi);
+            OI.Save("D:\\test.jpg");
+            Console.WriteLine(pi.Id);
+            Console.WriteLine(pi.Len);
+            Console.WriteLine(pi.Type);*/
+            
 
 
         }

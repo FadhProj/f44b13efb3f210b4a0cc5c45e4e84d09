@@ -34,7 +34,7 @@ namespace MyProgram
             for (int i = 0; i < 256; i++)
             {
                 K[i] = key[i % key.Length];
-                S[i] = i % 9;
+                S[i] = i;
             }
         }
 
