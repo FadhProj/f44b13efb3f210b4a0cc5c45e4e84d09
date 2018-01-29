@@ -19,6 +19,8 @@ namespace MyProgram
     {
         DateTime date;
         Save ss;
+
+        Iimage shifftingImage;
         public Form1()
         {
             InitializeComponent();
@@ -142,6 +144,11 @@ namespace MyProgram
 
             //Save s = new Save(date);
             ss.saveImage(EI, "EncryptedImageBefEmbed.jpg");
+
+             shifftingImage = new Iimage(EI);
+            Embeding em = new Embeding(ref shifftingImage);
+            pbEMM.Image = shifftingImage.Image;
+            ss.saveImage(shifftingImage.Image, "ShifftedImage.jpg");
             
 
         }
@@ -150,9 +157,9 @@ namespace MyProgram
         {
             if (open.ShowDialog() == DialogResult.OK)
             {
-                pbMeta.Image = new Bitmap(open.FileName);
+                pbEMM.Image = new Bitmap(open.FileName);
                 //ext = open.DefaultExt;
-                Image = (Bitmap)pbMeta.Image;
+                Image = (Bitmap)pbEMM.Image;
             }
 
             return Image;
@@ -160,6 +167,20 @@ namespace MyProgram
 
         private void btEmbed_Click(object sender, EventArgs e)
         {
+            Console.WriteLine(string.Join("\n",rtbEMM.Text.Split('\n')));
+            string[] allLines = rtbEMM.Text.Split('\n');
+            foreach (var item in allLines)
+            {
+                Console.WriteLine(item);
+            }
+
+            string msg = rtbEMM.Text;
+            shifftingImage = new Iimage((Bitmap)pbEMM.Image);
+
+            Embeding em = new Embeding(ref shifftingImage, msg);
+
+            ss.saveImage(shifftingImage.Image, "EmbendedImage.jpg");
+
 
         }
 

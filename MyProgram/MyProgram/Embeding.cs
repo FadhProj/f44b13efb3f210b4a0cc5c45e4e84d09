@@ -16,10 +16,14 @@ namespace MyProgram
 
         public ArrayList L1 { get => L; }
 
-        public Embeding(ref Iimage img, string msg)
+        public Embeding(ref Iimage img)
         {
             L = new ArrayList();
             histShiffting(ref img);
+        }
+
+        public Embeding(ref Iimage img, string msg)
+        {
             embed(ref img, msg);
         }
 
@@ -94,6 +98,7 @@ namespace MyProgram
                             }
                             else if (diff == -1)
                             {
+                                Console.WriteLine(b);
                                 if (n < binMsg.Length)
                                 {
                                     R -= b; G -= b; B -= b;
@@ -103,6 +108,7 @@ namespace MyProgram
                             }
                             else if (diff == 0)
                             {
+                                Console.WriteLine(b);
                                 if (n < binMsg.Length)
                                 {
                                     R += b; G += b; B += b;
