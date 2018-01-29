@@ -64,7 +64,6 @@ namespace MyProgram
                 //XOR blok
                 xorBlok(ref img, key, n);
             }
-            Console.WriteLine("+++");
 
         }
 
@@ -88,7 +87,6 @@ namespace MyProgram
                     img.Image.SetPixel(j, i, Color.FromArgb((byte)R, (byte)G, (byte)B));
                     a++;
                 }
-                Console.WriteLine("");
             }
             
 

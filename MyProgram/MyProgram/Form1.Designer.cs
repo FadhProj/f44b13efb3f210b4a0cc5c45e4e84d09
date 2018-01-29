@@ -47,11 +47,12 @@
             this.btOpenEM = new System.Windows.Forms.Button();
             this.rtbEM = new System.Windows.Forms.RichTextBox();
             this.pbEM = new System.Windows.Forms.PictureBox();
-            this.tbDate = new System.Windows.Forms.TextBox();
             this.tpMetadata = new System.Windows.Forms.TabPage();
-            this.pbMeta = new System.Windows.Forms.PictureBox();
-            this.rtbMeta = new System.Windows.Forms.RichTextBox();
             this.btMeta = new System.Windows.Forms.Button();
+            this.rtbMeta = new System.Windows.Forms.RichTextBox();
+            this.pbMeta = new System.Windows.Forms.PictureBox();
+            this.tbDate = new System.Windows.Forms.TextBox();
+            this.btDate = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpEncrypt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEI)).BeginInit();
@@ -151,6 +152,7 @@
             this.btEmbed.TabIndex = 4;
             this.btEmbed.Text = "Embed";
             this.btEmbed.UseVisualStyleBackColor = false;
+            this.btEmbed.Click += new System.EventHandler(this.btEmbed_Click);
             // 
             // btOpenEMM
             // 
@@ -161,6 +163,7 @@
             this.btOpenEMM.TabIndex = 3;
             this.btOpenEMM.Text = "Open File ...";
             this.btOpenEMM.UseVisualStyleBackColor = false;
+            this.btOpenEMM.Click += new System.EventHandler(this.btOpenEMM_Click);
             // 
             // rtbEMM
             // 
@@ -264,14 +267,6 @@
             this.pbEM.TabIndex = 0;
             this.pbEM.TabStop = false;
             // 
-            // tbDate
-            // 
-            this.tbDate.Location = new System.Drawing.Point(535, 433);
-            this.tbDate.Name = "tbDate";
-            this.tbDate.ReadOnly = true;
-            this.tbDate.Size = new System.Drawing.Size(166, 20);
-            this.tbDate.TabIndex = 1;
-            // 
             // tpMetadata
             // 
             this.tpMetadata.Controls.Add(this.btMeta);
@@ -284,24 +279,6 @@
             this.tpMetadata.Text = "Metadata";
             this.tpMetadata.UseVisualStyleBackColor = true;
             // 
-            // pbMeta
-            // 
-            this.pbMeta.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbMeta.Location = new System.Drawing.Point(4, 4);
-            this.pbMeta.Name = "pbMeta";
-            this.pbMeta.Size = new System.Drawing.Size(360, 396);
-            this.pbMeta.TabIndex = 0;
-            this.pbMeta.TabStop = false;
-            // 
-            // rtbMeta
-            // 
-            this.rtbMeta.Location = new System.Drawing.Point(371, 4);
-            this.rtbMeta.Name = "rtbMeta";
-            this.rtbMeta.ReadOnly = true;
-            this.rtbMeta.Size = new System.Drawing.Size(313, 341);
-            this.rtbMeta.TabIndex = 1;
-            this.rtbMeta.Text = "";
-            // 
             // btMeta
             // 
             this.btMeta.Location = new System.Drawing.Point(608, 352);
@@ -312,11 +289,48 @@
             this.btMeta.UseVisualStyleBackColor = true;
             this.btMeta.Click += new System.EventHandler(this.btMeta_Click);
             // 
+            // rtbMeta
+            // 
+            this.rtbMeta.Location = new System.Drawing.Point(371, 4);
+            this.rtbMeta.Name = "rtbMeta";
+            this.rtbMeta.ReadOnly = true;
+            this.rtbMeta.Size = new System.Drawing.Size(313, 341);
+            this.rtbMeta.TabIndex = 1;
+            this.rtbMeta.Text = "";
+            // 
+            // pbMeta
+            // 
+            this.pbMeta.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbMeta.Location = new System.Drawing.Point(4, 4);
+            this.pbMeta.Name = "pbMeta";
+            this.pbMeta.Size = new System.Drawing.Size(360, 396);
+            this.pbMeta.TabIndex = 0;
+            this.pbMeta.TabStop = false;
+            // 
+            // tbDate
+            // 
+            this.tbDate.Location = new System.Drawing.Point(535, 433);
+            this.tbDate.Name = "tbDate";
+            this.tbDate.ReadOnly = true;
+            this.tbDate.Size = new System.Drawing.Size(166, 20);
+            this.tbDate.TabIndex = 1;
+            // 
+            // btDate
+            // 
+            this.btDate.Location = new System.Drawing.Point(468, 429);
+            this.btDate.Name = "btDate";
+            this.btDate.Size = new System.Drawing.Size(61, 23);
+            this.btDate.TabIndex = 2;
+            this.btDate.Text = "Format";
+            this.btDate.UseVisualStyleBackColor = true;
+            this.btDate.Click += new System.EventHandler(this.btDate_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 457);
+            this.Controls.Add(this.btDate);
             this.Controls.Add(this.tbDate);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
@@ -364,6 +378,7 @@
         private System.Windows.Forms.Button btMeta;
         private System.Windows.Forms.RichTextBox rtbMeta;
         private System.Windows.Forms.PictureBox pbMeta;
+        private System.Windows.Forms.Button btDate;
     }
 }
 

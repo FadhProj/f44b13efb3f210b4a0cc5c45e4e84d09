@@ -33,27 +33,41 @@ namespace MyProgram
         private void btChooseEI_Click(object sender, EventArgs e)
         {
             Bitmap OI = null;
-            string key =  tbKey.Text;
-
-            OpenFileDialog open = new OpenFileDialog();
-            open.Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png";
-            date = DateTime.Now;
-            tbDate.Text = date.ToString();
-            if (open.ShowDialog() == DialogResult.OK)
+            try
             {
-                pbEI.Image = new Bitmap(open.FileName);
-                //ext = open.DefaultExt;
-                OI = (Bitmap)pbEI.Image;
+                string key = tbKey.Text;
+                if (key == null)
+                    throw new ArgumentNullException();
+
+                OpenFileDialog open = new OpenFileDialog
+                {
+                    Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
+                };
+                //date = DateTime.Now;
+                tbDate.Text = date.ToString();
+                OI = NewMethod(OI, open);
+                //Save s = new Save(date);
+                ss.saveImage(OI, "OriginalImage.jpg");
+
+                Iimage originalImage = new Iimage(OI);
+                StreamChipper oStream = new StreamChipper(key);
+
+                originalImage.addPadding(false);
+                oStream.PRGA(ref originalImage);
+
+
+                ss.saveImage(originalImage.Image, "EncryptedImage.jpg");
             }
+            catch (Exception)
+            {
 
-            Iimage originalImage = new Iimage(OI);
-            StreamChipper oStream = new StreamChipper(key);
+                MessageBox.Show("Key Cannot be NULL ");
+            }
+            
 
-            originalImage.addPadding(false);
-            oStream.PRGA(ref originalImage);
+            //originalImage.closePadding(true);
 
-            originalImage.closePadding(true);
-
+            /*
             PropertyItem pi = OI.PropertyItems[0];
             pi.Id = 0X320;
             pi.Type = 2;
@@ -101,16 +115,66 @@ namespace MyProgram
 
         }
 
+        private Bitmap NewMethod(Bitmap OI, OpenFileDialog open)
+        {
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                pbEI.Image = new Bitmap(open.FileName);
+                //ext = open.DefaultExt;
+                OI = (Bitmap)pbEI.Image;
+            }
+
+            return OI;
+        }
+
+
+        private void btOpenEMM_Click(object sender, EventArgs e)
+        {
+            Bitmap EI = null;
+
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
+            };
+            //date = DateTime.Now;
+            tbDate.Text = date.ToString();
+            EI = openImage(EI, open);
+
+            //Save s = new Save(date);
+            ss.saveImage(EI, "EncryptedImageBefEmbed.jpg");
+            
+
+        }
+
+        private Bitmap openImage(Bitmap Image, OpenFileDialog open)
+        {
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                pbMeta.Image = new Bitmap(open.FileName);
+                //ext = open.DefaultExt;
+                Image = (Bitmap)pbMeta.Image;
+            }
+
+            return Image;
+        }
+
+        private void btEmbed_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btMeta_Click(object sender, EventArgs e)
         {
             Bitmap OI = null;
             //RichTextBox rb = new RichTextBox();
             //rtbMeta.AppendText("asdasda" + Environment.NewLine);
             //rtbMeta.AppendText("asdasdads" + Environment.NewLine);
-            
-            OpenFileDialog open = new OpenFileDialog();
-            open.Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png";
-            date = DateTime.Now;
+
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
+            };
+            //date = DateTime.Now;
             tbDate.Text = date.ToString();
             if (open.ShowDialog() == DialogResult.OK)
             {
@@ -163,6 +227,12 @@ namespace MyProgram
             Console.WriteLine(pi.Len);
             Console.WriteLine(pi.Type);*/
 
+        }
+
+        private void btDate_Click(object sender, EventArgs e)
+        {
+            date = DateTime.Now;
+            ss = new Save(date);
         }
     }
 }

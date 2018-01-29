@@ -47,15 +47,15 @@ namespace MyProgram
         public void saveImage(Bitmap img, string fileName)
         {
             // Use Combine again to add the file name to the path.
-            path = System.IO.Path.Combine(path, fileName);
+            //path = System.IO.Path.Combine(path, fileName);
             // Verify the path that you have constructed.
-            Console.WriteLine("Path to my file: {0}\n", path);
+            Console.WriteLine("Path to my file: {0}\n", System.IO.Path.Combine(path, fileName));
             try
             {
                 //check if not exist
                 if (!File.Exists(path))
                 {
-                    img.Save(path, ImageFormat.Jpeg);
+                    img.Save(System.IO.Path.Combine(path, fileName), ImageFormat.Jpeg);
                 }
             }
             catch (Exception ee)
