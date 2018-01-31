@@ -30,6 +30,7 @@ namespace MyProgram
         private Bitmap image;
         private int blok;
         private Pos[] defBlok;
+        List<Pos> def;
         private int nPadW, nPadH;
         private int[] valPadW, valPadH;
 
@@ -46,9 +47,11 @@ namespace MyProgram
         public Iimage(Bitmap image)
         {
             this.image = image;
-            blok = ((this.image.Height * this.image.Width) / 9);
-            defBlok = new Pos[blok];
-            //setDefBlok(this.image);
+            //blok = ((this.image.Height * this.image.Width) / 9);
+            Console.WriteLine(blok);
+            //defBlok = new Pos[blok];
+            def = new List<Pos>();
+            setDefBlok(this.image);
 
 
         }
@@ -56,17 +59,20 @@ namespace MyProgram
 
         public void setDefBlok(Bitmap image)
         {
-            Console.WriteLine("{0} {1} ", image.Width, image.Height);
 
             int b = 0;
             for (int i = 0; i < image.Height; i += 3)
             {
                 for (int j = 0; j < image.Width; j += 3)
                 {
-                    defBlok[b] = new Pos(j, i);
+                    //defBlok[b] = new Pos(j, i);
+                    def.Add(new Pos(j, i));
                     b++;
+
                 }
             }
+            blok = b;
+            defBlok = def.ToArray();
 
         }
 
@@ -109,9 +115,9 @@ namespace MyProgram
                 }
                 this.image = result;
             }
-            Console.WriteLine("{0} {1} ", image.Width, image.Height);
-            blok = ((this.image.Height * this.image.Width) / 9);
-            defBlok = new Pos[blok];
+            //Console.WriteLine("{0} {1} ", image.Width, image.Height);
+            //blok = ((this.image.Height * this.image.Width) / 9);
+            //defBlok = new Pos[blok];
             if (d)
             {
                 //initialisasi value padding
@@ -153,10 +159,8 @@ namespace MyProgram
             {
                 for (int x = image.Width - nPadW; x < image.Width; x++)
                 {
-                    //Console.Write("{0} || ", image.GetPixel(x, y));
                     image.SetPixel(x, y, Color.FromArgb(valPadW[w], valPadW[w + 1], valPadW[w + 2]));
                     w+=3;
-                    //Console.WriteLine("{0} || {1} {2}", image.GetPixel(x, y), x, y);
 
                 }
                 if (y >= image.Height - nPadH)
@@ -164,12 +168,8 @@ namespace MyProgram
 
                     for (int x = 0; x < image.Width; x++)
                     {
-                        //Console.Write("{0} || ", image.GetPixel(x, y));
-
                         image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h + 1], valPadH[h + 2]));
                         h+=3;
-                        //Console.WriteLine("{0} || {1} {2}", image.GetPixel(x, y), x, y);
-
                     }
                 }
             }
@@ -203,8 +203,8 @@ namespace MyProgram
                 }
             }
             this.image = result;
-            Console.WriteLine("{0} {1} ", valPadH.Length, valPadH);
-            Console.WriteLine("{0} {1} ", valPadW.Length, valPadW);
+            //Console.WriteLine("{0} {1} ", valPadH.Length, valPadH);
+            //Console.WriteLine("{0} {1} ", valPadW.Length, valPadW);
 
         }
     }

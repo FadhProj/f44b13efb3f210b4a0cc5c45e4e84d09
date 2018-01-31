@@ -20,10 +20,23 @@ namespace MyProgram
         {
             L = new ArrayList();
             histShiffting(ref img);
+            for (int y = 0; y < img.Image.Height; y++)
+            {
+                for (int x = 0; x < img.Image.Width; x++)
+                {
+                    if (img.Image.GetPixel(x, y).R == 255 || img.Image.GetPixel(x, y).G == 255 || img.Image.GetPixel(x, y).B == 255)
+                    {
+                        Console.WriteLine("after {0} ", img.Image.GetPixel(x, y));
+                    }
+                }
+            }
         }
 
         public Embeding(ref Iimage img, string msg)
         {
+            //L = new ArrayList();
+            //histShiffting(ref img);
+            
             embed(ref img, msg);
         }
 
@@ -49,12 +62,12 @@ namespace MyProgram
                     R = img.Image.GetPixel(x, y).R;
                     G = img.Image.GetPixel(x, y).G;
                     B = img.Image.GetPixel(x, y).B;
-                    if (R == 0)
+                    if (R == 0 || G == 0 || B == 0)
                     {
                         L.Add(1);
                         img.Image.SetPixel(x, y, Color.FromArgb(R + 1, G + 1, B + 1));
                     }
-                    else if (R == 255)
+                    else if (R == 255 || G == 255 || B == 255)
                     {
                         L.Add(1);
                         img.Image.SetPixel(x, y, Color.FromArgb(R - 1, G - 1, B - 1));
@@ -98,9 +111,9 @@ namespace MyProgram
                             }
                             else if (diff == -1)
                             {
-                                Console.WriteLine(b);
                                 if (n < binMsg.Length)
                                 {
+                                    Console.Write(b);
                                     R -= b; G -= b; B -= b;
                                     img.Image.SetPixel(valM + j, valN + i, Color.FromArgb(R, G, B));
                                     n++;
@@ -108,9 +121,9 @@ namespace MyProgram
                             }
                             else if (diff == 0)
                             {
-                                Console.WriteLine(b);
                                 if (n < binMsg.Length)
                                 {
+                                    Console.Write(b);
                                     R += b; G += b; B += b;
                                     img.Image.SetPixel(valM + j, valN + i, Color.FromArgb(R, G, B));
                                     n++;
@@ -125,7 +138,7 @@ namespace MyProgram
                     }
                 }
             }
-           
+            Console.WriteLine("");
             Console.WriteLine(binMsg);
 
         }

@@ -204,6 +204,7 @@
             this.btChooseDI.TabIndex = 2;
             this.btChooseDI.Text = "Choose File ....";
             this.btChooseDI.UseVisualStyleBackColor = false;
+            this.btChooseDI.Click += new System.EventHandler(this.btChooseDI_Click);
             // 
             // pbDI
             // 
@@ -237,6 +238,7 @@
             this.btExtract.TabIndex = 3;
             this.btExtract.Text = "Extract";
             this.btExtract.UseVisualStyleBackColor = false;
+            this.btExtract.Click += new System.EventHandler(this.btExtract_Click);
             // 
             // btOpenEM
             // 
