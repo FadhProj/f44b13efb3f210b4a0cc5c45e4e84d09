@@ -67,22 +67,33 @@ namespace MyProgram
             }
             pi.Value[i] = Convert.ToByte(null);
             i++;
+            for (int k = 0; k < pi.Value.Length; k++)
+            {
+                Console.Write(pi.Value[k] + " ");
+            }
+            Console.WriteLine("");
             //Console.WriteLine(pi.Value);
-            for (int j = i; j < originalImage.ValPadW.Length ; j++)
+            int j = 0 ;
+            for (j = i; j < originalImage.ValPadW.Length ; j++)
             {
                 pi.Value[j] = Convert.ToByte(originalImage.ValPadW[j]);
             }
-            i = j;
+            i = j ;
             pi.Value[i] = Convert.ToByte(null);
             i++;
-            for (int j = i; j < originalImage.ValPadH.Length; j++)
+            for (int k = 0; k < pi.Value.Length; k++)
             {
-                pi.Value[j] = Convert.ToByte(originalImage.ValPadH[j]);
+                Console.Write(pi.Value[k] + " ");
+            }
+            Console.WriteLine("");
+            for (int k = i; k < originalImage.ValPadH.Length; k++)
+            {
+                pi.Value[k] = Convert.ToByte(originalImage.ValPadH[k]);
             }
 
             for (int k = 0; k < pi.Value.Length; k++)
             {
-                Console.WriteLine(pi.Value[k])
+                Console.Write(pi.Value[k] + " ");
             }
             originalImage.Image.SetPropertyItem(pi);
             //pi = originalImage.Image.PropertyItems[0];
@@ -91,11 +102,11 @@ namespace MyProgram
             //pi.Len = 10;
             //pi.Value = new byte[pi.Len];
             //originalImage.Image.SetPropertyItem(pi);
-            originalImage.Image.Save("D:\\" + date.ToString("MMM. dd, yyyy H-mm-ss") + ".jpg");
+            originalImage.Image.Save("E:\\" + date.ToString("MMM. dd, yyyy H-mm-ss") + ".jpg");
             //OI.Save("D:\\678678.jpg");
             Console.WriteLine(pi.Id);
             Console.WriteLine(pi.Len);
-            Console.WriteLine(pi.Type);*/
+            Console.WriteLine(pi.Type);
 
 
 
