@@ -278,7 +278,42 @@ namespace MyProgram
             ss.saveImage(markedImage.Image, "EncryptedImageAfExtraction.png");
 
         }
+        //================================================================================================================
+        //  Decrypt Image After Extraction
+        //================================================================================================================
+        private void btDecryp_Click(object sender, EventArgs e)
+        {
+            Bitmap EXI = null;
 
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
+            };
+            tbDate.Text = date.ToString();
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                pbEM.Image = new Bitmap(open.FileName);
+                EXI = (Bitmap)pbEM.Image;
+            }
+
+            ss.saveImage(EXI, "ImageBefDecrypted.png");
+            Iimage extractionImage = new Iimage(EXI);
+
+            ss.saveImage(EXI, "ExtractionImage.png");
+
+            Permutation pr = new Permutation(ref extractionImage, true);
+            StreamChipper sc = new StreamChipper(K);
+            sc.PRGA(ref extractionImage);
+            ke2 = sc.Ke;
+
+
+
+            ss.saveImage(extractionImage.Image, "RecoverImage.png");
+        }
+
+        //================================================================================================================
+        //  Read MetaData
+        //================================================================================================================
         private void btMeta_Click(object sender, EventArgs e)
         {
             Bitmap OI = null;
@@ -342,35 +377,7 @@ namespace MyProgram
 
         }
 
-        private void btDecryp_Click(object sender, EventArgs e)
-        {
-            Bitmap EXI = null;
-
-            OpenFileDialog open = new OpenFileDialog
-            {
-                Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
-            };
-            tbDate.Text = date.ToString();
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                pbDI.Image = new Bitmap(open.FileName);
-                EXI = (Bitmap)pbDI.Image;
-            }
-
-            ss.saveImage(EXI, "ImageBefDecrypted.png");
-            Iimage extractionImage = new Iimage(EXI);
-
-            ss.saveImage(EXI, "ExtractionImage.png");
-
-            Permutation pr = new Permutation(ref extractionImage,true);
-            StreamChipper sc = new StreamChipper(K);
-            sc.PRGA(ref extractionImage);
-            ke2 = sc.Ke;
-
-
-
-            ss.saveImage(extractionImage.Image, "OriginalImage.png");
-        }
+        
 
         private void btDate_Click(object sender, EventArgs e)
         {
