@@ -77,6 +77,8 @@ namespace MyProgram
             originalImage.addPadding(false);
 
             oStream.PRGA(ref originalImage);
+            Permutation pr = new Permutation(ref originalImage);
+
             ke1 = oStream.Ke;
             test = new Bitmap(originalImage.Image);
             ss.saveImage(originalImage.Image, "EncryptedImage.png");
@@ -228,7 +230,7 @@ namespace MyProgram
                 EMI = (Bitmap)pbDI.Image;
             }
 
-            ss.saveImage(EMI, "EncryptedMarkedImage.png");
+            ss.saveImage(EMI, "ImageBefDecrypted.png");
             Iimage encryptedMarkedImage = new Iimage(EMI);
             for (int y = 0; y < test.Height; y++)
             {
@@ -240,6 +242,8 @@ namespace MyProgram
                     }
                 }
             }
+
+            Permutation pr = new Permutation(ref encryptedMarkedImage,true);
             StreamChipper sc = new StreamChipper(K);
             sc.PRGA(ref encryptedMarkedImage);
             ke2 = sc.Ke;
@@ -266,16 +270,18 @@ namespace MyProgram
                 pbEM.Image = new Bitmap(open.FileName);
                 EMI = (Bitmap)pbEM.Image;
             }
+            string massage = "";
+            Iimage markedImage = new Iimage(EMI);
+            Extraction ex = new Extraction(ref markedImage, L, ref massage);
+            rtbEM.Text = massage;
 
-            Iimage markedImage = new Image(EMI)
+            ss.saveImage(markedImage.Image, "EncryptedImageAfExtraction.png");
+
         }
 
         private void btMeta_Click(object sender, EventArgs e)
         {
             Bitmap OI = null;
-            //RichTextBox rb = new RichTextBox();
-            //rtbMeta.AppendText("asdasda" + Environment.NewLine);
-            //rtbMeta.AppendText("asdasdads" + Environment.NewLine);
 
             OpenFileDialog open = new OpenFileDialog
             {
@@ -290,7 +296,7 @@ namespace MyProgram
                 OI = (Bitmap)pbMeta.Image;
             }
 
-           
+            rtbMeta.Text = "";
             PropertyItem[] PI = OI.PropertyItems;
             foreach (var item in PI)
             {
@@ -307,7 +313,7 @@ namespace MyProgram
                         s += System.Convert.ToString(item.Value[I], 16).ToUpper() + " ";
                     }
                 }
-
+                
                 if (item.Type == 2)
                     rtbMeta.AppendText("type 2" + Environment.NewLine);
                 else
@@ -336,7 +342,35 @@ namespace MyProgram
 
         }
 
-        
+        private void btDecryp_Click(object sender, EventArgs e)
+        {
+            Bitmap EXI = null;
+
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
+            };
+            tbDate.Text = date.ToString();
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                pbDI.Image = new Bitmap(open.FileName);
+                EXI = (Bitmap)pbDI.Image;
+            }
+
+            ss.saveImage(EXI, "ImageBefDecrypted.png");
+            Iimage extractionImage = new Iimage(EXI);
+
+            ss.saveImage(EXI, "ExtractionImage.png");
+
+            Permutation pr = new Permutation(ref extractionImage,true);
+            StreamChipper sc = new StreamChipper(K);
+            sc.PRGA(ref extractionImage);
+            ke2 = sc.Ke;
+
+
+
+            ss.saveImage(extractionImage.Image, "OriginalImage.png");
+        }
 
         private void btDate_Click(object sender, EventArgs e)
         {

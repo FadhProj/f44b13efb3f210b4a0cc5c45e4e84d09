@@ -44,7 +44,7 @@
             this.pbDI = new System.Windows.Forms.PictureBox();
             this.tpExtract = new System.Windows.Forms.TabPage();
             this.btExtract = new System.Windows.Forms.Button();
-            this.btOpenEM = new System.Windows.Forms.Button();
+            this.btDecryp = new System.Windows.Forms.Button();
             this.rtbEM = new System.Windows.Forms.RichTextBox();
             this.pbEM = new System.Windows.Forms.PictureBox();
             this.tpMetadata = new System.Windows.Forms.TabPage();
@@ -220,7 +220,7 @@
             // 
             this.tpExtract.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tpExtract.Controls.Add(this.btExtract);
-            this.tpExtract.Controls.Add(this.btOpenEM);
+            this.tpExtract.Controls.Add(this.btDecryp);
             this.tpExtract.Controls.Add(this.rtbEM);
             this.tpExtract.Controls.Add(this.pbEM);
             this.tpExtract.Location = new System.Drawing.Point(4, 22);
@@ -240,15 +240,16 @@
             this.btExtract.UseVisualStyleBackColor = false;
             this.btExtract.Click += new System.EventHandler(this.btExtract_Click);
             // 
-            // btOpenEM
+            // btDecryp
             // 
-            this.btOpenEM.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btOpenEM.Location = new System.Drawing.Point(333, 377);
-            this.btOpenEM.Name = "btOpenEM";
-            this.btOpenEM.Size = new System.Drawing.Size(75, 23);
-            this.btOpenEM.TabIndex = 2;
-            this.btOpenEM.Text = "Open File ...";
-            this.btOpenEM.UseVisualStyleBackColor = false;
+            this.btDecryp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btDecryp.Location = new System.Drawing.Point(333, 377);
+            this.btDecryp.Name = "btDecryp";
+            this.btDecryp.Size = new System.Drawing.Size(75, 23);
+            this.btDecryp.TabIndex = 2;
+            this.btDecryp.Text = "Decrypt";
+            this.btDecryp.UseVisualStyleBackColor = false;
+            this.btDecryp.Click += new System.EventHandler(this.btDecryp_Click);
             // 
             // rtbEM
             // 
@@ -362,7 +363,7 @@
         private System.Windows.Forms.TabPage tpEmbed;
         private System.Windows.Forms.TabPage tpExtract;
         private System.Windows.Forms.Button btExtract;
-        private System.Windows.Forms.Button btOpenEM;
+        private System.Windows.Forms.Button btDecryp;
         private System.Windows.Forms.RichTextBox rtbEM;
         private System.Windows.Forms.PictureBox pbEM;
         private System.Windows.Forms.Button btEmbed;
