@@ -206,6 +206,8 @@ namespace MyProgram
             shifftingImage = new Iimage(shifftingImage.Image);//(Bitmap)pbEMM.Image);
 
             Embeding em = new Embeding(ref shifftingImage, msg);
+            //TESTING
+            //L = em.L1;
 
             ss.saveImage(shifftingImage.Image, "EmbendedImage.png");
 
