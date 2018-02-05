@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing.Imaging;
-using System.ComponentModel;
-using System.Text;
-using System.IO;
 using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Windows.Forms;
 
 
 namespace MyProgram
@@ -77,6 +69,7 @@ namespace MyProgram
             originalImage.addPadding(false);
 
             oStream.PRGA(ref originalImage);
+            ss.saveImage(originalImage.Image, "StreamImage.png");
             Permutation pr = new Permutation(ref originalImage);
 
             ke1 = oStream.Ke;
@@ -87,7 +80,7 @@ namespace MyProgram
 
             //originalImage.closePadding(true);
 
-            /*
+           /* 
             PropertyItem pi = OI.PropertyItems[0];
             pi.Id = 0X320;
             pi.Type = 2;
@@ -140,7 +133,7 @@ namespace MyProgram
             //OI.Save("D:\\678678.jpg");
             Console.WriteLine(pi.Id);
             Console.WriteLine(pi.Len);
-            Console.WriteLine(pi.Type);
+            Console.WriteLine(pi.Type);*/
 
 
 
@@ -390,7 +383,50 @@ namespace MyProgram
 
         }
 
-        
+        private void btChoose_Click(object sender, EventArgs e)
+        {
+            int R1, G1, B1, R2, G2, B2, valImage1, valImage2, same = 0, diff = 0;
+            Bitmap image1=null , image2 = null;
+
+            OpenFileDialog open = new OpenFileDialog();
+
+            open.Multiselect = true;
+            open.Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png";
+            
+            tbDate.Text = date.ToString();
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                string s="";
+                string[] files = open.FileNames;
+                Console.WriteLine(files.Length);
+                Bitmap a;
+                image1 = new Bitmap(files[0]);
+                image2 = new Bitmap(files[1]);
+
+                pbCC1.Image = image1;
+                pbCC2.Image = image2;
+                if (image1.Width < image2.Width)
+                {
+                    a = image1;
+                }
+                else
+                    a = image2;
+                for (int y = 1; y < a.Height; y++)
+                {
+                    for (int x = 1; x < a.Width; x++)
+                    {
+                        valImage1 = ((image1.GetPixel(x - 1, y - 1).R + image1.GetPixel(x - 1, y - 1).B + image1.GetPixel(x - 1, y - 1).B) / 3) - ((image1.GetPixel(x, y).R + image1.GetPixel(x, y).B + image1.GetPixel(x, y).B) / 3);
+                        valImage2 = ((image2.GetPixel(x - 1, y - 1).R + image2.GetPixel(x - 1, y - 1).B + image2.GetPixel(x - 1, y - 1).B) / 3) - ((image2.GetPixel(x, y).R + image2.GetPixel(x, y).B + image2.GetPixel(x, y).B) / 3);
+                        Console.WriteLine("{0} {1}", valImage1, valImage2);
+                        if (valImage1 == valImage2)
+                            same += 1;
+                        else
+                            diff += 1;
+                    }
+                }
+                rtbCC.Text = "Sama : " + same + Environment.NewLine + "Beda : " + diff;
+            }
+        }
 
         private void btDate_Click(object sender, EventArgs e)
         {

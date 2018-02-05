@@ -51,8 +51,13 @@
             this.btMeta = new System.Windows.Forms.Button();
             this.rtbMeta = new System.Windows.Forms.RichTextBox();
             this.pbMeta = new System.Windows.Forms.PictureBox();
+            this.tbCC = new System.Windows.Forms.TabPage();
+            this.rtbCC = new System.Windows.Forms.RichTextBox();
+            this.pbCC2 = new System.Windows.Forms.PictureBox();
+            this.pbCC1 = new System.Windows.Forms.PictureBox();
             this.tbDate = new System.Windows.Forms.TextBox();
             this.btDate = new System.Windows.Forms.Button();
+            this.btChoose = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpEncrypt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEI)).BeginInit();
@@ -64,6 +69,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbEM)).BeginInit();
             this.tpMetadata.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMeta)).BeginInit();
+            this.tbCC.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCC2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCC1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -73,10 +81,11 @@
             this.tabControl1.Controls.Add(this.tpDecrypt);
             this.tabControl1.Controls.Add(this.tpExtract);
             this.tabControl1.Controls.Add(this.tpMetadata);
+            this.tabControl1.Controls.Add(this.tbCC);
             this.tabControl1.Location = new System.Drawing.Point(3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(702, 429);
+            this.tabControl1.Size = new System.Drawing.Size(705, 429);
             this.tabControl1.TabIndex = 0;
             // 
             // tpEncrypt
@@ -89,7 +98,7 @@
             this.tpEncrypt.Location = new System.Drawing.Point(4, 22);
             this.tpEncrypt.Name = "tpEncrypt";
             this.tpEncrypt.Padding = new System.Windows.Forms.Padding(3);
-            this.tpEncrypt.Size = new System.Drawing.Size(694, 403);
+            this.tpEncrypt.Size = new System.Drawing.Size(697, 403);
             this.tpEncrypt.TabIndex = 0;
             this.tpEncrypt.Text = "Encrypt Image";
             // 
@@ -139,7 +148,7 @@
             this.tpEmbed.Controls.Add(this.pbEMM);
             this.tpEmbed.Location = new System.Drawing.Point(4, 22);
             this.tpEmbed.Name = "tpEmbed";
-            this.tpEmbed.Size = new System.Drawing.Size(694, 403);
+            this.tpEmbed.Size = new System.Drawing.Size(697, 403);
             this.tpEmbed.TabIndex = 3;
             this.tpEmbed.Text = "Embending Message";
             // 
@@ -191,7 +200,7 @@
             this.tpDecrypt.Location = new System.Drawing.Point(4, 22);
             this.tpDecrypt.Name = "tpDecrypt";
             this.tpDecrypt.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDecrypt.Size = new System.Drawing.Size(694, 403);
+            this.tpDecrypt.Size = new System.Drawing.Size(697, 403);
             this.tpDecrypt.TabIndex = 1;
             this.tpDecrypt.Text = "Decrypt Image";
             // 
@@ -225,7 +234,7 @@
             this.tpExtract.Controls.Add(this.pbEM);
             this.tpExtract.Location = new System.Drawing.Point(4, 22);
             this.tpExtract.Name = "tpExtract";
-            this.tpExtract.Size = new System.Drawing.Size(694, 403);
+            this.tpExtract.Size = new System.Drawing.Size(697, 403);
             this.tpExtract.TabIndex = 2;
             this.tpExtract.Text = "Extraction Message";
             // 
@@ -272,15 +281,15 @@
             // 
             // tpMetadata
             // 
+            this.tpMetadata.BackColor = System.Drawing.Color.Gainsboro;
             this.tpMetadata.Controls.Add(this.btMeta);
             this.tpMetadata.Controls.Add(this.rtbMeta);
             this.tpMetadata.Controls.Add(this.pbMeta);
             this.tpMetadata.Location = new System.Drawing.Point(4, 22);
             this.tpMetadata.Name = "tpMetadata";
-            this.tpMetadata.Size = new System.Drawing.Size(694, 403);
+            this.tpMetadata.Size = new System.Drawing.Size(697, 403);
             this.tpMetadata.TabIndex = 4;
             this.tpMetadata.Text = "Metadata";
-            this.tpMetadata.UseVisualStyleBackColor = true;
             // 
             // btMeta
             // 
@@ -303,12 +312,57 @@
             // 
             // pbMeta
             // 
+            this.pbMeta.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pbMeta.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pbMeta.Location = new System.Drawing.Point(4, 4);
             this.pbMeta.Name = "pbMeta";
             this.pbMeta.Size = new System.Drawing.Size(360, 396);
             this.pbMeta.TabIndex = 0;
             this.pbMeta.TabStop = false;
+            // 
+            // tbCC
+            // 
+            this.tbCC.BackColor = System.Drawing.Color.LightGray;
+            this.tbCC.Controls.Add(this.btChoose);
+            this.tbCC.Controls.Add(this.rtbCC);
+            this.tbCC.Controls.Add(this.pbCC2);
+            this.tbCC.Controls.Add(this.pbCC1);
+            this.tbCC.Location = new System.Drawing.Point(4, 22);
+            this.tbCC.Name = "tbCC";
+            this.tbCC.Size = new System.Drawing.Size(697, 403);
+            this.tbCC.TabIndex = 5;
+            this.tbCC.Text = "Check Correlation";
+            // 
+            // rtbCC
+            // 
+            this.rtbCC.Location = new System.Drawing.Point(4, 244);
+            this.rtbCC.Name = "rtbCC";
+            this.rtbCC.Size = new System.Drawing.Size(596, 156);
+            this.rtbCC.TabIndex = 2;
+            this.rtbCC.Text = "";
+            // 
+            // pbCC2
+            // 
+            this.pbCC2.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
+            this.pbCC2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pbCC2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbCC2.Location = new System.Drawing.Point(356, 4);
+            this.pbCC2.Name = "pbCC2";
+            this.pbCC2.Size = new System.Drawing.Size(338, 233);
+            this.pbCC2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCC2.TabIndex = 1;
+            this.pbCC2.TabStop = false;
+            // 
+            // pbCC1
+            // 
+            this.pbCC1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pbCC1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbCC1.Location = new System.Drawing.Point(4, 4);
+            this.pbCC1.Name = "pbCC1";
+            this.pbCC1.Size = new System.Drawing.Size(338, 233);
+            this.pbCC1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCC1.TabIndex = 0;
+            this.pbCC1.TabStop = false;
             // 
             // tbDate
             // 
@@ -327,6 +381,16 @@
             this.btDate.Text = "Format";
             this.btDate.UseVisualStyleBackColor = true;
             this.btDate.Click += new System.EventHandler(this.btDate_Click);
+            // 
+            // btChoose
+            // 
+            this.btChoose.Location = new System.Drawing.Point(607, 244);
+            this.btChoose.Name = "btChoose";
+            this.btChoose.Size = new System.Drawing.Size(87, 51);
+            this.btChoose.TabIndex = 3;
+            this.btChoose.Text = "Choose..";
+            this.btChoose.UseVisualStyleBackColor = true;
+            this.btChoose.Click += new System.EventHandler(this.btChoose_Click);
             // 
             // Form1
             // 
@@ -350,6 +414,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbEM)).EndInit();
             this.tpMetadata.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbMeta)).EndInit();
+            this.tbCC.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbCC2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCC1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -382,6 +449,11 @@
         private System.Windows.Forms.RichTextBox rtbMeta;
         private System.Windows.Forms.PictureBox pbMeta;
         private System.Windows.Forms.Button btDate;
+        private System.Windows.Forms.TabPage tbCC;
+        private System.Windows.Forms.RichTextBox rtbCC;
+        private System.Windows.Forms.PictureBox pbCC2;
+        private System.Windows.Forms.PictureBox pbCC1;
+        private System.Windows.Forms.Button btChoose;
     }
 }
 
