@@ -67,7 +67,7 @@ namespace MyProgram
             StreamChipper oStream = new StreamChipper(key);
 
             originalImage.addPadding(false);
-            ss.saveImage(originalImage.Image, "OriginalImage.png");
+            ss.saveImage(originalImage.Image, "OriginalImage2.png");
             oStream.PRGA(ref originalImage);
             ss.saveImage(originalImage.Image, "StreamImage.png");
             Permutation pr = new Permutation(ref originalImage);
