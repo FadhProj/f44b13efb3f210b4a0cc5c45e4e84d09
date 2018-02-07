@@ -67,7 +67,7 @@ namespace MyProgram
             StreamChipper oStream = new StreamChipper(key);
 
             originalImage.addPadding(false);
-
+            ss.saveImage(originalImage.Image, "OriginalImage.png");
             oStream.PRGA(ref originalImage);
             ss.saveImage(originalImage.Image, "StreamImage.png");
             Permutation pr = new Permutation(ref originalImage);
@@ -417,12 +417,13 @@ namespace MyProgram
                     {
                         valImage1 = ((image1.GetPixel(x - 1, y - 1).R + image1.GetPixel(x - 1, y - 1).B + image1.GetPixel(x - 1, y - 1).B) / 3) - ((image1.GetPixel(x, y).R + image1.GetPixel(x, y).B + image1.GetPixel(x, y).B) / 3);
                         valImage2 = ((image2.GetPixel(x - 1, y - 1).R + image2.GetPixel(x - 1, y - 1).B + image2.GetPixel(x - 1, y - 1).B) / 3) - ((image2.GetPixel(x, y).R + image2.GetPixel(x, y).B + image2.GetPixel(x, y).B) / 3);
-                        Console.WriteLine("{0} {1}", valImage1, valImage2);
+                        Console.WriteLine("{0} {1} {2} {3} ",x,y, valImage1, valImage2);
                         if (valImage1 == valImage2)
                             same += 1;
                         else
                             diff += 1;
                     }
+                    //Console.WriteLine("");
                 }
                 rtbCC.Text = "Sama : " + same + Environment.NewLine + "Beda : " + diff;
             }
