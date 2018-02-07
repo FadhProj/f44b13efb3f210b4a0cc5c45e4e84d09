@@ -28,6 +28,24 @@ namespace MyProgram
             Console.WriteLine(s);
             ss = new Save(date);
         }
+        //================================================================================================================
+        //  GrayScale
+        //================================================================================================================
+        public Bitmap ConvertToGrayscale(Bitmap source)
+        {
+            Bitmap bm = new Bitmap(source.Width, source.Height);
+            for (int y = 0; y < bm.Height; y++)
+            {
+                for (int x = 0; x < bm.Width; x++)
+                {
+                    Color c = source.GetPixel(x, y);
+                    //int average = (Convert.ToInt32(c.R) + Convert.ToInt32(c.G) + Convert.ToInt32(c.B)) / 3;
+                    int average = (int)(c.R * 0.3 + c.G * 0.59 + c.B * 0.11); 
+                    bm.SetPixel(x, y, Color.FromArgb(average, average, average));
+                }
+            }
+            return bm;
+        }
 
         //================================================================================================================
         //  Encryption Process
@@ -36,7 +54,7 @@ namespace MyProgram
         {
             Bitmap OI = null;
           
-                string key = tbKey.Text;
+            string key = tbKey.Text;
             K = key;
             try
             {
@@ -58,8 +76,9 @@ namespace MyProgram
             };
             //date = DateTime.Now;
             tbDate.Text = date.ToString();
-            OI = NewMethod(OI, open);
-
+            OI = openEP(OI, open);
+            OI = ConvertToGrayscale(OI);
+            Console.WriteLine("gray");
             //Save s = new Save(date);
             ss.saveImage(OI, "OriginalImage.png");
 
@@ -70,6 +89,7 @@ namespace MyProgram
             ss.saveImage(originalImage.Image, "OriginalImage2.png");
             oStream.PRGA(ref originalImage);
             ss.saveImage(originalImage.Image, "StreamImage.png");
+            Console.WriteLine("Stream");
             Permutation pr = new Permutation(ref originalImage);
 
             ke1 = oStream.Ke;
@@ -139,7 +159,7 @@ namespace MyProgram
 
         }
 
-        private Bitmap NewMethod(Bitmap OI, OpenFileDialog open)
+        private Bitmap openEP(Bitmap OI, OpenFileDialog open)
         {
             if (open.ShowDialog() == DialogResult.OK)
             {
@@ -415,9 +435,10 @@ namespace MyProgram
                 {
                     for (int x = 1; x < a.Width; x++)
                     {
+                        
                         valImage1 = ((image1.GetPixel(x - 1, y - 1).R + image1.GetPixel(x - 1, y - 1).B + image1.GetPixel(x - 1, y - 1).B) / 3) - ((image1.GetPixel(x, y).R + image1.GetPixel(x, y).B + image1.GetPixel(x, y).B) / 3);
                         valImage2 = ((image2.GetPixel(x - 1, y - 1).R + image2.GetPixel(x - 1, y - 1).B + image2.GetPixel(x - 1, y - 1).B) / 3) - ((image2.GetPixel(x, y).R + image2.GetPixel(x, y).B + image2.GetPixel(x, y).B) / 3);
-                        Console.WriteLine("{0} {1} {2} {3} ",x,y, valImage1, valImage2);
+                        Console.WriteLine("{0} {1} {2} {3} ", image1.GetPixel(x-1, y-1), image1.GetPixel(x,y), image2.GetPixel(x-1, y-1), image2.GetPixel(x, y));
                         if (valImage1 == valImage2)
                             same += 1;
                         else
