@@ -86,6 +86,7 @@ namespace MyProgram
             StreamChipper oStream = new StreamChipper(key);
 
             originalImage.addPadding(false);
+            Console.WriteLine("{0} {1}",originalImage.Image.Width, originalImage.Image.Height);
             ss.saveImage(originalImage.Image, "OriginalImage2.png");
             oStream.PRGA(ref originalImage);
             ss.saveImage(originalImage.Image, "StreamImage.png");
@@ -405,7 +406,7 @@ namespace MyProgram
 
         private void btChoose_Click(object sender, EventArgs e)
         {
-            int R1, G1, B1, R2, G2, B2, valImage1, valImage2, same = 0, diff = 0;
+            int R1, G1, B1, R2, G2, B2, valImage1, valImage2, same = 0, diff = 0, min1 = 0, satu = 0, nol = 0;
             Bitmap image1=null , image2 = null;
 
             OpenFileDialog open = new OpenFileDialog();
@@ -438,15 +439,25 @@ namespace MyProgram
                         
                         valImage1 = ((image1.GetPixel(x - 1, y - 1).R + image1.GetPixel(x - 1, y - 1).B + image1.GetPixel(x - 1, y - 1).B) / 3) - ((image1.GetPixel(x, y).R + image1.GetPixel(x, y).B + image1.GetPixel(x, y).B) / 3);
                         valImage2 = ((image2.GetPixel(x - 1, y - 1).R + image2.GetPixel(x - 1, y - 1).B + image2.GetPixel(x - 1, y - 1).B) / 3) - ((image2.GetPixel(x, y).R + image2.GetPixel(x, y).B + image2.GetPixel(x, y).B) / 3);
-                        Console.WriteLine("{0} {1} {2} {3} ", image1.GetPixel(x-1, y-1), image1.GetPixel(x,y), image2.GetPixel(x-1, y-1), image2.GetPixel(x, y));
+                        Console.WriteLine("{0} {1} ", image1.GetPixel(x - 1, y - 1), image1.GetPixel(x, y));
+                        Console.WriteLine("{0} {1} ", image2.GetPixel(x - 1, y - 1), image2.GetPixel(x, y));
+                        Console.WriteLine("=================================================================");
                         if (valImage1 == valImage2)
+                        {
+                            if (valImage1 == 0)
+                                nol += 1;
+                            else if (valImage1 == -1)
+                                min1 += 1;
+                            else if (valImage1 == 1)
+                                satu += 1;
                             same += 1;
+                        }
                         else
                             diff += 1;
                     }
                     //Console.WriteLine("");
                 }
-                rtbCC.Text = "Sama : " + same + Environment.NewLine + "Beda : " + diff;
+                rtbCC.Text = "Sama : " + same + Environment.NewLine + "Beda : " + diff + Environment.NewLine + "0 : " + nol + Environment.NewLine + "1 : " + satu + Environment.NewLine + "-1 : " + min1;
             }
         }
 
