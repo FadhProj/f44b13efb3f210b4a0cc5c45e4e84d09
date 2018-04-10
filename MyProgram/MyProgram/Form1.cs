@@ -27,6 +27,7 @@ namespace MyProgram
             string s = a.ToString();
             Console.WriteLine(s);
             ss = new Save(date);
+            Console.Write("");
         }
         //================================================================================================================
         //  GrayScale
@@ -44,6 +45,15 @@ namespace MyProgram
                     bm.SetPixel(x, y, Color.FromArgb(average, average, average));
                 }
             }
+
+
+
+
+
+
+
+
+
             return bm;
         }
 
