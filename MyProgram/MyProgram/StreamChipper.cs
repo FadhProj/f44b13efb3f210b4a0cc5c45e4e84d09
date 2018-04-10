@@ -79,11 +79,15 @@ namespace MyProgram
         {
             int R, G, B, a = 0;
             //Console.WriteLine("Xor Blok");
-            Console.Write("{0} {1} ", img.DefBlok[n].N, img.DefBlok[n].M);
+            //Console.Write("{0} {1} ", img.DefBlok[n].N, img.DefBlok[n].M);
+            
             for (int i = img.DefBlok[n].N; i < img.DefBlok[n].N + 3; i++)
             {
+                //Console.WriteLine(img.DefBlok[n].N);
                 for (int j = img.DefBlok[n].M; j < img.DefBlok[n].M + 3; j++)
                 {
+                    Console.WriteLine("{0} {1} ", img.DefBlok[n].N, img.DefBlok[n].M);
+
                     //R = img.Image.GetPixel(j, i).R;
                     //G = img.Image.GetPixel(j, i).G;
                     //B = img.Image.GetPixel(j, i).B;
