@@ -98,7 +98,7 @@ namespace MyProgram
                 this.nPadH = 3 - (image.Height % 3);
                 y = image.Height + nPadH;
             }
-            if (image.Width % 3 != 0 && image.Height % 3 != 0)
+            if (image.Width % 3 != 0 || image.Height % 3 != 0)
             {
                 Bitmap result = new Bitmap(x, y);
                 using (Graphics graph = Graphics.FromImage(result))
