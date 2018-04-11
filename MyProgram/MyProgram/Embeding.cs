@@ -20,7 +20,7 @@ namespace MyProgram
         {
             L = new ArrayList();
             histShiffting(ref img);
-            for (int y = 0; y < img.Image.Height; y++)
+            /*for (int y = 0; y < img.Image.Height; y++)
             {
                 for (int x = 0; x < img.Image.Width; x++)
                 {
@@ -29,7 +29,7 @@ namespace MyProgram
                         Console.WriteLine("after {0} ", img.Image.GetPixel(x, y));
                     }
                 }
-            }
+            }*/
         }
 
         public Embeding(ref Iimage img, string msg)
@@ -64,20 +64,21 @@ namespace MyProgram
                     B = img.Image.GetPixel(x, y).B;
                     if (R == 0 || G == 0 || B == 0)
                     {
-                        L.Add(1);
+                        L.Add((byte)1);
                         img.Image.SetPixel(x, y, Color.FromArgb(R + 1, G + 1, B + 1));
                     }
                     else if (R == 255 || G == 255 || B == 255)
                     {
-                        L.Add(1);
+                        L.Add((byte)1);
                         img.Image.SetPixel(x, y, Color.FromArgb(R - 1, G - 1, B - 1));
                     }
                     else if (R == 1 || R == 254)
                     {
-                        L.Add(0);
+                        L.Add((byte)0);
                     }
                 }
             }
+            L.Add((byte)0);
         }
 
         public void embed(ref Iimage img, string msg)

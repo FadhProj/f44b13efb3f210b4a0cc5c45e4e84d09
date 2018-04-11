@@ -38,7 +38,7 @@ namespace MyProgram
             for (int i = 0; i < 256; i++)
             {
                 K[i] = key[i % key.Length] - 48;
-                Console.Write(K[i]);
+                //Console.Write(K[i]);
                 S[i] = i;
             }
         }
@@ -71,7 +71,7 @@ namespace MyProgram
                 Ke.Add(key);
                 xorBlok(ref img, key, n);
             }
-            Console.WriteLine("");
+            //Console.WriteLine("");
 
         }
 
@@ -86,7 +86,7 @@ namespace MyProgram
                 //Console.WriteLine(img.DefBlok[n].N);
                 for (int j = img.DefBlok[n].M; j < img.DefBlok[n].M + 3; j++)
                 {
-                    Console.WriteLine("{0} {1} ", img.DefBlok[n].N, img.DefBlok[n].M);
+                    //Console.WriteLine("{0} {1} ", img.DefBlok[n].N, img.DefBlok[n].M);
 
                     //R = img.Image.GetPixel(j, i).R;
                     //G = img.Image.GetPixel(j, i).G;
