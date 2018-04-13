@@ -248,7 +248,7 @@
             this.btExtract.Text = "Extract";
             this.btExtract.UseVisualStyleBackColor = false;
             this.btExtract.Click += new System.EventHandler(this.btExtract_Click);
-            // 
+            /*// 
             // btDecryp
             // 
             this.btDecryp.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -258,7 +258,7 @@
             this.btDecryp.TabIndex = 2;
             this.btDecryp.Text = "Decrypt";
             this.btDecryp.UseVisualStyleBackColor = false;
-            this.btDecryp.Click += new System.EventHandler(this.btDecryp_Click);
+            this.btDecryp.Click += new System.EventHandler(this.btDecryp_Click);*/
             // 
             // rtbEM
             // 

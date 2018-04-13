@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -16,7 +15,7 @@ namespace MyProgram
         Save ss;
 
         Iimage shifftingImage;
-        ArrayList L;
+        string L;
         string K;
         List<int> ke1, ke2;
         Bitmap test;
@@ -27,13 +26,14 @@ namespace MyProgram
             tbDate.Text = date.ToString();
             int[] a = { 1, 2, 3, 4, 5 };
             string s = a.ToString();
-            //Console.WriteLine(s);
             ss = new Save(date);
             Console.Write("");
         }
         //================================================================================================================
         //  GrayScale
         //================================================================================================================
+        // Mengubah gambar menjadi warna Grayscale
+
         public Bitmap ConvertToGrayscale(Bitmap source)
         {
             Bitmap bm = new Bitmap(source.Width, source.Height);
@@ -42,7 +42,6 @@ namespace MyProgram
                 for (int x = 0; x < bm.Width; x++)
                 {
                     Color c = source.GetPixel(x, y);
-                    //int average = (Convert.ToInt32(c.R) + Convert.ToInt32(c.G) + Convert.ToInt32(c.B)) / 3;
                     int average = (int)(c.R * 0.3 + c.G * 0.59 + c.B * 0.11); 
                     bm.SetPixel(x, y, Color.FromArgb(average, average, average));
                 }
@@ -56,174 +55,120 @@ namespace MyProgram
         //================================================================================================================
         private void btChooseEI_Click(object sender, EventArgs e)
         {
+            /* Create variable OI ( Original Image ) */
             Bitmap OI = null;
-          
-            string key = tbKey.Text;
-            K = key;
-            try
-            {
-                if (key == null)
-                    throw new ArgumentNullException();
-            }
-            catch (Exception)
-            {
 
-                MessageBox.Show("Key Can't be NULL");
-            }
-
-
-
-            OpenFileDialog open = new OpenFileDialog
-            {
-
-                Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
-            };
-            //date = DateTime.Now;
             tbDate.Text = date.ToString();
-            if (open.ShowDialog() == DialogResult.OK)
+
+            /* Get Key from input user */
+            string key = tbKey.Text; 
+            
+            if (key != null)
             {
-                pbEI.Image = new Bitmap(open.FileName);
-                Metadata meta = new Metadata(pbEI.Image.PropertyItems); //Create Property Itam
-                //ext = open.DefaultExt;
-                OI = (Bitmap)pbEI.Image;
+                /* Open file dialog and get image from computer */
+                OpenFileDialog open = new OpenFileDialog
+                {
 
-                OI = ConvertToGrayscale(OI);
-                Console.WriteLine("gray");
-                //Save s = new Save(date);
-                ss.saveImage(OI, "OriginalImage.png");
+                    Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
+                };
 
-                Iimage originalImage = new Iimage(OI);
-                StreamChipper oStream = new StreamChipper(key);
+                
 
-                originalImage.addPadding(false);
-                //Console.WriteLine("{0} {1}", originalImage.Image.Width, originalImage.Image.Height);
-                ss.saveImage(originalImage.Image, "OriginalImage2.png");
-                oStream.PRGA(ref originalImage);
-                ss.saveImage(originalImage.Image, "StreamImage.png");
-                Console.WriteLine("Stream");
-                Permutation pr = new Permutation(ref originalImage);
-                //====================================================
-                Bitmap img = originalImage.Image;
-                meta.embedKeyStream(key, ref img);
-                //====================================================
-                //ke1 = oStream.Ke;
-                test = new Bitmap(originalImage.Image);
-                ss.saveImage(img, "EncryptedImage.png");
+                if (open.ShowDialog() == DialogResult.OK)
+                {
+                    pbEI.Image = new Bitmap(open.FileName);
+                    OI = (Bitmap)pbEI.Image;
+
+                    /* Convert image to Grayscale */
+                    Console.WriteLine("Convert to Grayscale on Process");
+                    OI = ConvertToGrayscale(OI);
+                    ss.saveImage(OI, "1. GrayscaleImage.png");
+
+                    /* initialitation PropertyItem from Image */
+                    Metadata meta = new Metadata(pbEI.Image.PropertyItems); 
+
+                    
+                    /* Encryption Image */
+                    Iimage originalImage = new Iimage(OI);
+                    originalImage.addPadding(false);
+                    
+                    /* 1. Stream Encryption Using RC4 */
+                    Console.WriteLine("Stream Encryption on Process");
+                    StreamChipper oStream = new StreamChipper(key);
+                    oStream.PRGA(ref originalImage);
+                    ss.saveImage(originalImage.Image, "1.1 StreamImage.png");
+
+                    /* 2. Permutation Block Image */
+                    Console.WriteLine("Permutation Block Image on Process");
+                    Permutation pr = new Permutation(ref originalImage);
+
+                    /* Close Padding */
+                    originalImage.closePadding(true);
+                    
+                    /* Embending Key to Metadata */
+                    Bitmap img = originalImage.Image;
+                    meta.embedKeyStream(key, ref img);
+                    meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH);
+                    
+                    /* Save Image */
+                    ss.saveImage(img, "1.2 EncryptedImage.png");
+
+                }
 
             }
+            else
+                MessageBox.Show("Key can't be EMPTY");
 
-            //originalImage.closePadding(true);
-
-           /* 
-            PropertyItem pi = OI.PropertyItems[0];
-            pi.Id = 0X320;
-            pi.Type = 2;
-            pi.Len = key.Length + originalImage.ValPadW.Length + originalImage.ValPadW.Length + 3 ;
-            pi.Value = new byte[pi.Len];
-
-            int i;
-            for (i = 0 ; i < key.Length; i++)
-            {
-                pi.Value[i] = Convert.ToByte(key[i]);
-            }
-            pi.Value[i] = Convert.ToByte(null);
-            i++;
-            for (int k = 0; k < pi.Value.Length; k++)
-            {
-                Console.Write(pi.Value[k] + " ");
-            }
-            Console.WriteLine("");
-            //Console.WriteLine(pi.Value);
-            int j = 0 ;
-            for (j = i; j < originalImage.ValPadW.Length ; j++)
-            {
-                pi.Value[j] = Convert.ToByte(originalImage.ValPadW[j]);
-            }
-            i = j ;
-            pi.Value[i] = Convert.ToByte(null);
-            i++;
-            for (int k = 0; k < pi.Value.Length; k++)
-            {
-                Console.Write(pi.Value[k] + " ");
-            }
-            Console.WriteLine("");
-            for (int k = i; k < originalImage.ValPadH.Length; k++)
-            {
-                pi.Value[k] = Convert.ToByte(originalImage.ValPadH[k]);
-            }
-
-            for (int k = 0; k < pi.Value.Length; k++)
-            {
-                Console.Write(pi.Value[k] + " ");
-            }
-            originalImage.Image.SetPropertyItem(pi);
-            //pi = originalImage.Image.PropertyItems[0];
-            //pi.Id = 0X321;
-           // pi.Type = 2;
-            //pi.Len = 10;
-            //pi.Value = new byte[pi.Len];
-            //originalImage.Image.SetPropertyItem(pi);
-            originalImage.Image.Save("E:\\" + date.ToString("MMM. dd, yyyy H-mm-ss") + ".jpg");
-            //OI.Save("D:\\678678.jpg");
-            Console.WriteLine(pi.Id);
-            Console.WriteLine(pi.Len);
-            Console.WriteLine(pi.Type);*/
+           
 
 
 
         }
 
-        private Bitmap openEP(Bitmap OI, OpenFileDialog open)
-        {
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                pbEI.Image = new Bitmap(open.FileName);
-                //ext = open.DefaultExt;
-                OI = (Bitmap)pbEI.Image;
-            }
-
-            return OI;
-        }
+        
 
         //================================================================================================================
         //  histogram Shiffting proccess
         //================================================================================================================
-
         private void btOpenEMM_Click(object sender, EventArgs e)
         {
+            tbDate.Text = date.ToString();
+
+            /* Create variable EI ( Encryption Image ) */
             Bitmap EI = null;
 
+            /* Open file dialog and get image from computer */
             OpenFileDialog open = new OpenFileDialog
             {
                 Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
             };
-            //date = DateTime.Now;
-            tbDate.Text = date.ToString();
+            
             if (open.ShowDialog() == DialogResult.OK)
             {
                 pbEMM.Image = new Bitmap(open.FileName);
-                //ext = open.DefaultExt;
                 EI = (Bitmap)pbEMM.Image;
+                ss.saveImage(EI, "2. EncryptedImageBefEmbed.png");
 
+                /* initialitation PropertyItem from Image */
                 Metadata meta = new Metadata(pbEMM.Image.PropertyItems);
 
-                //Save s = new Save(date);
-                ss.saveImage(EI, "EncryptedImageBefEmbed.png");
-
+                /* Shiffting process */
+                Console.WriteLine("Histogram Shiffting on Process");
                 shifftingImage = new Iimage(EI);
-
-
-
                 Embeding em = new Embeding(ref shifftingImage);
-                //L = em.L1;
+
+                /* Embending L Map to Metadata */
+                Bitmap image = shifftingImage.Image;
+                meta.embedLMap(em.L1, ref image);
+
+                /* Save Shiffted Image */
+                pbEMM.Image = shifftingImage.Image;
+                ss.saveImage(image, "2.1 ShifftedImage.png");
+
                 foreach (var item in em.L1)
                 {
                     Console.Write(item);
                 }
-                Bitmap image = shifftingImage.Image;
-                meta.embedLMap((byte[]) em.L1.ToArray(typeof(byte)), ref image);
-                pbEMM.Image = shifftingImage.Image;
-                ss.saveImage(image, "ShifftedImage.png");
             }
 
         }
@@ -235,21 +180,17 @@ namespace MyProgram
         //================================================================================================================
         private void btEmbed_Click(object sender, EventArgs e)
         {
-           // Console.WriteLine(string.Join("\n",rtbEMM.Text.Split('\n')));
+            /* get Message from User input */
             string[] allLines = rtbEMM.Text.Split('\n');
-            /*foreach (var item in allLines)
-            {
-                Console.WriteLine(item);
-            }*/
-
             string msg = rtbEMM.Text;
             shifftingImage = new Iimage(shifftingImage.Image);//(Bitmap)pbEMM.Image);
 
+            /* Embeding Message */
+            Console.WriteLine("Embeding message on Process");
             Embeding em = new Embeding(ref shifftingImage, msg);
-            //TESTING
-            //L = em.L1;
-
-            ss.saveImage(shifftingImage.Image, "EmbendedImage.png");
+           
+            /* Save Image */
+            ss.saveImage(shifftingImage.Image, "3. EmbendedImage.png");
 
 
         }
@@ -271,13 +212,14 @@ namespace MyProgram
                 pbDI.Image = new Bitmap(open.FileName);
                 EMI = (Bitmap)pbDI.Image;
 
+                
                 //get from metadata
                 K = Encoding.UTF7.GetString( pbDI.Image.GetPropertyItem(315).Value);
                 K = K.Substring(0, K.Length - 1);
                 Console.WriteLine(K);
 
 
-                ss.saveImage(EMI, "ImageBefDecrypted.png");
+                ss.saveImage(EMI, "4. ImageBefDecrypted.png");
                 Iimage encryptedMarkedImage = new Iimage(EMI);
                 /*for (int y = 0; y < test.Height; y++)
                 {
@@ -318,21 +260,24 @@ namespace MyProgram
             {
                 pbEM.Image = new Bitmap(open.FileName);
                 EMI = (Bitmap)pbEM.Image;
+
+                string massage = "";
+                Iimage markedImage = new Iimage(EMI);
+                //====================================
+                L = Encoding.UTF8.GetString(pbEM.Image.GetPropertyItem(800).Value);
+                L = L.Substring(0, L.Length - 1);
+                Extraction ex = new Extraction(ref markedImage, L, ref massage);
+                rtbEM.Text = massage;
+
+                ss.saveImage(markedImage.Image, "5. ShifftedImageAfExtraction.png");
             }
-            string massage = "";
-            Iimage markedImage = new Iimage(EMI);
-            Extraction ex = new Extraction(ref markedImage, L, ref massage);
-            rtbEM.Text = massage;
-
-            ss.saveImage(markedImage.Image, "EncryptedImageAfExtraction.png");
-
         }
         //================================================================================================================
-        //  Decrypt Image After Extraction
+        //  Shift back
         //================================================================================================================
-        private void btDecryp_Click(object sender, EventArgs e)
+        /*private void btDecryp_Click(object sender, EventArgs e)
         {
-            Bitmap EXI = null;
+            Bitmap SI = null;
 
             OpenFileDialog open = new OpenFileDialog
             {
@@ -342,14 +287,14 @@ namespace MyProgram
             if (open.ShowDialog() == DialogResult.OK)
             {
                 pbEM.Image = new Bitmap(open.FileName);
-                EXI = (Bitmap)pbEM.Image;
+                SI = (Bitmap)pbEM.Image;
 
                 //get from metadata
-                K = Encoding.UTF7.GetString(pbEM.Image.GetPropertyItem(315).Value);
-                K = K.Substring(0, K.Length - 1);
-                Console.WriteLine(K);
+                L = Encoding.UTF7.GetString(pbEM.Image.GetPropertyItem(800).Value);
+                L = K.Substring(0, L.Length - 1);
+                Console.WriteLine(L);
 
-                ss.saveImage(EXI, "ImageBefDecrypted.png");
+                /*ss.saveImage(EXI, "ImageBefDecrypted.png");
                 Iimage extractionImage = new Iimage(EXI);
 
                 ss.saveImage(EXI, "ExtractionImage.png");
@@ -360,10 +305,10 @@ namespace MyProgram
                 ke2 = sc.Ke;
 
 
-
+                
                 ss.saveImage(extractionImage.Image, "RecoverImage.png");
             }
-        }
+        }*/
 
         //================================================================================================================
         //  Read MetaData

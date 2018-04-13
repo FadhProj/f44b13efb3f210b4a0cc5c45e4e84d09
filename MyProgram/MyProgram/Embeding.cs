@@ -12,13 +12,13 @@ namespace MyProgram
 {
     class Embeding
     {
-        private ArrayList L;
+        private string L;
 
-        public ArrayList L1 { get => L; }
+        public string L1 { get => L; }
 
         public Embeding(ref Iimage img)
         {
-            L = new ArrayList();
+            L = "";
             histShiffting(ref img);
             /*for (int y = 0; y < img.Image.Height; y++)
             {
@@ -64,21 +64,21 @@ namespace MyProgram
                     B = img.Image.GetPixel(x, y).B;
                     if (R == 0 || G == 0 || B == 0)
                     {
-                        L.Add((byte)1);
+                        L += "1";
                         img.Image.SetPixel(x, y, Color.FromArgb(R + 1, G + 1, B + 1));
                     }
                     else if (R == 255 || G == 255 || B == 255)
                     {
-                        L.Add((byte)1);
+                        L += "1";
                         img.Image.SetPixel(x, y, Color.FromArgb(R - 1, G - 1, B - 1));
                     }
                     else if (R == 1 || R == 254)
                     {
-                        L.Add((byte)0);
+                        L += "0";
+                       
                     }
                 }
             }
-            L.Add((byte)0);
         }
 
         public void embed(ref Iimage img, string msg)

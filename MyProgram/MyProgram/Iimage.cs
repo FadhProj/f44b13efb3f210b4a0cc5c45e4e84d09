@@ -127,6 +127,7 @@ namespace MyProgram
             }
             setDefBlok(this.image);
         }
+
         public void copyToArray()
         {
             int w = 0, h = 0;
@@ -152,6 +153,7 @@ namespace MyProgram
                 }
             }
         }
+
         public void copyToImage()
         {
             int w = 0, h = 0;
@@ -179,11 +181,11 @@ namespace MyProgram
         {
             if (e)
             {
-                this.valPadW = new int[PadW * image.Height * 3];
-                this.valPadH = new int[PadH * image.Width * 3];
-                Console.WriteLine("{0} {1} ", valPadH.Length, valPadH);
-                Console.WriteLine("{0} {1} ", valPadW.Length, valPadW);
-                Console.WriteLine("{0} {1} ", image.Width, image.Height);
+                this.valPadW = new int[PadW * image.Height * 3 ];
+                this.valPadH = new int[PadH * image.Width * 3 ];
+               // Console.WriteLine("{0} {1} ", valPadH.Length, valPadH);
+                //Console.WriteLine("{0} {1} ", valPadW.Length, valPadW);
+                //Console.WriteLine("{0} {1} ", image.Width, image.Height);
 
                 copyToArray();
             }
@@ -203,8 +205,6 @@ namespace MyProgram
                 }
             }
             this.image = result;
-            //Console.WriteLine("{0} {1} ", valPadH.Length, valPadH);
-            //Console.WriteLine("{0} {1} ", valPadW.Length, valPadW);
 
         }
     }

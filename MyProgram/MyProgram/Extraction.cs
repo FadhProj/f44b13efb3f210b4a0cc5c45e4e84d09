@@ -12,9 +12,9 @@ namespace MyProgram
 {
     class Extraction
     {
-        private ArrayList L;
+        private string L;
 
-        public Extraction(ref Iimage img, ArrayList L, ref string msg)
+        public Extraction(ref Iimage img, string L, ref string msg)
         {
             this.L = L;
             extrac(ref img, ref msg);
@@ -22,7 +22,7 @@ namespace MyProgram
             histShiffting(ref img);
         }
 
-        public ArrayList L1 { get => L; set => L = value; }
+        public string L1 { get => L; set => L = value; }
 
         public void histShiffting(ref Iimage img)
         {
@@ -41,12 +41,12 @@ namespace MyProgram
             for (int i = 0; i < rgbValues.Length; i += 4)
             {
                 byte pixelValue = (byte)((rgbValues[i] + rgbValues[i + 1] + rgbValues[i + 2]) / 3);
-                if (pixelValue == 254 && L[n].Equals(1))
+                if (pixelValue == 254 && L[n].Equals("1"))
                 {
                     rgbValues[i] = 255; rgbValues[i + 1] = rgbValues[i + 2] = 255;
                     n++;
                 }
-                else if (pixelValue == 1 && L[n].Equals(1))
+                else if (pixelValue == 1 && L[n].Equals("1"))
                 {
                     rgbValues[i] = 0; rgbValues[i + 1] = rgbValues[i + 2] = 0;
                     n++;
