@@ -83,6 +83,7 @@ namespace MyProgram
             int x = image.Width, y = image.Height;
             if (image.Width % 3 != 0 && image.Height % 3 != 0)
             {
+                Console.WriteLine("Dua");
                 this.nPadH = 3 - (image.Height % 3);
                 this.nPadW = 3 - (image.Width % 3);
                 x = image.Width + nPadW;
@@ -90,11 +91,13 @@ namespace MyProgram
             }
             else if (image.Width % 3 != 0)
             {
+                Console.WriteLine("11");
                 this.nPadW = 3 - (image.Width % 3);
                 x = image.Width + nPadW;
             }
             else if (image.Height % 3 != 0)
             {
+                Console.WriteLine("12");
                 this.nPadH = 3 - (image.Height % 3);
                 y = image.Height + nPadH;
             }

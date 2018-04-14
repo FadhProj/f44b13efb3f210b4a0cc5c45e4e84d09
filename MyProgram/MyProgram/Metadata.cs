@@ -25,7 +25,7 @@ namespace MyProgram
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
             Console.WriteLine(itemData);
             itemm.Type = 2; //String (ASCII)
-            itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
             itemm.Value = itemData; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
@@ -53,7 +53,7 @@ namespace MyProgram
            
         }
 
-        public void embedPadding(int[] valPadW, int[] valPadH)//, ref Bitmap image)
+        public void embedPadding(int[] valPadW, int[] valPadH, ref Bitmap image)
         {
             byte[] byteW = new byte[valPadW.Length + 1];
             byte[] byteH = new byte[valPadH.Length + 1];
@@ -63,11 +63,12 @@ namespace MyProgram
             foreach (var val in valPadW) 
             {
                
-                byteW[i] = BitConverter.GetBytes(val);
+                byteW[i] = Convert.ToByte(val);
                 Console.Write(val + " - ");
                 i++;
             }
             Console.WriteLine();
+            i = 0;
             foreach (var val in valPadH)
             {
                 byteH = BitConverter.GetBytes(val);
@@ -75,23 +76,23 @@ namespace MyProgram
 
             foreach (var val in byteW)
             {
-                Console.Write(val + " || ");
+                Console.Write(val + " - ");
             }
             Console.WriteLine();
 
 
             PropertyItem itemm = PI[0];
-            Console.WriteLine("Encoding : " + Encoding.UTF8.GetString(byteW));
-            /*string sTmp = itemD + " ";
-            var itemData = System.Text.Encoding.UTF8.GetBytes(sTmp);
+            Console.WriteLine("Encoding : ");
+            //string sTmp = itemD + " ";
+            var itemData = byteW;
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
-            Console.WriteLine(itemData.Length);
             itemm.Type = 2; //String (ASCII)
-            itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
-            itemm.Value = itemData; // The byte array
+            Console.WriteLine(itemData.Length + " " + itemm.Len);
+            itemm.Value = byteW; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
-              */                            
+                                    
 
         }
 

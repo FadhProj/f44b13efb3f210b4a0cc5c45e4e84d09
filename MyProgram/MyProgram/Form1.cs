@@ -103,12 +103,12 @@ namespace MyProgram
                     Permutation pr = new Permutation(ref originalImage);
 
                     /* Close Padding */
-                    originalImage.closePadding(true);
+                    //originalImage.closePadding(true);
                     
                     /* Embending Key to Metadata */
                     Bitmap img = originalImage.Image;
                     meta.embedKeyStream(key, ref img);
-                    meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH);
+                    //meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH,ref img);
                     
                     /* Save Image */
                     ss.saveImage(img, "1.2 EncryptedImage.png");
@@ -349,7 +349,7 @@ namespace MyProgram
                     rtbMeta.AppendText("type 2 " + Encoding.UTF8.GetString(item.Value) + Environment.NewLine);
                     foreach (var mm in item.Value)
                     {
-                        Console.Write(mm);
+                        Console.Write(mm+" - ");
                     }
                     Console.WriteLine("tes");
                 }
