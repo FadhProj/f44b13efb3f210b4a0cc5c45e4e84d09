@@ -139,9 +139,9 @@ namespace MyProgram
                 for (int x = image.Width - nPadW; x < image.Width; x++)
                 {
                     valPadW[w] = image.GetPixel(x, y).R;
-                    valPadW[w+1] = image.GetPixel(x, y).G;
-                    valPadW[w+2] = image.GetPixel(x, y).B;
-                    w+=3;
+                    //valPadW[w+1] = image.GetPixel(x, y).G;
+                    //valPadW[w+2] = image.GetPixel(x, y).B;
+                    w+=1;
                 }
                 if (y >= image.Height - nPadH)
                 {
@@ -149,9 +149,9 @@ namespace MyProgram
                     for (int x = 0; x < image.Width; x++)
                     {
                         valPadH[h] = image.GetPixel(x, y).R;
-                        valPadH[h+1] = image.GetPixel(x, y).G;
-                        valPadH[h+2] = image.GetPixel(x, y).B;
-                        h+=3;
+                        //valPadH[h+1] = image.GetPixel(x, y).G;
+                        //valPadH[h+2] = image.GetPixel(x, y).B;
+                        h+=1;
                     }
                 }
             }
@@ -164,8 +164,8 @@ namespace MyProgram
             {
                 for (int x = image.Width - nPadW; x < image.Width; x++)
                 {
-                    image.SetPixel(x, y, Color.FromArgb(valPadW[w], valPadW[w + 1], valPadW[w + 2]));
-                    w+=3;
+                    image.SetPixel(x, y, Color.FromArgb(valPadW[w], valPadW[w], valPadW[w]));//valPadW[w], valPadW[w + 1], valPadW[w + 2]));
+                    w+=1;
 
                 }
                 if (y >= image.Height - nPadH)
@@ -173,8 +173,8 @@ namespace MyProgram
 
                     for (int x = 0; x < image.Width; x++)
                     {
-                        image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h + 1], valPadH[h + 2]));
-                        h+=3;
+                        image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h], valPadH[h])); //(valPadH[h], valPadH[h + 1], valPadH[h + 2]));
+                        h+=1;
                     }
                 }
             }

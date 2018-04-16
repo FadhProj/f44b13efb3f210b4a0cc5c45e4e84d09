@@ -25,7 +25,7 @@ namespace MyProgram
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
             Console.WriteLine(itemData);
             itemm.Type = 2; //String (ASCII)
-            itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Id = 131; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
             itemm.Value = itemData; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
@@ -57,13 +57,23 @@ namespace MyProgram
         {
             byte[] byteW = new byte[valPadW.Length + 1];
             byte[] byteH = new byte[valPadH.Length + 1];
+            byte[] penanda = new byte[valPadW.Length + 1];
+
             /* Convert from int[] to byte[] */
             int i = 0;
             Console.WriteLine(valPadW.Length + " " + byteW.Length);
             foreach (var val in valPadW) 
             {
-               
-                byteW[i] = Convert.ToByte(val);
+                if (val == 0)
+                {
+                    byteW[i] = Convert.ToByte((val + 1).ToString());
+                    penanda[i] = Convert.ToByte(1);
+                }
+                else
+                {
+                    byteW[i] = Convert.ToByte(val.ToString());
+                    penanda[i] = Convert.ToByte(2);
+                }
                 Console.Write(val + " - ");
                 i++;
             }
@@ -87,7 +97,7 @@ namespace MyProgram
             var itemData = byteW;
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
             itemm.Type = 2; //String (ASCII)
-            itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Id = 305; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
             Console.WriteLine(itemData.Length + " " + itemm.Len);
             itemm.Value = byteW; // The byte array
