@@ -76,7 +76,7 @@ namespace MyProgram
 
         }
 
-        public void addPadding(bool d)
+        public void addPadding()
         {
             Console.WriteLine("{0} {1} ", image.Width, image.Height);
 
@@ -118,16 +118,88 @@ namespace MyProgram
                 }
                 this.image = result;
             }
-            //Console.WriteLine("{0} {1} ", image.Width, image.Height);
-            //blok = ((this.image.Height * this.image.Width) / 9);
-            //defBlok = new Pos[blok];
-            if (d)
+            
+            setDefBlok(this.image);
+        }
+
+        public void addPadding(byte[] B,byte[] M)
+        {
+            Console.WriteLine("{0} {1} ", image.Width, image.Height);
+
+            int x = image.Width, y = image.Height;
+            if (image.Width % 3 != 0 && image.Height % 3 != 0)
             {
-                //initialisasi value padding
-                //ValPadH = valPadH;
-                //ValPadW = valPadW;
-                copyToImage();
+                Console.WriteLine("Dua");
+                this.nPadH = 3 - (image.Height % 3);
+                this.nPadW = 3 - (image.Width % 3);
+                x = image.Width + nPadW;
+                y = image.Height + nPadH;
             }
+            else if (image.Width % 3 != 0)
+            {
+                Console.WriteLine("11");
+                this.nPadW = 3 - (image.Width % 3);
+                x = image.Width + nPadW;
+            }
+            else if (image.Height % 3 != 0)
+            {
+                Console.WriteLine("12");
+                this.nPadH = 3 - (image.Height % 3);
+                y = image.Height + nPadH;
+            }
+            if (image.Width % 3 != 0 || image.Height % 3 != 0)
+            {
+                Bitmap result = new Bitmap(x, y);
+                using (Graphics graph = Graphics.FromImage(result))
+                {
+                    Rectangle ImageSize = new Rectangle(0, 0, x, y);
+                    graph.FillRectangle(Brushes.Black, ImageSize);
+                }
+                for (int i = 0; i < image.Height; i++)
+                {
+                    for (int j = 0; j < image.Width; j++)
+                    {
+                        result.SetPixel(j, i, image.GetPixel(j, i));
+                    }
+                }
+                this.image = result;
+            }
+            
+            int split=0;
+            for (int j = 0; j < M.Length-1; j++)
+            {
+                if (Convert.ToInt32(M[j]) == 3)
+                    split = j;
+            }
+
+            this.valPadW = new int[split];
+            this.valPadH = new int[M.Length - split - 1];
+            Console.WriteLine(valPadW.Length+" "+split);
+            for (int i = 0; i < split; i++)
+            {
+                int z = Convert.ToInt32(B[i]);
+                Console.Write(z+" ");
+                if (Convert.ToInt32(M[i]) == 1)
+                    ValPadW[i] =  z - 1;
+                else
+                    ValPadW[i] = z;
+            }
+            Console.WriteLine();
+            int l = 0;
+            Console.WriteLine(valPadH.Length + " " + split);
+            for (int i = split; i < B.Length - 2; i++)
+            {
+                int z = Convert.ToInt32(B[i]);
+                Console.Write(z+" ");
+                if (Convert.ToInt32(M[i]) == 1)
+                    valPadH[l] = z - 1;
+                else
+                    valPadH[l] = z;
+            }
+            Console.WriteLine();
+
+            copyToImage();
+            
             setDefBlok(this.image);
         }
 

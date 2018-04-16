@@ -90,7 +90,7 @@ namespace MyProgram
                     
                     /* Encryption Image */
                     Iimage originalImage = new Iimage(OI);
-                    originalImage.addPadding(false);
+                    originalImage.addPadding();
                     
                     /* 1. Stream Encryption Using RC4 */
                     Console.WriteLine("Stream Encryption on Process");
@@ -112,6 +112,8 @@ namespace MyProgram
                     
                     /* Save Image */
                     ss.saveImage(img, "1.2 EncryptedImage.png");
+
+                    /* show */
 
                 }
 
@@ -148,13 +150,16 @@ namespace MyProgram
                 pbEMM.Image = new Bitmap(open.FileName);
                 EI = (Bitmap)pbEMM.Image;
                 ss.saveImage(EI, "2. EncryptedImageBefEmbed.png");
-
+                
                 /* initialitation PropertyItem from Image */
                 Metadata meta = new Metadata(pbEMM.Image.PropertyItems);
 
-                /* Shiffting process */
+                /* Add Padding */
                 Console.WriteLine("Histogram Shiffting on Process");
                 shifftingImage = new Iimage(EI);
+                shifftingImage.addPadding(pbEMM.Image.GetPropertyItem(305).Value,pbEMM.Image.GetPropertyItem(33432).Value);
+
+                /* Shiffting process */
                 Embeding em = new Embeding(ref shifftingImage);
 
                 /* Embending L Map to Metadata */
@@ -180,17 +185,29 @@ namespace MyProgram
         //================================================================================================================
         private void btEmbed_Click(object sender, EventArgs e)
         {
+            
             /* get Message from User input */
             string[] allLines = rtbEMM.Text.Split('\n');
             string msg = rtbEMM.Text;
             shifftingImage = new Iimage(shifftingImage.Image);//(Bitmap)pbEMM.Image);
 
+            /* Get Metadata */
+            Metadata meta = new Metadata(pbEMM.Image.PropertyItems);
+
             /* Embeding Message */
             Console.WriteLine("Embeding message on Process");
             Embeding em = new Embeding(ref shifftingImage, msg);
-           
+
+            /* Close Padding */
+            shifftingImage.closePadding(true);
+
+            /* Embending Key to Metadata */
+            Bitmap img = shifftingImage.Image;
+            meta.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH,ref img);
+            
+
             /* Save Image */
-            ss.saveImage(shifftingImage.Image, "3. EmbendedImage.png");
+            ss.saveImage(img, "3. EmbendedImage.png");
 
 
         }
@@ -212,8 +229,12 @@ namespace MyProgram
                 pbDI.Image = new Bitmap(open.FileName);
                 EMI = (Bitmap)pbDI.Image;
 
-                
+                /* get Metadata */
+                Metadata meta = new Metadata(pbDI.Image.PropertyItems);
+
+
                 //get from metadata
+                
                 K = Encoding.UTF7.GetString( pbDI.Image.GetPropertyItem(315).Value);
                 K = K.Substring(0, K.Length - 1);
                 Console.WriteLine(K);
@@ -221,6 +242,10 @@ namespace MyProgram
 
                 ss.saveImage(EMI, "4. ImageBefDecrypted.png");
                 Iimage encryptedMarkedImage = new Iimage(EMI);
+
+                /* Add Padding */
+                encryptedMarkedImage.addPadding(pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value);
+
                 /*for (int y = 0; y < test.Height; y++)
                 {
                     for (int x = 0; x < test.Width; x++)
@@ -236,11 +261,17 @@ namespace MyProgram
                 
                 StreamChipper sc = new StreamChipper(K);
                 sc.PRGA(ref encryptedMarkedImage);
-                ke2 = sc.Ke;
 
+                /*close Padding*/
+                encryptedMarkedImage.closePadding(true);
 
+                /*embed Padding */
+                Bitmap img = encryptedMarkedImage.Image;
+                meta.embedPadding(encryptedMarkedImage.ValPadW, encryptedMarkedImage.ValPadH, ref img);
 
-                ss.saveImage(encryptedMarkedImage.Image, "DecryptedImage.png");
+                /* Show */
+                pbDI.Image = img;
+                ss.saveImage(img, "DecryptedImage.png");
             }
         }
 
@@ -261,15 +292,28 @@ namespace MyProgram
                 pbEM.Image = new Bitmap(open.FileName);
                 EMI = (Bitmap)pbEM.Image;
 
+                /*get Metadata */
+                Metadata meta = new Metadata(pbEM.Image.PropertyItems);
+                
                 string massage = "";
                 Iimage markedImage = new Iimage(EMI);
+                /* Add Padding */
+                markedImage.addPadding(pbEM.Image.GetPropertyItem(305).Value, pbEM.Image.GetPropertyItem(33432).Value);
+
                 //====================================
                 L = Encoding.UTF8.GetString(pbEM.Image.GetPropertyItem(800).Value);
                 L = L.Substring(0, L.Length - 1);
                 Extraction ex = new Extraction(ref markedImage, L, ref massage);
                 rtbEM.Text = massage;
 
-                ss.saveImage(markedImage.Image, "5. ShifftedImageAfExtraction.png");
+                /* Close Padding */
+                markedImage.closePadding(true);
+
+                /* embed Padding */
+                Bitmap img = markedImage.Image;
+                meta.embedPadding(markedImage.ValPadW, markedImage.ValPadH, ref img);
+
+                ss.saveImage(img, "5. ShifftedImageAfExtraction.png");
             }
         }
         //================================================================================================================
