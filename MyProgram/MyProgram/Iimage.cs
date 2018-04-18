@@ -178,20 +178,22 @@ namespace MyProgram
             for (int i = 0; i < split; i++)
             {
                 int z = Convert.ToInt32(B[i]);
-                Console.Write(z+" ");
+                Console.Write(z+" - ");
                 if (Convert.ToInt32(M[i]) == 1)
                     ValPadW[i] =  z - 1;
                 else
                     ValPadW[i] = z;
+                
             }
             Console.WriteLine();
             int l = 0;
+
             Console.WriteLine(valPadH.Length + " " + split);
-            for (int i = split; i < B.Length - 2; i++)
+            for (int i = split; i < B.Length - 1; i++)
             {
                 int z = Convert.ToInt32(B[i]);
-                Console.Write(z+" ");
-                if (Convert.ToInt32(M[i]) == 1)
+                Console.Write(z+" - ");
+                if (Convert.ToInt32(M[i+1]) == 1)
                     valPadH[l] = z - 1;
                 else
                     valPadH[l] = z;
@@ -211,9 +213,10 @@ namespace MyProgram
                 for (int x = image.Width - nPadW; x < image.Width; x++)
                 {
                     valPadW[w] = image.GetPixel(x, y).R;
-                    //valPadW[w+1] = image.GetPixel(x, y).G;
-                    //valPadW[w+2] = image.GetPixel(x, y).B;
-                    w+=1;
+                    valPadW[w+1] = image.GetPixel(x, y).G;
+                    valPadW[w+2] = image.GetPixel(x, y).B;
+                    //w+=1;
+                    w += 3;
                 }
                 if (y >= image.Height - nPadH)
                 {
@@ -221,9 +224,11 @@ namespace MyProgram
                     for (int x = 0; x < image.Width; x++)
                     {
                         valPadH[h] = image.GetPixel(x, y).R;
-                        //valPadH[h+1] = image.GetPixel(x, y).G;
-                        //valPadH[h+2] = image.GetPixel(x, y).B;
-                        h+=1;
+                        valPadH[h+1] = image.GetPixel(x, y).G;
+                        valPadH[h+2] = image.GetPixel(x, y).B;
+                        //h+=1;
+                        h += 3;
+
                     }
                 }
             }
@@ -236,17 +241,21 @@ namespace MyProgram
             {
                 for (int x = image.Width - nPadW; x < image.Width; x++)
                 {
-                    image.SetPixel(x, y, Color.FromArgb(valPadW[w], valPadW[w], valPadW[w]));//valPadW[w], valPadW[w + 1], valPadW[w + 2]));
-                    w+=1;
+                    image.SetPixel(x, y, Color.FromArgb(valPadW[w], valPadW[w + 1], valPadW[w + 2]));
+                    //w+=1;
+                    w += 3;
 
                 }
                 if (y >= image.Height - nPadH)
                 {
-
+                    
                     for (int x = 0; x < image.Width; x++)
                     {
-                        image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h], valPadH[h])); //(valPadH[h], valPadH[h + 1], valPadH[h + 2]));
-                        h+=1;
+                        Console.WriteLine("{0} {1} {2} ", valPadH[h], valPadH[h + 1], valPadH[h + 2]);
+                        image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h + 1], valPadH[h + 2]));
+                        //h+=1;
+                        h += 3;
+
                     }
                 }
             }

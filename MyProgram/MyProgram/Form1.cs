@@ -233,8 +233,7 @@ namespace MyProgram
                 Metadata meta = new Metadata(pbDI.Image.PropertyItems);
 
 
-                //get from metadata
-                
+                //get from metadata                
                 K = Encoding.UTF7.GetString( pbDI.Image.GetPropertyItem(315).Value);
                 K = K.Substring(0, K.Length - 1);
                 Console.WriteLine(K);
@@ -244,6 +243,9 @@ namespace MyProgram
                 Iimage encryptedMarkedImage = new Iimage(EMI);
 
                 /* Add Padding */
+                Console.WriteLine();
+                Console.WriteLine("Add Padding");
+                Console.WriteLine();
                 encryptedMarkedImage.addPadding(pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value);
 
                 /*for (int y = 0; y < test.Height; y++)
@@ -263,6 +265,9 @@ namespace MyProgram
                 sc.PRGA(ref encryptedMarkedImage);
 
                 /*close Padding*/
+                Console.WriteLine();
+                Console.WriteLine("Close Padding");
+                Console.WriteLine();
                 encryptedMarkedImage.closePadding(true);
 
                 /*embed Padding */

@@ -65,8 +65,8 @@ namespace MyProgram
 
             /* Convert from int[] to byte[] */
             int i = 0;
-            Console.WriteLine("len val {0} len byte W {1} "+valPadW.Length + " " + byteW.Length);
-            Console.Write("val byte W : ");
+            Console.WriteLine("len val {0} len byte W {1} ",valPadW.Length ,byteW.Length);
+            Console.WriteLine("val byte W : ");
             foreach (var val in valPadW) 
             {
                 if (val == 0)
@@ -85,7 +85,7 @@ namespace MyProgram
             Console.WriteLine();      
             Console.WriteLine("len val {0} len byte H {1} "+valPadH.Length + " " + byteH.Length);
             i = 0;
-            Console.Write("val byte H : ");
+            Console.WriteLine("val byte H : ");
             foreach (var val in valPadH)
             {
                 if (val == 0)
@@ -110,7 +110,7 @@ namespace MyProgram
             //==============================================================
             byteW.CopyTo(bytePadding, 0);
             byteH.CopyTo(bytePadding, byteW.Length);
-            Console.Write("val byte bytePadding : ");
+            Console.WriteLine("val byte bytePadding : ");
             foreach (var val in bytePadding)
             {
                 Console.Write(val + " - ");
