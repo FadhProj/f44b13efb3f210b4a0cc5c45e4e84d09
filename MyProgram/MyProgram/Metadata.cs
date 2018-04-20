@@ -11,11 +11,53 @@ namespace MyProgram
     class Metadata
     {
         PropertyItem[] PI;
+        /*
+         *  id = 800 for key
+         *  id = 315 for L Map
+         *  id = 305 for Padding
+         *  id = 33432 for map padding
+         */
+
+
 
         public Metadata(PropertyItem[] pi)
         {
             PI = pi ;
         }
+
+        public void view()
+        {
+            foreach (var item in PI)
+            {
+                char c = ' '; string s = " ";
+                Console.WriteLine("Id = " + item.Id.ToString() + " Len =  " + item.Len.ToString() + " Type = " + item.Type.ToString() + " " );
+                for (int I = 0; I < item.Value.Length; I++)
+                {
+                    if (item.Type != 2)
+                    {
+                        s += System.Convert.ToString(item.Value[I], 16).ToUpper() + " ";
+                    }
+                }
+
+                if (item.Type == 2)
+                {
+                    Console.WriteLine("type 2 " + Encoding.UTF8.GetString(item.Value) );
+                    foreach (var mm in item.Value)
+                    {
+                        Console.Write(mm + " - ");
+                    }
+                    Console.WriteLine("tes");
+                }
+                else
+                {
+                    Console.WriteLine(s );
+                }
+                Console.WriteLine();
+
+
+            }
+        }
+        public PropertyItem[] PI1 { get => PI; set => PI = value; }
 
         public void embedKeyStream(string key,ref Bitmap image)
         {
@@ -25,7 +67,21 @@ namespace MyProgram
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
             Console.WriteLine(itemData);
             itemm.Type = 2; //String (ASCII)
-            itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Len = itemData.Length; // Number of items in the byte array
+            itemm.Value = itemData; // The byte array
+            image.SetPropertyItem(itemm); // Assign / add to the bitmap
+        }
+
+        public void embedKeyStream(byte[] key, ref Bitmap image)
+        {
+            PropertyItem itemm = PI[0];
+            //string sTmp = key + " ";
+            var itemData = key;
+            itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
+            Console.WriteLine(itemData);
+            itemm.Type = 2; //String (ASCII)
+            itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
             itemm.Value = itemData; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
@@ -40,10 +96,11 @@ namespace MyProgram
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
             Console.WriteLine(itemData.Length);
             itemm.Type = 2; //String (ASCII)
-            itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
             itemm.Value = itemData; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
+            
             /*Console.WriteLine(itemData);
             foreach (var item in itemData)
             {
@@ -150,6 +207,40 @@ namespace MyProgram
 
         }
 
+        public void embedAll(byte[] key , byte[] padding,byte[] mapPad,byte[] mapL, ref Bitmap image)
+        {
+            PropertyItem itemm = PI[0];
+            itemm.Type = 2; //String (ASCII)
+            itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Len = key.Length; // Number of items in the byte array
+            itemm.Value = key; // The byte array
+            image.SetPropertyItem(itemm); // Assign / add to the bitmap
+
+            itemm = PI[0];
+            itemm.Type = 2; //String (ASCII)
+            //string sTmp = itemD + " ";
+            var itemData = mapL;
+            itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
+            itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Len = itemData.Length; // Number of items in the byte array
+            itemm.Value = itemData; // The byte array
+            image.SetPropertyItem(itemm); // Assign / add to the bitmap
+
+            itemm = PI[0];
+            itemm.Type = 2; //String (ASCII)
+            itemm.Id = 305; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Len = padding.Length; // Number of items in the byte array
+            itemm.Value = padding; // The byte array
+            image.SetPropertyItem(itemm); // Assign / add to the bitmap
+
+            itemm = PI[0];
+            itemm.Type = 2; //String (ASCII)
+            itemm.Id = 33432; // Author(s), 315 is mapped to the "Authors" field
+            itemm.Len = mapPad.Length; // Number of items in the byte array
+            itemm.Value = mapPad; // The byte array
+            image.SetPropertyItem(itemm); // Assign / add to the bitmap
+
+        }
 
     }
 }

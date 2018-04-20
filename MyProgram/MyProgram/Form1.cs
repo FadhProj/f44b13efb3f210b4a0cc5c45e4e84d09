@@ -13,12 +13,12 @@ namespace MyProgram
     {
         DateTime date;
         Save ss;
-
-        Iimage shifftingImage;
+        Metadata met;
+        //Bitmap imageS;
+        //Iimage shifftingImage;
         string L;
         string K;
         List<int> ke1, ke2;
-        Bitmap test;
         public Form1()
         {
             InitializeComponent();
@@ -55,14 +55,19 @@ namespace MyProgram
         //================================================================================================================
         private void btChooseEI_Click(object sender, EventArgs e)
         {
+            string key = null;
+            bool embeded = false;
             /* Create variable OI ( Original Image ) */
             Bitmap OI = null;
 
             tbDate.Text = date.ToString();
 
             /* Get Key from input user */
-            string key = tbKey.Text; 
+            /* or From metadata */
             
+            
+            key = tbKey.Text;
+
             if (key != null)
             {
                 /* Open file dialog and get image from computer */
@@ -79,10 +84,23 @@ namespace MyProgram
                     pbEI.Image = new Bitmap(open.FileName);
                     OI = (Bitmap)pbEI.Image;
 
-                    /* Convert image to Grayscale */
-                    Console.WriteLine("Convert to Grayscale on Process");
-                    OI = ConvertToGrayscale(OI);
-                    ss.saveImage(OI, "1. GrayscaleImage.png");
+                    if (pbEI.Image.GetPropertyItem(800) != null)
+                    {
+                        //get from metadata  
+                        embeded = true;
+                        string K = Encoding.UTF8.GetString(pbEI.Image.GetPropertyItem(800).Value);
+                        K = K.Substring(0, K.Length - 1);
+                        Console.WriteLine(K);
+                        key = K;
+                    }else
+                    {
+                        /* Convert image to Grayscale */
+                        Console.WriteLine("Convert to Grayscale on Process");
+                        OI = ConvertToGrayscale(OI);
+                        ss.saveImage(OI, "1. GrayscaleImage.png");
+                    }
+
+                    
 
                     /* initialitation PropertyItem from Image */
                     Metadata meta = new Metadata(pbEI.Image.PropertyItems); 
@@ -90,7 +108,14 @@ namespace MyProgram
                     
                     /* Encryption Image */
                     Iimage originalImage = new Iimage(OI);
-                    originalImage.addPadding();
+                    if (embeded)
+                    {
+                        byte[] B = pbEI.Image.GetPropertyItem(305).Value;
+                        byte[] M = pbEI.Image.GetPropertyItem(33432).Value;
+                        originalImage.addPadding(B, M);
+                    }
+                    else
+                        originalImage.addPadding();
                     
                     /* 1. Stream Encryption Using RC4 */
                     Console.WriteLine("Stream Encryption on Process");
@@ -108,7 +133,10 @@ namespace MyProgram
                     /* Embending Key to Metadata */
                     Bitmap img = originalImage.Image;
                     meta.embedKeyStream(key, ref img);
-                    meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH,ref img);
+                    if(embeded)
+                        meta.embedAll(pbEI.Image.GetPropertyItem(800).Value, pbEI.Image.GetPropertyItem(305).Value, pbEI.Image.GetPropertyItem(33432).Value, pbEI.Image.GetPropertyItem(315).Value, ref img);
+                    else
+                        meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH,ref img);
                     
                     /* Save Image */
                     ss.saveImage(img, "1.2 EncryptedImage.png");
@@ -134,8 +162,9 @@ namespace MyProgram
         //================================================================================================================
         private void btOpenEMM_Click(object sender, EventArgs e)
         {
+            
             tbDate.Text = date.ToString();
-
+            
             /* Create variable EI ( Encryption Image ) */
             Bitmap EI = null;
 
@@ -149,31 +178,65 @@ namespace MyProgram
             {
                 pbEMM.Image = new Bitmap(open.FileName);
                 EI = (Bitmap)pbEMM.Image;
-                ss.saveImage(EI, "2. EncryptedImageBefEmbed.png");
-                
+
                 /* initialitation PropertyItem from Image */
                 Metadata meta = new Metadata(pbEMM.Image.PropertyItems);
+                //met = new Metadata(pbEMM.Image.PropertyItems);
+                //meta.view();
+
+                ss.saveImage((Bitmap)pbEMM.Image, "2. EncryptedImageBefEmbed.png");
+
+                byte[] B = pbEMM.Image.GetPropertyItem(305).Value;
+                byte[] M = pbEMM.Image.GetPropertyItem(33432).Value;
+
+               
+
 
                 /* Add Padding */
                 Console.WriteLine("Histogram Shiffting on Process");
-                shifftingImage = new Iimage(EI);
-                shifftingImage.addPadding(pbEMM.Image.GetPropertyItem(305).Value,pbEMM.Image.GetPropertyItem(33432).Value);
+                Iimage shifftingImage = new Iimage(EI);
+                shifftingImage.addPadding(B, M);
 
                 /* Shiffting process */
                 Embeding em = new Embeding(ref shifftingImage);
 
                 /* Embending L Map to Metadata */
-                Bitmap image = shifftingImage.Image;
-                meta.embedLMap(em.L1, ref image);
+                Bitmap imageS = shifftingImage.Image;
+                meta.view();
+                Console.WriteLine("=============================================");
+                //meta.embedLMap(em.L1, ref imageS);
+                meta.view();
 
                 /* Save Shiffted Image */
-                pbEMM.Image = shifftingImage.Image;
-                ss.saveImage(image, "2.1 ShifftedImage.png");
+                ss.saveImage(shifftingImage.Image, "21 ShifftedImage.png");
+                //pbEMM.Image = shifftingImage.Image;
 
-                foreach (var item in em.L1)
-                {
-                    Console.Write(item);
-                }
+                /* get Message from User input */
+                string[] allLines = rtbEMM.Text.Split('\n');
+                string msg = rtbEMM.Text;
+                //shifftingImage = new Iimage(shifftingImage.Image);//(Bitmap)pbEMM.Image);
+
+                /* Get Metadata */
+                //Metadata meta = new Metadata(imageS.PropertyItems);
+
+                /* Embeding Message */
+                Console.WriteLine("Embeding message on Process");
+                em.embed(ref shifftingImage, msg);
+
+                /* Close Padding */
+                shifftingImage.closePadding(true);
+
+                /* Embending Padding to Metadata */
+                Bitmap img = shifftingImage.Image;
+                //meta.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH, ref img);
+                byte[] mapL = Encoding.UTF8.GetBytes(em.L1 + " ");
+                meta.embedAll(pbEMM.Image.GetPropertyItem(800).Value,pbEMM.Image.GetPropertyItem(305).Value, pbEMM.Image.GetPropertyItem(33432).Value, mapL, ref img);
+                meta.view();
+
+                /* Save Image */
+                ss.saveImage(img, "3. EmbendedImage.png");
+
+
             }
 
         }
@@ -185,30 +248,30 @@ namespace MyProgram
         //================================================================================================================
         private void btEmbed_Click(object sender, EventArgs e)
         {
-            
-            /* get Message from User input */
+            /*
+            /* get Message from User input 
             string[] allLines = rtbEMM.Text.Split('\n');
             string msg = rtbEMM.Text;
             shifftingImage = new Iimage(shifftingImage.Image);//(Bitmap)pbEMM.Image);
 
-            /* Get Metadata */
-            Metadata meta = new Metadata(pbEMM.Image.PropertyItems);
+            /* Get Metadata 
+            //Metadata meta = new Metadata(imageS.PropertyItems);
 
-            /* Embeding Message */
+            /* Embeding Message 
             Console.WriteLine("Embeding message on Process");
             Embeding em = new Embeding(ref shifftingImage, msg);
 
-            /* Close Padding */
+            /* Close Padding 
             shifftingImage.closePadding(true);
 
-            /* Embending Key to Metadata */
+            /* Embending Key to Metadata 
             Bitmap img = shifftingImage.Image;
-            meta.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH,ref img);
+            met.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH,ref img);
             
 
-            /* Save Image */
+            /* Save Image 
             ss.saveImage(img, "3. EmbendedImage.png");
-
+            */
 
         }
 
@@ -234,7 +297,7 @@ namespace MyProgram
 
 
                 //get from metadata                
-                K = Encoding.UTF7.GetString( pbDI.Image.GetPropertyItem(315).Value);
+                K = Encoding.UTF7.GetString( pbDI.Image.GetPropertyItem(800).Value);
                 K = K.Substring(0, K.Length - 1);
                 Console.WriteLine(K);
 
@@ -269,10 +332,15 @@ namespace MyProgram
                 Console.WriteLine("Close Padding");
                 Console.WriteLine();
                 encryptedMarkedImage.closePadding(true);
+                
+
 
                 /*embed Padding */
                 Bitmap img = encryptedMarkedImage.Image;
-                meta.embedPadding(encryptedMarkedImage.ValPadW, encryptedMarkedImage.ValPadH, ref img);
+                if (pbDI.Image.GetPropertyItem(315) != null)
+                    meta.embedAll(pbDI.Image.GetPropertyItem(800).Value, pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value, pbDI.Image.GetPropertyItem(315).Value, ref img);
+                else
+                    meta.embedPadding(encryptedMarkedImage.ValPadW, encryptedMarkedImage.ValPadH, ref img);
 
                 /* Show */
                 pbDI.Image = img;
@@ -306,7 +374,7 @@ namespace MyProgram
                 markedImage.addPadding(pbEM.Image.GetPropertyItem(305).Value, pbEM.Image.GetPropertyItem(33432).Value);
 
                 //====================================
-                L = Encoding.UTF8.GetString(pbEM.Image.GetPropertyItem(800).Value);
+                L = Encoding.UTF8.GetString(pbEM.Image.GetPropertyItem(315).Value);
                 L = L.Substring(0, L.Length - 1);
                 Extraction ex = new Extraction(ref markedImage, L, ref massage);
                 rtbEM.Text = massage;
@@ -316,6 +384,7 @@ namespace MyProgram
 
                 /* embed Padding */
                 Bitmap img = markedImage.Image;
+                meta.embedKeyStream(pbEM.Image.GetPropertyItem(800).Value, ref img);
                 meta.embedPadding(markedImage.ValPadW, markedImage.ValPadH, ref img);
 
                 ss.saveImage(img, "5. ShifftedImageAfExtraction.png");
@@ -377,38 +446,39 @@ namespace MyProgram
                 pbMeta.Image = new Bitmap(open.FileName);
                 //ext = open.DefaultExt;
                 OI = (Bitmap)pbMeta.Image;
-            }
 
-            rtbMeta.Text = "";
-            PropertyItem[] PI = OI.PropertyItems;
-            foreach (var item in PI)
-            {
-                char c = ' ' ; string s = " ";
-                rtbMeta.AppendText("Id = " + item.Id.ToString() + " Len =  " + item.Len.ToString() + " Type = " + item.Type.ToString() + " " +Environment.NewLine);
-                for (int I = 0; I < item.Value.Length; I++)
+
+                rtbMeta.Text = "";
+                PropertyItem[] PI = OI.PropertyItems;
+                foreach (var item in PI)
                 {
-                    if (item.Type != 2)
+                    char c = ' '; string s = " ";
+                    rtbMeta.AppendText("Id = " + item.Id.ToString() + " Len =  " + item.Len.ToString() + " Type = " + item.Type.ToString() + " " + Environment.NewLine);
+                    for (int I = 0; I < item.Value.Length; I++)
                     {
-                        s += System.Convert.ToString(item.Value[I], 16).ToUpper() + " ";
+                        if (item.Type != 2)
+                        {
+                            s += System.Convert.ToString(item.Value[I], 16).ToUpper() + " ";
+                        }
                     }
-                }
-                
-                if (item.Type == 2)
-                {
-                    rtbMeta.AppendText("type 2 " + Encoding.UTF8.GetString(item.Value) + Environment.NewLine);
-                    foreach (var mm in item.Value)
+
+                    if (item.Type == 2)
                     {
-                        Console.Write(mm+" - ");
+                        rtbMeta.AppendText("type 2 " + Encoding.UTF8.GetString(item.Value) + Environment.NewLine);
+                        foreach (var mm in item.Value)
+                        {
+                            Console.Write(mm + " - ");
+                        }
+                        Console.WriteLine("tes");
                     }
-                    Console.WriteLine("tes");
-                }
-                else
-                {
-                    rtbMeta.AppendText(s + Environment.NewLine);
-                }
-                rtbMeta.AppendText(Environment.NewLine);
+                    else
+                    {
+                        rtbMeta.AppendText(s + Environment.NewLine);
+                    }
+                    rtbMeta.AppendText(Environment.NewLine);
 
 
+                }
             }
             /*PropertyItem pi = OI.PropertyItems[0];
             pi.Id = 0X320;

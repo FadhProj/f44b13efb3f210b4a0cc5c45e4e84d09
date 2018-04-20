@@ -197,8 +197,16 @@ namespace MyProgram
                     valPadH[l] = z - 1;
                 else
                     valPadH[l] = z;
+                l++;
             }
-            Console.WriteLine();
+            /*Console.WriteLine("==========================================");
+            for (int h = 0; h < valPadH.Length-2; h+=3)
+            {
+                Console.WriteLine("{0} {1} {2} ", valPadH[h], valPadH[h + 1], valPadH[h + 2]);
+
+            }
+            Console.WriteLine("==========================================");*/
+
 
             copyToImage();
             
@@ -251,7 +259,7 @@ namespace MyProgram
                     
                     for (int x = 0; x < image.Width; x++)
                     {
-                        Console.WriteLine("{0} {1} {2} ", valPadH[h], valPadH[h + 1], valPadH[h + 2]);
+                        //Console.WriteLine("{0} {1} {2} ", valPadH[h], valPadH[h + 1], valPadH[h + 2]);
                         image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h + 1], valPadH[h + 2]));
                         //h+=1;
                         h += 3;
