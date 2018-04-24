@@ -83,16 +83,17 @@ namespace MyProgram
                 {
                     pbEI.Image = new Bitmap(open.FileName);
                     OI = (Bitmap)pbEI.Image;
-
-                    if (pbEI.Image.GetPropertyItem(800) != null)
+                    //Console.WriteLine(pbEI.Image.GetPropertyItem(800));
+                    try //pbEI.Image.GetPropertyItem(800) 
                     {
                         //get from metadata  
-                        embeded = true;
+                       
                         string K = Encoding.UTF8.GetString(pbEI.Image.GetPropertyItem(800).Value);
+                        embeded = true;
                         K = K.Substring(0, K.Length - 1);
                         Console.WriteLine(K);
                         key = K;
-                    }else
+                    }catch
                     {
                         /* Convert image to Grayscale */
                         Console.WriteLine("Convert to Grayscale on Process");
@@ -183,19 +184,29 @@ namespace MyProgram
                 Metadata meta = new Metadata(pbEMM.Image.PropertyItems);
                 //met = new Metadata(pbEMM.Image.PropertyItems);
                 //meta.view();
-
+                byte[] B, M;
                 ss.saveImage((Bitmap)pbEMM.Image, "2. EncryptedImageBefEmbed.png");
-
-                byte[] B = pbEMM.Image.GetPropertyItem(305).Value;
-                byte[] M = pbEMM.Image.GetPropertyItem(33432).Value;
-
-               
-
-
-                /* Add Padding */
                 Console.WriteLine("Histogram Shiffting on Process");
                 Iimage shifftingImage = new Iimage(EI);
-                shifftingImage.addPadding(B, M);
+
+                try
+                {
+                    B = pbEMM.Image.GetPropertyItem(305).Value;
+                    M = pbEMM.Image.GetPropertyItem(33432).Value;
+
+
+
+
+                    /* Add Padding */
+                    Console.WriteLine("Histogram Shiffting on Process");
+                //    Iimage shifftingImage = new Iimage(EI);
+                    shifftingImage.addPadding(B, M);
+                }catch
+                {
+                    Console.WriteLine("Histogram Shiffting on Process");
+                  //  Iimage shifftingImage = new Iimage(EI);
+                    shifftingImage.addPadding();
+                }
 
                 /* Shiffting process */
                 Embeding em = new Embeding(ref shifftingImage);
@@ -230,7 +241,16 @@ namespace MyProgram
                 Bitmap img = shifftingImage.Image;
                 //meta.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH, ref img);
                 byte[] mapL = Encoding.UTF8.GetBytes(em.L1 + " ");
-                meta.embedAll(pbEMM.Image.GetPropertyItem(800).Value,pbEMM.Image.GetPropertyItem(305).Value, pbEMM.Image.GetPropertyItem(33432).Value, mapL, ref img);
+                try
+                {
+                    meta.embedAll(pbEMM.Image.GetPropertyItem(800).Value, pbEMM.Image.GetPropertyItem(305).Value, pbEMM.Image.GetPropertyItem(33432).Value, mapL, ref img);
+                }catch
+                {
+                    meta.embedLMap(em.L1,ref img);
+                    meta.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH, ref img);
+
+                }
+
                 meta.view();
 
                 /* Save Image */
@@ -337,11 +357,14 @@ namespace MyProgram
 
                 /*embed Padding */
                 Bitmap img = encryptedMarkedImage.Image;
-                if (pbDI.Image.GetPropertyItem(315) != null)
+                try
+                {//(pbDI.Image.GetPropertyItem(315) != null)
                     meta.embedAll(pbDI.Image.GetPropertyItem(800).Value, pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value, pbDI.Image.GetPropertyItem(315).Value, ref img);
-                else
+                }
+                catch
+                {
                     meta.embedPadding(encryptedMarkedImage.ValPadW, encryptedMarkedImage.ValPadH, ref img);
-
+                }
                 /* Show */
                 pbDI.Image = img;
                 ss.saveImage(img, "DecryptedImage.png");
@@ -384,9 +407,15 @@ namespace MyProgram
 
                 /* embed Padding */
                 Bitmap img = markedImage.Image;
-                meta.embedKeyStream(pbEM.Image.GetPropertyItem(800).Value, ref img);
-                meta.embedPadding(markedImage.ValPadW, markedImage.ValPadH, ref img);
+                try
+                {
+                    meta.embedKeyStream(pbEM.Image.GetPropertyItem(800).Value, ref img);
+                    meta.embedPadding(markedImage.ValPadW, markedImage.ValPadH, ref img);
+                }catch
+                {
+                    meta.embedPadding(markedImage.ValPadW, markedImage.ValPadH, ref img);
 
+                }
                 ss.saveImage(img, "5. ShifftedImageAfExtraction.png");
             }
         }
