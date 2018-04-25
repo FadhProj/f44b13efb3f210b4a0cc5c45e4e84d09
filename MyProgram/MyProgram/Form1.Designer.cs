@@ -35,6 +35,10 @@
             this.btChooseEI = new System.Windows.Forms.Button();
             this.pbEI = new System.Windows.Forms.PictureBox();
             this.tpEmbed = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbStart = new System.Windows.Forms.TextBox();
+            this.tbNBlok = new System.Windows.Forms.TextBox();
             this.btEmbed = new System.Windows.Forms.Button();
             this.btOpenEMM = new System.Windows.Forms.Button();
             this.rtbEMM = new System.Windows.Forms.RichTextBox();
@@ -44,7 +48,6 @@
             this.pbDI = new System.Windows.Forms.PictureBox();
             this.tpExtract = new System.Windows.Forms.TabPage();
             this.btExtract = new System.Windows.Forms.Button();
-            this.btDecryp = new System.Windows.Forms.Button();
             this.rtbEM = new System.Windows.Forms.RichTextBox();
             this.pbEM = new System.Windows.Forms.PictureBox();
             this.tpMetadata = new System.Windows.Forms.TabPage();
@@ -52,12 +55,12 @@
             this.rtbMeta = new System.Windows.Forms.RichTextBox();
             this.pbMeta = new System.Windows.Forms.PictureBox();
             this.tbCC = new System.Windows.Forms.TabPage();
+            this.btChoose = new System.Windows.Forms.Button();
             this.rtbCC = new System.Windows.Forms.RichTextBox();
             this.pbCC2 = new System.Windows.Forms.PictureBox();
             this.pbCC1 = new System.Windows.Forms.PictureBox();
             this.tbDate = new System.Windows.Forms.TextBox();
             this.btDate = new System.Windows.Forms.Button();
-            this.btChoose = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpEncrypt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEI)).BeginInit();
@@ -142,6 +145,10 @@
             // tpEmbed
             // 
             this.tpEmbed.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tpEmbed.Controls.Add(this.label2);
+            this.tpEmbed.Controls.Add(this.label1);
+            this.tpEmbed.Controls.Add(this.tbStart);
+            this.tpEmbed.Controls.Add(this.tbNBlok);
             this.tpEmbed.Controls.Add(this.btEmbed);
             this.tpEmbed.Controls.Add(this.btOpenEMM);
             this.tpEmbed.Controls.Add(this.rtbEMM);
@@ -151,6 +158,39 @@
             this.tpEmbed.Size = new System.Drawing.Size(697, 403);
             this.tpEmbed.TabIndex = 3;
             this.tpEmbed.Text = "Embending Message";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(608, 352);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "From";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(521, 353);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Blok";
+            // 
+            // tbStart
+            // 
+            this.tbStart.Location = new System.Drawing.Point(555, 346);
+            this.tbStart.Name = "tbStart";
+            this.tbStart.Size = new System.Drawing.Size(47, 20);
+            this.tbStart.TabIndex = 6;
+            // 
+            // tbNBlok
+            // 
+            this.tbNBlok.Location = new System.Drawing.Point(642, 346);
+            this.tbNBlok.Name = "tbNBlok";
+            this.tbNBlok.ReadOnly = true;
+            this.tbNBlok.Size = new System.Drawing.Size(47, 20);
+            this.tbNBlok.TabIndex = 5;
             // 
             // btEmbed
             // 
@@ -178,7 +218,7 @@
             // 
             this.rtbEMM.Location = new System.Drawing.Point(415, 4);
             this.rtbEMM.Name = "rtbEMM";
-            this.rtbEMM.Size = new System.Drawing.Size(275, 366);
+            this.rtbEMM.Size = new System.Drawing.Size(275, 335);
             this.rtbEMM.TabIndex = 2;
             this.rtbEMM.Text = "";
             // 
@@ -229,7 +269,6 @@
             // 
             this.tpExtract.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tpExtract.Controls.Add(this.btExtract);
-            this.tpExtract.Controls.Add(this.btDecryp);
             this.tpExtract.Controls.Add(this.rtbEM);
             this.tpExtract.Controls.Add(this.pbEM);
             this.tpExtract.Location = new System.Drawing.Point(4, 22);
@@ -248,17 +287,6 @@
             this.btExtract.Text = "Extract";
             this.btExtract.UseVisualStyleBackColor = false;
             this.btExtract.Click += new System.EventHandler(this.btExtract_Click);
-            /*// 
-            // btDecryp
-            // 
-            this.btDecryp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btDecryp.Location = new System.Drawing.Point(333, 377);
-            this.btDecryp.Name = "btDecryp";
-            this.btDecryp.Size = new System.Drawing.Size(75, 23);
-            this.btDecryp.TabIndex = 2;
-            this.btDecryp.Text = "Decrypt";
-            this.btDecryp.UseVisualStyleBackColor = false;
-            this.btDecryp.Click += new System.EventHandler(this.btDecryp_Click);*/
             // 
             // rtbEM
             // 
@@ -333,6 +361,16 @@
             this.tbCC.TabIndex = 5;
             this.tbCC.Text = "Check Correlation";
             // 
+            // btChoose
+            // 
+            this.btChoose.Location = new System.Drawing.Point(607, 244);
+            this.btChoose.Name = "btChoose";
+            this.btChoose.Size = new System.Drawing.Size(87, 51);
+            this.btChoose.TabIndex = 3;
+            this.btChoose.Text = "Choose..";
+            this.btChoose.UseVisualStyleBackColor = true;
+            this.btChoose.Click += new System.EventHandler(this.btChoose_Click);
+            // 
             // rtbCC
             // 
             this.rtbCC.Location = new System.Drawing.Point(4, 244);
@@ -382,16 +420,6 @@
             this.btDate.UseVisualStyleBackColor = true;
             this.btDate.Click += new System.EventHandler(this.btDate_Click);
             // 
-            // btChoose
-            // 
-            this.btChoose.Location = new System.Drawing.Point(607, 244);
-            this.btChoose.Name = "btChoose";
-            this.btChoose.Size = new System.Drawing.Size(87, 51);
-            this.btChoose.TabIndex = 3;
-            this.btChoose.Text = "Choose..";
-            this.btChoose.UseVisualStyleBackColor = true;
-            this.btChoose.Click += new System.EventHandler(this.btChoose_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -407,6 +435,7 @@
             this.tpEncrypt.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEI)).EndInit();
             this.tpEmbed.ResumeLayout(false);
+            this.tpEmbed.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEMM)).EndInit();
             this.tpDecrypt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbDI)).EndInit();
@@ -430,7 +459,6 @@
         private System.Windows.Forms.TabPage tpEmbed;
         private System.Windows.Forms.TabPage tpExtract;
         private System.Windows.Forms.Button btExtract;
-        private System.Windows.Forms.Button btDecryp;
         private System.Windows.Forms.RichTextBox rtbEM;
         private System.Windows.Forms.PictureBox pbEM;
         private System.Windows.Forms.Button btEmbed;
@@ -454,6 +482,10 @@
         private System.Windows.Forms.PictureBox pbCC2;
         private System.Windows.Forms.PictureBox pbCC1;
         private System.Windows.Forms.Button btChoose;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbStart;
+        private System.Windows.Forms.TextBox tbNBlok;
+        private System.Windows.Forms.Label label2;
     }
 }
 

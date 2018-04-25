@@ -13,8 +13,9 @@ namespace MyProgram
     class Embeding
     {
         private string L;
-
+        private int start;
         public string L1 { get => L; }
+        public int Start { get => start; set => start = value; }
 
         public Embeding(ref Iimage img)
         {
@@ -112,7 +113,7 @@ namespace MyProgram
                             }
                             else if (diff == -1)
                             {
-                                if (n < binMsg.Length)
+                                if (n < binMsg.Length && blok >= Start-1)
                                 {
                                     Console.Write(b);
                                     R -= b; G -= b; B -= b;
@@ -122,7 +123,7 @@ namespace MyProgram
                             }
                             else if (diff == 0)
                             {
-                                if (n < binMsg.Length)
+                                if (n < binMsg.Length && blok >= Start - 1)
                                 {
                                     Console.Write(b);
                                     R += b; G += b; B += b;
@@ -140,7 +141,7 @@ namespace MyProgram
                 }
             }
             Console.WriteLine("");
-            Console.WriteLine(binMsg);
+            //Console.WriteLine(binMsg);
 
         }
     }

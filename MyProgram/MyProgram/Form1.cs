@@ -159,7 +159,7 @@ namespace MyProgram
         
 
         //================================================================================================================
-        //  histogram Shiffting proccess
+        //  embeding  proccess
         //================================================================================================================
         private void btOpenEMM_Click(object sender, EventArgs e)
         {
@@ -213,10 +213,10 @@ namespace MyProgram
 
                 /* Embending L Map to Metadata */
                 Bitmap imageS = shifftingImage.Image;
-                meta.view();
+                //meta.view();
                 Console.WriteLine("=============================================");
                 //meta.embedLMap(em.L1, ref imageS);
-                meta.view();
+                //meta.view();
 
                 /* Save Shiffted Image */
                 ss.saveImage(shifftingImage.Image, "21 ShifftedImage.png");
@@ -232,6 +232,11 @@ namespace MyProgram
 
                 /* Embeding Message */
                 Console.WriteLine("Embeding message on Process");
+                tbNBlok.Text = shifftingImage.DefBlok.Length.ToString();
+                if (tbStart.Text == "")
+                    em.Start = 0;
+                else
+                    em.Start = Convert.ToInt16(tbStart.Text);
                 em.embed(ref shifftingImage, msg);
 
                 /* Close Padding */
@@ -251,7 +256,7 @@ namespace MyProgram
 
                 }
 
-                meta.view();
+                //meta.view();
 
                 /* Save Image */
                 ss.saveImage(img, "3. EmbendedImage.png");
@@ -399,7 +404,10 @@ namespace MyProgram
                 //====================================
                 L = Encoding.UTF8.GetString(pbEM.Image.GetPropertyItem(315).Value);
                 L = L.Substring(0, L.Length - 1);
+                Console.WriteLine("");
                 Extraction ex = new Extraction(ref markedImage, L, ref massage);
+                //Console.WriteLine(massage);
+                Console.WriteLine(massage.Trim(new Char[] { '?', '*', '.' }));
                 rtbEM.Text = massage;
 
                 /* Close Padding */
@@ -584,6 +592,9 @@ namespace MyProgram
                 rtbCC.Text = "Sama : " + same + Environment.NewLine + "Beda : " + diff + Environment.NewLine + "0 : " + nol + Environment.NewLine + "1 : " + satu + Environment.NewLine + "-1 : " + min1;
             }
         }
+
+        
+        
 
         private void btDate_Click(object sender, EventArgs e)
         {
