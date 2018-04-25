@@ -65,7 +65,7 @@ namespace MyProgram
             string sTmp = key+" ";
             var itemData = System.Text.Encoding.UTF8.GetBytes(sTmp);
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
-            Console.WriteLine(itemData);
+           // Console.WriteLine(itemData);
             itemm.Type = 2; //String (ASCII)
             itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
@@ -79,7 +79,7 @@ namespace MyProgram
             //string sTmp = key + " ";
             var itemData = key;
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
-            Console.WriteLine(itemData);
+            //Console.WriteLine(itemData);
             itemm.Type = 2; //String (ASCII)
             itemm.Id = 800; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
@@ -94,7 +94,7 @@ namespace MyProgram
             string sTmp = itemD + " ";
             var itemData = System.Text.Encoding.UTF8.GetBytes(sTmp);
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
-            Console.WriteLine(itemData.Length);
+            //Console.WriteLine(itemData.Length);
             itemm.Type = 2; //String (ASCII)
             itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
@@ -122,8 +122,8 @@ namespace MyProgram
 
             /* Convert from int[] to byte[] */
             int i = 0;
-            Console.WriteLine("len val {0} len byte W {1} ",valPadW.Length ,byteW.Length);
-            Console.WriteLine("val byte W : ");
+            //Console.WriteLine("len val {0} len byte W {1} ",valPadW.Length ,byteW.Length);
+           // Console.WriteLine("val byte W : ");
             foreach (var val in valPadW) 
             {
                 if (val == 0)
@@ -136,13 +136,13 @@ namespace MyProgram
                     byteW[i] = Convert.ToByte(val.ToString());
                     mapW[i] = Convert.ToByte(2);
                 }
-                Console.Write(val + " - ");
+               // Console.Write(val + " - ");
                 i++;
             }
-            Console.WriteLine();      
-            Console.WriteLine("len val {0} len byte H {1} "+valPadH.Length + " " + byteH.Length);
+            //Console.WriteLine();      
+            //Console.WriteLine("len val {0} len byte H {1} "+valPadH.Length + " " + byteH.Length);
             i = 0;
-            Console.WriteLine("val byte H : ");
+            //Console.WriteLine("val byte H : ");
             foreach (var val in valPadH)
             {
                 if (val == 0)
@@ -155,10 +155,10 @@ namespace MyProgram
                     byteH[i] = Convert.ToByte(val.ToString());
                     mapH[i] = Convert.ToByte(2);
                 }
-                Console.Write(val + " - ");
+                //Console.Write(val + " - ");
                 i++;
             }
-            Console.WriteLine();
+            //Console.WriteLine();
            
            
 
@@ -167,40 +167,40 @@ namespace MyProgram
             //==============================================================
             byteW.CopyTo(bytePadding, 0);
             byteH.CopyTo(bytePadding, byteW.Length);
-            Console.WriteLine("val byte bytePadding : ");
-            foreach (var val in bytePadding)
-            {
-                Console.Write(val + " - ");
-            }
-            Console.WriteLine();
-
+            //Console.WriteLine("val byte bytePadding : ");
+           // foreach (var val in bytePadding)
+           // {
+           //     Console.Write(val + " - ");
+           // }
+           // Console.WriteLine();
+//
             //===============================================================
             mapW.CopyTo(mapPadding, 0);
             mapPadding[mapW.Length] = 3;
             mapH.CopyTo(mapPadding, mapW.Length + 1);
 
             PropertyItem itemm = PI[0];
-            Console.WriteLine("Encoding : ");
+            //Console.WriteLine("Encoding : ");
             //string sTmp = itemD + " ";
             var itemData = bytePadding;
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
             itemm.Type = 2; //String (ASCII)
             itemm.Id = 305; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
-            Console.WriteLine(itemData.Length + " " + itemm.Len);
+           // Console.WriteLine(itemData.Length + " " + itemm.Len);
             itemm.Value = itemData; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
 
 
             itemm = PI[0];
-            Console.WriteLine("Encoding : ");
+            //Console.WriteLine("Encoding : ");
             //string sTmp = itemD + " ";
              itemData = mapPadding;
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
             itemm.Type = 2; //String (ASCII)
             itemm.Id = 33432; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
-            Console.WriteLine(itemData.Length + " " + itemm.Len);
+            //Console.WriteLine(itemData.Length + " " + itemm.Len);
             itemm.Value = mapPadding; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
 

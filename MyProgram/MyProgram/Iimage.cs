@@ -78,12 +78,12 @@ namespace MyProgram
 
         public void addPadding()
         {
-            Console.WriteLine("{0} {1} ", image.Width, image.Height);
+            //Console.WriteLine("{0} {1} ", image.Width, image.Height);
 
             int x = image.Width, y = image.Height;
             if (image.Width % 3 != 0 && image.Height % 3 != 0)
             {
-                Console.WriteLine("Dua");
+                //Console.WriteLine("Dua");
                 this.nPadH = 3 - (image.Height % 3);
                 this.nPadW = 3 - (image.Width % 3);
                 x = image.Width + nPadW;
@@ -91,13 +91,13 @@ namespace MyProgram
             }
             else if (image.Width % 3 != 0)
             {
-                Console.WriteLine("11");
+                //Console.WriteLine("11");
                 this.nPadW = 3 - (image.Width % 3);
                 x = image.Width + nPadW;
             }
             else if (image.Height % 3 != 0)
             {
-                Console.WriteLine("12");
+               // Console.WriteLine("12");
                 this.nPadH = 3 - (image.Height % 3);
                 y = image.Height + nPadH;
             }
@@ -124,12 +124,12 @@ namespace MyProgram
 
         public void addPadding(byte[] B,byte[] M)
         {
-            Console.WriteLine("{0} {1} ", image.Width, image.Height);
+           // Console.WriteLine("{0} {1} ", image.Width, image.Height);
 
             int x = image.Width, y = image.Height;
             if (image.Width % 3 != 0 && image.Height % 3 != 0)
             {
-                Console.WriteLine("Dua");
+                //Console.WriteLine("Dua");
                 this.nPadH = 3 - (image.Height % 3);
                 this.nPadW = 3 - (image.Width % 3);
                 x = image.Width + nPadW;
@@ -137,13 +137,13 @@ namespace MyProgram
             }
             else if (image.Width % 3 != 0)
             {
-                Console.WriteLine("11");
+               // Console.WriteLine("11");
                 this.nPadW = 3 - (image.Width % 3);
                 x = image.Width + nPadW;
             }
             else if (image.Height % 3 != 0)
             {
-                Console.WriteLine("12");
+                //Console.WriteLine("12");
                 this.nPadH = 3 - (image.Height % 3);
                 y = image.Height + nPadH;
             }
@@ -178,7 +178,7 @@ namespace MyProgram
             for (int i = 0; i < split; i++)
             {
                 int z = Convert.ToInt32(B[i]);
-                Console.Write(z+" - ");
+                //Console.Write(z+" - ");
                 if (Convert.ToInt32(M[i]) == 1)
                     ValPadW[i] =  z - 1;
                 else
@@ -188,11 +188,11 @@ namespace MyProgram
             Console.WriteLine();
             int l = 0;
 
-            Console.WriteLine(valPadH.Length + " " + split);
+           // Console.WriteLine(valPadH.Length + " " + split);
             for (int i = split; i < B.Length - 1; i++)
             {
                 int z = Convert.ToInt32(B[i]);
-                Console.Write(z+" - ");
+                //Console.Write(z+" - ");
                 if (Convert.ToInt32(M[i+1]) == 1)
                     valPadH[l] = z - 1;
                 else
