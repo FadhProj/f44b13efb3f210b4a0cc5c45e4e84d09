@@ -89,8 +89,8 @@ namespace MyProgram
                         R = img.Image.GetPixel(valM + j, valN + i).R;
                         G = img.Image.GetPixel(valM + j, valN + i).G;
                         B = img.Image.GetPixel(valM + j, valN + i).B;
-                        Cbi = (R + G + B) / 3;
-                        Cb1 = (img.Image.GetPixel(valM, valN).R + img.Image.GetPixel(valM, valN).G + img.Image.GetPixel(valM, valN).B) / 3;
+                        Cbi = R;// (R + G + B) / 3;
+                        Cb1 = img.Image.GetPixel(valM, valN).R;// (img.Image.GetPixel(valM, valN).R + img.Image.GetPixel(valM, valN).G + img.Image.GetPixel(valM, valN).B) / 3;
                         diff = Cbi - Cb1;
 
                         if (!(i == 0 && j == 0))
@@ -114,8 +114,8 @@ namespace MyProgram
                     }
                 }
             }
-            
-
+            Console.WriteLine(binMsg);
+            binMsg = binMsg.Substring(binMsg.IndexOf("11111111") + 8);
             Console.WriteLine(binMsg);
             msg = BinaryToString(binMsg);
             Console.WriteLine(msg);

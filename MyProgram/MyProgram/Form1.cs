@@ -91,7 +91,7 @@ namespace MyProgram
                         string K = Encoding.UTF8.GetString(pbEI.Image.GetPropertyItem(800).Value);
                         embeded = true;
                         K = K.Substring(0, K.Length - 1);
-                        Console.WriteLine(K);
+                        //Console.WriteLine(K);
                         key = K;
                     }catch
                     {
@@ -143,6 +143,7 @@ namespace MyProgram
                     ss.saveImage(img, "1.2 EncryptedImage.png");
 
                     /* show */
+                    pbEI.Image = originalImage.Image;
 
                 }
 
@@ -232,12 +233,13 @@ namespace MyProgram
 
                 /* Embeding Message */
                 Console.WriteLine("Embeding message on Process");
-                tbNBlok.Text = shifftingImage.DefBlok.Length.ToString();
+                //tbMax.Text = shifftingImage.DefBlok.Length.ToString();
                 if (tbStart.Text == "")
                     em.Start = 0;
                 else
                     em.Start = Convert.ToInt16(tbStart.Text);
                 em.embed(ref shifftingImage, msg);
+                tbMax.Text = em.Max.ToString();
 
                 /* Close Padding */
                 shifftingImage.closePadding(true);
@@ -324,7 +326,7 @@ namespace MyProgram
                 //get from metadata                
                 K = Encoding.UTF7.GetString( pbDI.Image.GetPropertyItem(800).Value);
                 K = K.Substring(0, K.Length - 1);
-                Console.WriteLine(K);
+                //Console.WriteLine(K);
 
 
                 ss.saveImage(EMI, "4. ImageBefDecrypted.png");
@@ -336,17 +338,7 @@ namespace MyProgram
                 Console.WriteLine();
                 encryptedMarkedImage.addPadding(pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value);
 
-                /*for (int y = 0; y < test.Height; y++)
-                {
-                    for (int x = 0; x < test.Width; x++)
-                    {
-                        if (test.GetPixel(x, y) != encryptedMarkedImage.Image.GetPixel(x, y))
-                        {
-                            Console.WriteLine("tes {0} {1}", test.GetPixel(x, y), encryptedMarkedImage.Image.GetPixel(x, y));
-                        }
-                    }
-                }*/
-
+               
                 Permutation pr = new Permutation(ref encryptedMarkedImage, true);
                 
                 StreamChipper sc = new StreamChipper(K);
@@ -363,7 +355,7 @@ namespace MyProgram
                 /*embed Padding */
                 Bitmap img = encryptedMarkedImage.Image;
                 try
-                {//(pbDI.Image.GetPropertyItem(315) != null)
+                {
                     meta.embedAll(pbDI.Image.GetPropertyItem(800).Value, pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value, pbDI.Image.GetPropertyItem(315).Value, ref img);
                 }
                 catch
@@ -404,7 +396,7 @@ namespace MyProgram
                 //====================================
                 L = Encoding.UTF8.GetString(pbEM.Image.GetPropertyItem(315).Value);
                 L = L.Substring(0, L.Length - 1);
-                Console.WriteLine("");
+                //Console.WriteLine("");
                 Extraction ex = new Extraction(ref markedImage, L, ref massage);
                 //Console.WriteLine(massage);
                 Console.WriteLine(massage.Trim(new Char[] { '?', '*', '.' }));
@@ -427,43 +419,7 @@ namespace MyProgram
                 ss.saveImage(img, "5. ShifftedImageAfExtraction.png");
             }
         }
-        //================================================================================================================
-        //  Shift back
-        //================================================================================================================
-        /*private void btDecryp_Click(object sender, EventArgs e)
-        {
-            Bitmap SI = null;
-
-            OpenFileDialog open = new OpenFileDialog
-            {
-                Filter = " Image Files(*.jpg;*.bmp;*.jpeg;*.png)|*.jpg;*.bmp;*.jpeg;*.png"
-            };
-            tbDate.Text = date.ToString();
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                pbEM.Image = new Bitmap(open.FileName);
-                SI = (Bitmap)pbEM.Image;
-
-                //get from metadata
-                L = Encoding.UTF7.GetString(pbEM.Image.GetPropertyItem(800).Value);
-                L = K.Substring(0, L.Length - 1);
-                Console.WriteLine(L);
-
-                /*ss.saveImage(EXI, "ImageBefDecrypted.png");
-                Iimage extractionImage = new Iimage(EXI);
-
-                ss.saveImage(EXI, "ExtractionImage.png");
-
-                Permutation pr = new Permutation(ref extractionImage, true);
-                StreamChipper sc = new StreamChipper(K);
-                sc.PRGA(ref extractionImage);
-                ke2 = sc.Ke;
-
-
-                
-                ss.saveImage(extractionImage.Image, "RecoverImage.png");
-            }
-        }*/
+        
 
         //================================================================================================================
         //  Read MetaData
@@ -506,7 +462,6 @@ namespace MyProgram
                         {
                             Console.Write(mm + " - ");
                         }
-                        Console.WriteLine("tes");
                     }
                     else
                     {
@@ -517,22 +472,7 @@ namespace MyProgram
 
                 }
             }
-            /*PropertyItem pi = OI.PropertyItems[0];
-            pi.Id = 0X320;
-            pi.Type = 2;
-            pi.Len = 10;
-            pi.Value = new byte[pi.Len];
-            OI.SetPropertyItem(pi);
-            pi = OI.PropertyItems[0];
-            pi.Id = 0X321;
-            pi.Type = 2;
-            pi.Len = 10;
-            pi.Value = new byte[pi.Len];
-            OI.SetPropertyItem(pi);
-            OI.Save("D:\\test.jpg");
-            Console.WriteLine(pi.Id);
-            Console.WriteLine(pi.Len);
-            Console.WriteLine(pi.Type);*/
+           
 
         }
 
@@ -571,9 +511,7 @@ namespace MyProgram
                         
                         valImage1 = ((image1.GetPixel(x - 1, y - 1).R + image1.GetPixel(x - 1, y - 1).B + image1.GetPixel(x - 1, y - 1).B) / 3) - ((image1.GetPixel(x, y).R + image1.GetPixel(x, y).B + image1.GetPixel(x, y).B) / 3);
                         valImage2 = ((image2.GetPixel(x - 1, y - 1).R + image2.GetPixel(x - 1, y - 1).B + image2.GetPixel(x - 1, y - 1).B) / 3) - ((image2.GetPixel(x, y).R + image2.GetPixel(x, y).B + image2.GetPixel(x, y).B) / 3);
-                        //Console.WriteLine("{0} {1} ", image1.GetPixel(x - 1, y - 1), image1.GetPixel(x, y));
-                        //Console.WriteLine("{0} {1} ", image2.GetPixel(x - 1, y - 1), image2.GetPixel(x, y));
-                        //Console.WriteLine("=================================================================");
+                       
                         if (valImage1 == valImage2)
                         {
                             if (valImage1 == 0)
@@ -587,7 +525,6 @@ namespace MyProgram
                         else
                             diff += 1;
                     }
-                    //Console.WriteLine("");
                 }
                 rtbCC.Text = "Sama : " + same + Environment.NewLine + "Beda : " + diff + Environment.NewLine + "0 : " + nol + Environment.NewLine + "1 : " + satu + Environment.NewLine + "-1 : " + min1;
             }
