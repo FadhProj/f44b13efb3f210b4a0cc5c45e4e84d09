@@ -13,24 +13,17 @@ namespace MyProgram
     class Embeding
     {
         private string L;
-        private int start;
+        private int start,max;
         public string L1 { get => L; }
-        public int Start { get => start; set => start = value; }
+        public int Start { get => Start1; set => Start1 = value; }
+        public int Start1 { get => start; set => start = value; }
+        public int Max { get => max; set => max = value; }
 
         public Embeding(ref Iimage img)
         {
             L = "";
             histShiffting(ref img);
-            /*for (int y = 0; y < img.Image.Height; y++)
-            {
-                for (int x = 0; x < img.Image.Width; x++)
-                {
-                    if (img.Image.GetPixel(x, y).R == 255 || img.Image.GetPixel(x, y).G == 255 || img.Image.GetPixel(x, y).B == 255)
-                    {
-                        Console.WriteLine("after {0} ", img.Image.GetPixel(x, y));
-                    }
-                }
-            }*/
+            
         }
 
         public Embeding(ref Iimage img, string msg)
@@ -84,9 +77,11 @@ namespace MyProgram
 
         public void embed(ref Iimage img, string msg)
         {
+            Max = 0;
             int b = 0, diff, R, G, B, n = 0;
             int valM, valN, Cbi, Cb1;
             string binMsg = tobin(msg);
+            binMsg = "11111111" + binMsg;
             for (int blok = 0; blok < img.Blok; blok++)
             {
                 for (int i = 0; i < 3; i++)
@@ -98,8 +93,8 @@ namespace MyProgram
                         R = img.Image.GetPixel(valM + j, valN + i).R;
                         G = img.Image.GetPixel(valM + j, valN + i).G;
                         B = img.Image.GetPixel(valM + j, valN + i).B;
-                        Cbi = (R + G + B) / 3;
-                        Cb1 = (img.Image.GetPixel(valM, valN).R + img.Image.GetPixel(valM, valN).G + img.Image.GetPixel(valM, valN).B) / 3;
+                        Cbi = R;// (R + G + B) / 3;
+                        Cb1 = img.Image.GetPixel(valM, valN).R;// (img.Image.GetPixel(valM, valN).R + img.Image.GetPixel(valM, valN).G + img.Image.GetPixel(valM, valN).B) / 3;
                         diff = Cbi - Cb1;
 
                         if (n != binMsg.Length)
@@ -120,6 +115,7 @@ namespace MyProgram
                                     img.Image.SetPixel(valM + j, valN + i, Color.FromArgb(R, G, B));
                                     n++;
                                 }
+                                Max++;
                             }
                             else if (diff == 0)
                             {
@@ -130,6 +126,7 @@ namespace MyProgram
                                     img.Image.SetPixel(valM + j, valN + i, Color.FromArgb(R, G, B));
                                     n++;
                                 }
+                                Max++;
                             }
                             else if (diff > 0)
                             {

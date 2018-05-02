@@ -38,7 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbStart = new System.Windows.Forms.TextBox();
-            this.tbNBlok = new System.Windows.Forms.TextBox();
+            this.tbMax = new System.Windows.Forms.TextBox();
             this.btEmbed = new System.Windows.Forms.Button();
             this.btOpenEMM = new System.Windows.Forms.Button();
             this.rtbEMM = new System.Windows.Forms.RichTextBox();
@@ -59,6 +59,14 @@
             this.rtbCC = new System.Windows.Forms.RichTextBox();
             this.pbCC2 = new System.Windows.Forms.PictureBox();
             this.pbCC1 = new System.Windows.Forms.PictureBox();
+            this.tbDesc = new System.Windows.Forms.TabPage();
+            this.tbH = new System.Windows.Forms.TextBox();
+            this.tbW = new System.Windows.Forms.TextBox();
+            this.lbH = new System.Windows.Forms.Label();
+            this.lbW = new System.Windows.Forms.Label();
+            this.tbFN = new System.Windows.Forms.TextBox();
+            this.lbFN = new System.Windows.Forms.Label();
+            this.pbDes = new System.Windows.Forms.PictureBox();
             this.tbDate = new System.Windows.Forms.TextBox();
             this.btDate = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -75,6 +83,8 @@
             this.tbCC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCC2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCC1)).BeginInit();
+            this.tbDesc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDes)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -85,6 +95,7 @@
             this.tabControl1.Controls.Add(this.tpExtract);
             this.tabControl1.Controls.Add(this.tpMetadata);
             this.tabControl1.Controls.Add(this.tbCC);
+            this.tabControl1.Controls.Add(this.tbDesc);
             this.tabControl1.Location = new System.Drawing.Point(3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -148,7 +159,7 @@
             this.tpEmbed.Controls.Add(this.label2);
             this.tpEmbed.Controls.Add(this.label1);
             this.tpEmbed.Controls.Add(this.tbStart);
-            this.tpEmbed.Controls.Add(this.tbNBlok);
+            this.tpEmbed.Controls.Add(this.tbMax);
             this.tpEmbed.Controls.Add(this.btEmbed);
             this.tpEmbed.Controls.Add(this.btOpenEMM);
             this.tpEmbed.Controls.Add(this.rtbEMM);
@@ -162,16 +173,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(608, 352);
+            this.label2.Location = new System.Drawing.Point(565, 352);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "From";
+            this.label2.Text = "Max";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(521, 353);
+            this.label1.Location = new System.Drawing.Point(421, 353);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(28, 13);
             this.label1.TabIndex = 7;
@@ -179,18 +190,18 @@
             // 
             // tbStart
             // 
-            this.tbStart.Location = new System.Drawing.Point(555, 346);
+            this.tbStart.Location = new System.Drawing.Point(455, 346);
             this.tbStart.Name = "tbStart";
             this.tbStart.Size = new System.Drawing.Size(47, 20);
             this.tbStart.TabIndex = 6;
             // 
-            // tbNBlok
+            // tbMax
             // 
-            this.tbNBlok.Location = new System.Drawing.Point(642, 346);
-            this.tbNBlok.Name = "tbNBlok";
-            this.tbNBlok.ReadOnly = true;
-            this.tbNBlok.Size = new System.Drawing.Size(47, 20);
-            this.tbNBlok.TabIndex = 5;
+            this.tbMax.Location = new System.Drawing.Point(598, 346);
+            this.tbMax.Name = "tbMax";
+            this.tbMax.ReadOnly = true;
+            this.tbMax.Size = new System.Drawing.Size(91, 20);
+            this.tbMax.TabIndex = 5;
             // 
             // btEmbed
             // 
@@ -402,6 +413,86 @@
             this.pbCC1.TabIndex = 0;
             this.pbCC1.TabStop = false;
             // 
+            // tbDesc
+            // 
+            this.tbDesc.BackColor = System.Drawing.Color.Gainsboro;
+            this.tbDesc.Controls.Add(this.tbH);
+            this.tbDesc.Controls.Add(this.tbW);
+            this.tbDesc.Controls.Add(this.lbH);
+            this.tbDesc.Controls.Add(this.lbW);
+            this.tbDesc.Controls.Add(this.tbFN);
+            this.tbDesc.Controls.Add(this.lbFN);
+            this.tbDesc.Controls.Add(this.pbDes);
+            this.tbDesc.Location = new System.Drawing.Point(4, 22);
+            this.tbDesc.Name = "tbDesc";
+            this.tbDesc.Size = new System.Drawing.Size(697, 403);
+            this.tbDesc.TabIndex = 6;
+            this.tbDesc.Text = "Description ";
+            // 
+            // tbH
+            // 
+            this.tbH.Location = new System.Drawing.Point(485, 33);
+            this.tbH.Name = "tbH";
+            this.tbH.ReadOnly = true;
+            this.tbH.Size = new System.Drawing.Size(100, 20);
+            this.tbH.TabIndex = 6;
+            // 
+            // tbW
+            // 
+            this.tbW.Location = new System.Drawing.Point(322, 33);
+            this.tbW.Name = "tbW";
+            this.tbW.ReadOnly = true;
+            this.tbW.Size = new System.Drawing.Size(100, 20);
+            this.tbW.TabIndex = 5;
+            // 
+            // lbH
+            // 
+            this.lbH.AutoSize = true;
+            this.lbH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbH.Location = new System.Drawing.Point(485, 14);
+            this.lbH.Name = "lbH";
+            this.lbH.Size = new System.Drawing.Size(40, 15);
+            this.lbH.TabIndex = 4;
+            this.lbH.Text = "Height";
+            // 
+            // lbW
+            // 
+            this.lbW.AutoSize = true;
+            this.lbW.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbW.Location = new System.Drawing.Point(322, 14);
+            this.lbW.Name = "lbW";
+            this.lbW.Size = new System.Drawing.Size(37, 15);
+            this.lbW.TabIndex = 3;
+            this.lbW.Text = "Width";
+            // 
+            // tbFN
+            // 
+            this.tbFN.Location = new System.Drawing.Point(6, 352);
+            this.tbFN.Name = "tbFN";
+            this.tbFN.ReadOnly = true;
+            this.tbFN.Size = new System.Drawing.Size(289, 20);
+            this.tbFN.TabIndex = 2;
+            // 
+            // lbFN
+            // 
+            this.lbFN.AutoSize = true;
+            this.lbFN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbFN.Location = new System.Drawing.Point(6, 334);
+            this.lbFN.Name = "lbFN";
+            this.lbFN.Size = new System.Drawing.Size(54, 15);
+            this.lbFN.TabIndex = 1;
+            this.lbFN.Text = "File name";
+            // 
+            // pbDes
+            // 
+            this.pbDes.BackColor = System.Drawing.Color.Gainsboro;
+            this.pbDes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbDes.Location = new System.Drawing.Point(5, 3);
+            this.pbDes.Name = "pbDes";
+            this.pbDes.Size = new System.Drawing.Size(290, 327);
+            this.pbDes.TabIndex = 0;
+            this.pbDes.TabStop = false;
+            // 
             // tbDate
             // 
             this.tbDate.Location = new System.Drawing.Point(535, 433);
@@ -446,6 +537,9 @@
             this.tbCC.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbCC2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCC1)).EndInit();
+            this.tbDesc.ResumeLayout(false);
+            this.tbDesc.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -484,8 +578,16 @@
         private System.Windows.Forms.Button btChoose;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbStart;
-        private System.Windows.Forms.TextBox tbNBlok;
+        private System.Windows.Forms.TextBox tbMax;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabPage tbDesc;
+        private System.Windows.Forms.TextBox tbH;
+        private System.Windows.Forms.TextBox tbW;
+        private System.Windows.Forms.Label lbH;
+        private System.Windows.Forms.Label lbW;
+        private System.Windows.Forms.TextBox tbFN;
+        private System.Windows.Forms.Label lbFN;
+        private System.Windows.Forms.PictureBox pbDes;
     }
 }
 
