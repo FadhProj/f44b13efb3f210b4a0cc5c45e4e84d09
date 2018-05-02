@@ -60,15 +60,15 @@
             this.pbCC2 = new System.Windows.Forms.PictureBox();
             this.pbCC1 = new System.Windows.Forms.PictureBox();
             this.tbDesc = new System.Windows.Forms.TabPage();
+            this.tbH = new System.Windows.Forms.TextBox();
+            this.tbW = new System.Windows.Forms.TextBox();
+            this.lbH = new System.Windows.Forms.Label();
+            this.lbW = new System.Windows.Forms.Label();
+            this.tbFN = new System.Windows.Forms.TextBox();
+            this.lbFN = new System.Windows.Forms.Label();
+            this.pbDes = new System.Windows.Forms.PictureBox();
             this.tbDate = new System.Windows.Forms.TextBox();
             this.btDate = new System.Windows.Forms.Button();
-            this.pbDes = new System.Windows.Forms.PictureBox();
-            this.lbFN = new System.Windows.Forms.Label();
-            this.tbFN = new System.Windows.Forms.TextBox();
-            this.lbW = new System.Windows.Forms.Label();
-            this.lbH = new System.Windows.Forms.Label();
-            this.tbW = new System.Windows.Forms.TextBox();
-            this.tbH = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tpEncrypt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEI)).BeginInit();
@@ -173,7 +173,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(608, 352);
+            this.label2.Location = new System.Drawing.Point(565, 352);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 8;
@@ -182,7 +182,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(521, 353);
+            this.label1.Location = new System.Drawing.Point(421, 353);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(28, 13);
             this.label1.TabIndex = 7;
@@ -190,17 +190,17 @@
             // 
             // tbStart
             // 
-            this.tbStart.Location = new System.Drawing.Point(555, 346);
+            this.tbStart.Location = new System.Drawing.Point(455, 346);
             this.tbStart.Name = "tbStart";
             this.tbStart.Size = new System.Drawing.Size(47, 20);
             this.tbStart.TabIndex = 6;
             // 
             // tbMax
             // 
-            this.tbMax.Location = new System.Drawing.Point(642, 346);
+            this.tbMax.Location = new System.Drawing.Point(598, 346);
             this.tbMax.Name = "tbMax";
             this.tbMax.ReadOnly = true;
-            this.tbMax.Size = new System.Drawing.Size(47, 20);
+            this.tbMax.Size = new System.Drawing.Size(91, 20);
             this.tbMax.TabIndex = 5;
             // 
             // btEmbed
@@ -429,6 +429,70 @@
             this.tbDesc.TabIndex = 6;
             this.tbDesc.Text = "Description ";
             // 
+            // tbH
+            // 
+            this.tbH.Location = new System.Drawing.Point(485, 33);
+            this.tbH.Name = "tbH";
+            this.tbH.ReadOnly = true;
+            this.tbH.Size = new System.Drawing.Size(100, 20);
+            this.tbH.TabIndex = 6;
+            // 
+            // tbW
+            // 
+            this.tbW.Location = new System.Drawing.Point(322, 33);
+            this.tbW.Name = "tbW";
+            this.tbW.ReadOnly = true;
+            this.tbW.Size = new System.Drawing.Size(100, 20);
+            this.tbW.TabIndex = 5;
+            // 
+            // lbH
+            // 
+            this.lbH.AutoSize = true;
+            this.lbH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbH.Location = new System.Drawing.Point(485, 14);
+            this.lbH.Name = "lbH";
+            this.lbH.Size = new System.Drawing.Size(40, 15);
+            this.lbH.TabIndex = 4;
+            this.lbH.Text = "Height";
+            // 
+            // lbW
+            // 
+            this.lbW.AutoSize = true;
+            this.lbW.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbW.Location = new System.Drawing.Point(322, 14);
+            this.lbW.Name = "lbW";
+            this.lbW.Size = new System.Drawing.Size(37, 15);
+            this.lbW.TabIndex = 3;
+            this.lbW.Text = "Width";
+            // 
+            // tbFN
+            // 
+            this.tbFN.Location = new System.Drawing.Point(6, 352);
+            this.tbFN.Name = "tbFN";
+            this.tbFN.ReadOnly = true;
+            this.tbFN.Size = new System.Drawing.Size(289, 20);
+            this.tbFN.TabIndex = 2;
+            // 
+            // lbFN
+            // 
+            this.lbFN.AutoSize = true;
+            this.lbFN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbFN.Location = new System.Drawing.Point(6, 334);
+            this.lbFN.Name = "lbFN";
+            this.lbFN.Size = new System.Drawing.Size(54, 15);
+            this.lbFN.TabIndex = 1;
+            this.lbFN.Text = "File name";
+            // 
+            // pbDes
+            // 
+            this.pbDes.BackColor = System.Drawing.Color.Gainsboro;
+            this.pbDes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbDes.Location = new System.Drawing.Point(5, 3);
+            this.pbDes.Name = "pbDes";
+            this.pbDes.Size = new System.Drawing.Size(290, 327);
+            this.pbDes.TabIndex = 0;
+            this.pbDes.TabStop = false;
+            // 
             // tbDate
             // 
             this.tbDate.Location = new System.Drawing.Point(535, 433);
@@ -446,70 +510,6 @@
             this.btDate.Text = "Format";
             this.btDate.UseVisualStyleBackColor = true;
             this.btDate.Click += new System.EventHandler(this.btDate_Click);
-            // 
-            // pbDes
-            // 
-            this.pbDes.BackColor = System.Drawing.Color.Gainsboro;
-            this.pbDes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbDes.Location = new System.Drawing.Point(5, 3);
-            this.pbDes.Name = "pbDes";
-            this.pbDes.Size = new System.Drawing.Size(290, 327);
-            this.pbDes.TabIndex = 0;
-            this.pbDes.TabStop = false;
-            // 
-            // lbFN
-            // 
-            this.lbFN.AutoSize = true;
-            this.lbFN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbFN.Location = new System.Drawing.Point(6, 334);
-            this.lbFN.Name = "lbFN";
-            this.lbFN.Size = new System.Drawing.Size(54, 15);
-            this.lbFN.TabIndex = 1;
-            this.lbFN.Text = "File name";
-            // 
-            // tbFN
-            // 
-            this.tbFN.Location = new System.Drawing.Point(6, 352);
-            this.tbFN.Name = "tbFN";
-            this.tbFN.ReadOnly = true;
-            this.tbFN.Size = new System.Drawing.Size(289, 20);
-            this.tbFN.TabIndex = 2;
-            // 
-            // lbW
-            // 
-            this.lbW.AutoSize = true;
-            this.lbW.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbW.Location = new System.Drawing.Point(322, 14);
-            this.lbW.Name = "lbW";
-            this.lbW.Size = new System.Drawing.Size(37, 15);
-            this.lbW.TabIndex = 3;
-            this.lbW.Text = "Width";
-            // 
-            // lbH
-            // 
-            this.lbH.AutoSize = true;
-            this.lbH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbH.Location = new System.Drawing.Point(485, 14);
-            this.lbH.Name = "lbH";
-            this.lbH.Size = new System.Drawing.Size(40, 15);
-            this.lbH.TabIndex = 4;
-            this.lbH.Text = "Height";
-            // 
-            // tbW
-            // 
-            this.tbW.Location = new System.Drawing.Point(322, 33);
-            this.tbW.Name = "tbW";
-            this.tbW.ReadOnly = true;
-            this.tbW.Size = new System.Drawing.Size(100, 20);
-            this.tbW.TabIndex = 5;
-            // 
-            // tbH
-            // 
-            this.tbH.Location = new System.Drawing.Point(485, 33);
-            this.tbH.Name = "tbH";
-            this.tbH.ReadOnly = true;
-            this.tbH.Size = new System.Drawing.Size(100, 20);
-            this.tbH.TabIndex = 6;
             // 
             // Form1
             // 

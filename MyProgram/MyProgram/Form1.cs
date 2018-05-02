@@ -398,7 +398,7 @@ namespace MyProgram
                 L = L.Substring(0, L.Length - 1);
                 //Console.WriteLine("");
                 Extraction ex = new Extraction(ref markedImage, L, ref massage);
-                //Console.WriteLine(massage);
+                Console.WriteLine(massage);
                 Console.WriteLine(massage.Trim(new Char[] { '?', '*', '.' }));
                 rtbEM.Text = massage;
 
@@ -537,8 +537,25 @@ namespace MyProgram
         {
             date = DateTime.Now;
             ss = new Save(date);
+
+            pbDI.Image = null;
+            pbEI.Image = null;
+            pbEM.Image = null;
+            pbEMM.Image = null;
+            pbMeta.Image = null;
+            rtbCC.Text = "";
+            rtbEM.Text = "";
+            rtbEMM.Text = "";
+            rtbMeta.Text = "";
+
+            tbKey.Text = "";
+            tbMax.Text = "";
+            tbStart.Text = "";
+
+
+
         }
 
-        
+
     }
 }
