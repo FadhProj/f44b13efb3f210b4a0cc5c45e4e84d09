@@ -82,7 +82,7 @@ namespace MyProgram
             int valM, valN, Cbi, Cb1;
             string binMsg = tobin(msg);
             binMsg = "11111111" + binMsg;
-            for (int blok = 0; blok < img.Blok; blok++)
+            for (int blok = Start; blok < img.Blok; blok++)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -103,12 +103,13 @@ namespace MyProgram
                         {
                             if (diff < -1)
                             {
+                                Console.Write(" ");
                                 R -= 1; G -= 1; B -= 1;
                                 img.Image.SetPixel(valM + j, valN + i, Color.FromArgb(R, G, B));
                             }
                             else if (diff == -1)
                             {
-                                if (n < binMsg.Length && blok >= Start-1)
+                                if (n < binMsg.Length && blok >= Start)
                                 {
                                     Console.Write(b);
                                     R -= b; G -= b; B -= b;
@@ -119,7 +120,7 @@ namespace MyProgram
                             }
                             else if (diff == 0)
                             {
-                                if (n < binMsg.Length && blok >= Start - 1)
+                                if (n < binMsg.Length && blok >= Start)
                                 {
                                     Console.Write(b);
                                     R += b; G += b; B += b;
@@ -130,12 +131,14 @@ namespace MyProgram
                             }
                             else if (diff > 0)
                             {
+                                Console.Write("_");
                                 R += 1; G += 1; B += 1;
                                 img.Image.SetPixel(valM + j, valN + i, Color.FromArgb(R, G, B));
                             }
                         }
                     }
                 }
+                Console.Write(" - ");
             }
             Console.WriteLine("");
             //Console.WriteLine(binMsg);

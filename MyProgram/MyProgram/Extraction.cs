@@ -95,10 +95,19 @@ namespace MyProgram
 
                         if (!(i == 0 && j == 0))
                         {
-                            if ((diff == 0) || (diff == -1))
+                            if (diff == 0 || diff == -1)
+                            {
+                                Console.Write("0");
                                 binMsg += "0";
-                            else if ((diff == 1) || (diff == -2))
+                            }
+                            else if (diff == 1 || diff == -2)
+                            {
+                                Console.Write("1");
                                 binMsg += "1";
+                            }
+                            else
+                                Console.Write("_");
+
 
                             if (diff > 0)
                             {
@@ -113,7 +122,9 @@ namespace MyProgram
                         }
                     }
                 }
+                Console.Write(" - ");
             }
+            Console.WriteLine("");
             Console.WriteLine(binMsg);
             binMsg = binMsg.Substring(binMsg.IndexOf("11111111") + 8);
             Console.WriteLine(binMsg);

@@ -195,9 +195,6 @@ namespace MyProgram
                     B = pbEMM.Image.GetPropertyItem(305).Value;
                     M = pbEMM.Image.GetPropertyItem(33432).Value;
 
-
-
-
                     /* Add Padding */
                     Console.WriteLine("Histogram Shiffting on Process");
                 //    Iimage shifftingImage = new Iimage(EI);
