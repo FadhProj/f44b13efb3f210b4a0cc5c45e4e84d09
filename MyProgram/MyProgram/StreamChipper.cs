@@ -38,7 +38,6 @@ namespace MyProgram
             for (int i = 0; i < 256; i++)
             {
                 K[i] = key[i % key.Length] - 48;
-                //Console.Write(K[i]);
                 S[i] = i;
             }
         }
@@ -67,32 +66,20 @@ namespace MyProgram
                 swap(i, j);
                 key = S[(S[i] + S[j]) % 256];
                 //XOR blok
-                //Console.Write("{0} ", key);
                 Ke.Add(key);
                 xorBlok(ref img, key, n);
             }
-            //Console.WriteLine("");
 
         }
 
         public void xorBlok(ref Iimage img, int key, int n)
         {
             int R, G, B, a = 0;
-            //Console.WriteLine("Xor Blok");
-            //Console.Write("{0} {1} ", img.DefBlok[n].N, img.DefBlok[n].M);
             
             for (int i = img.DefBlok[n].N; i < img.DefBlok[n].N + 3; i++)
             {
-                //Console.WriteLine(img.DefBlok[n].N);
                 for (int j = img.DefBlok[n].M; j < img.DefBlok[n].M + 3; j++)
                 {
-                    //Console.WriteLine("{0} {1} ", img.DefBlok[n].N, img.DefBlok[n].M);
-
-                    //R = img.Image.GetPixel(j, i).R;
-                    //G = img.Image.GetPixel(j, i).G;
-                    //B = img.Image.GetPixel(j, i).B;
-
-                    //Console.Write("st X {0} Y {1} R {2} G {3} B {4} Key {5} || ", j, i, R, G, B, key);
                     R = img.Image.GetPixel(j, i).R ^ key;
                     G = img.Image.GetPixel(j, i).G ^ key;
                     B = img.Image.GetPixel(j, i).B ^ key;
