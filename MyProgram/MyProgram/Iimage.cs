@@ -156,13 +156,27 @@ namespace MyProgram
                     split = j;
             }
 
+            foreach (var item in B)
+            {
+                Console.Write(item + "  ");
+            }
+            Console.WriteLine("");
+
+            foreach (var item in M) 
+            {
+                Console.Write(item + "  ");
+            }
+            Console.WriteLine("");
             this.valPadW = new int[split];
             this.valPadH = new int[M.Length - split - 1];
             for (int i = 0; i < split; i++)
             {
                 int z = Convert.ToInt32(B[i]);
                 if (Convert.ToInt32(M[i]) == 1)
-                    ValPadW[i] =  z - 1;
+                {
+                    ValPadW[i] = z - 1;
+                    Console.Write(ValPadW[i]);
+                }
                 else
                     ValPadW[i] = z;
                 
@@ -198,6 +212,7 @@ namespace MyProgram
                     w+=1;
                     //w += 3;
                 }
+
                 if (y >= image.Height - nPadH)
                 {
 
@@ -245,8 +260,8 @@ namespace MyProgram
         {
             if (e)
             {
-                this.valPadW = new int[PadW * image.Height * 3 ];
-                this.valPadH = new int[PadH * image.Width * 3 ];
+                this.valPadW = new int[PadW * image.Height];// * 3 ];
+                this.valPadH = new int[PadH * image.Width];// * 3 ];
 
                 copyToArray();
             }
