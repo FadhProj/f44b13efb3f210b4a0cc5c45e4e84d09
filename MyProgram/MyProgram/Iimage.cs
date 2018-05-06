@@ -247,7 +247,7 @@ namespace MyProgram
                     for (int x = 0; x < image.Width; x++)
                     {
                         //Console.WriteLine("{0} {1} {2} ", valPadH[h], valPadH[h + 1], valPadH[h + 2]);
-                        image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h ], valPadH[h]));
+                        image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h], valPadH[h]));
                         h+=1;
                        // h += 3;
 
