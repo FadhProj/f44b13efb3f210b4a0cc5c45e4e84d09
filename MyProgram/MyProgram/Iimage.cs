@@ -152,7 +152,7 @@ namespace MyProgram
             int split=0;
             for (int j = 0; j < M.Length-1; j++)
             {
-                if (Convert.ToInt32(M[j]) == 3)
+                if (M[j] == 3)
                     split = j;
             }
 
@@ -171,8 +171,8 @@ namespace MyProgram
             this.valPadH = new int[M.Length - split - 1];
             for (int i = 0; i < split; i++)
             {
-                int z = Convert.ToInt32(B[i]);
-                if (Convert.ToInt32(M[i]) == 1)
+                int z = B[i];
+                if (M[i] == 1)
                 {
                     ValPadW[i] = z - 1;
                     Console.Write(ValPadW[i]);
@@ -186,8 +186,8 @@ namespace MyProgram
 
             for (int i = split; i < B.Length - 1; i++)
             {
-                int z = Convert.ToInt32(B[i]);
-                if (Convert.ToInt32(M[i+1]) == 1)
+                int z = B[i];
+                if (M[i+1] == 1)
                     valPadH[l] = z - 1;
                 else
                     valPadH[l] = z;

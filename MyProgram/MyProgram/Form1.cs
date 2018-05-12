@@ -14,6 +14,7 @@ namespace MyProgram
         DateTime date;
         Save ss;
         Metadata met;
+        byte[] cek, cek1;
         //Bitmap imageS;
         //Iimage shifftingImage;
         string L;
@@ -57,9 +58,9 @@ namespace MyProgram
         {
             string key = null;
             bool embeded = false;
+
             /* Create variable OI ( Original Image ) */
             Bitmap OI = null;
-
             tbDate.Text = date.ToString();
 
             /* Get Key from input user */
@@ -68,7 +69,7 @@ namespace MyProgram
             
             key = tbKey.Text;
 
-            if (key != null)
+            if (key != "")
             {
                 /* Open file dialog and get image from computer */
                 OpenFileDialog open = new OpenFileDialog
@@ -86,12 +87,10 @@ namespace MyProgram
                     //Console.WriteLine(pbEI.Image.GetPropertyItem(800));
                     try //pbEI.Image.GetPropertyItem(800) 
                     {
-                        //get from metadata  
-                       
+                        //get from metadata                       
                         string K = Encoding.UTF8.GetString(pbEI.Image.GetPropertyItem(800).Value);
                         embeded = true;
                         K = K.Substring(0, K.Length - 1);
-                        //Console.WriteLine(K);
                         key = K;
                     }catch
                     {
@@ -134,10 +133,15 @@ namespace MyProgram
                     /* Embending Key to Metadata */
                     Bitmap img = originalImage.Image;
                     meta.embedKeyStream(key, ref img);
-                    if(embeded)
-                        meta.embedAll(pbEI.Image.GetPropertyItem(800).Value, pbEI.Image.GetPropertyItem(305).Value, pbEI.Image.GetPropertyItem(33432).Value, pbEI.Image.GetPropertyItem(315).Value, ref img);
+                    if (embeded)
+                    {
+                        meta.embedKeyStream(Encoding.UTF8.GetString(OI.GetPropertyItem(800).Value), ref img);
+                        meta.embedLMap(Encoding.UTF8.GetString(OI.GetPropertyItem(315).Value), ref img);
+                        meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH, ref img);
+                        //meta.embedAll(pbEI.Image.GetPropertyItem(800).Value, pbEI.Image.GetPropertyItem(305).Value, pbEI.Image.GetPropertyItem(33432).Value, pbEI.Image.GetPropertyItem(315).Value, ref img);
+                    }
                     else
-                        meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH,ref img);
+                        meta.embedPadding(originalImage.ValPadW, originalImage.ValPadH, ref img);
                     
                     /* Save Image */
                     ss.saveImage(img, "1.2 EncryptedImage.png");
@@ -247,16 +251,18 @@ namespace MyProgram
                 byte[] mapL = Encoding.UTF8.GetBytes(em.L1 + " ");
                 try
                 {
-                    meta.embedAll(pbEMM.Image.GetPropertyItem(800).Value, pbEMM.Image.GetPropertyItem(305).Value, pbEMM.Image.GetPropertyItem(33432).Value, mapL, ref img);
-                }catch
-                {
-                    meta.embedLMap(em.L1,ref img);
+                    meta.embedKeyStream(Encoding.UTF8.GetString(EI.GetPropertyItem(800).Value), ref img);
+                    meta.embedLMap(em.L1, ref img);
                     meta.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH, ref img);
-
+                }
+                catch
+                {
+                    meta.embedLMap(em.L1, ref img);
+                    meta.embedPadding(shifftingImage.ValPadW, shifftingImage.ValPadH, ref img);
                 }
 
                 //meta.view();
-
+                
                 /* Save Image */
                 ss.saveImage(img, "3. EmbendedImage.png");
 
@@ -351,6 +357,20 @@ namespace MyProgram
 
                 /*embed Padding */
                 Bitmap img = encryptedMarkedImage.Image;
+
+                try
+                {
+                    meta.embedKeyStream(Encoding.UTF8.GetString(EMI.GetPropertyItem(800).Value), ref img);
+                    meta.embedLMap(Encoding.UTF8.GetString(EMI.GetPropertyItem(315).Value), ref img);
+                    meta.embedPadding(encryptedMarkedImage.ValPadW, encryptedMarkedImage.ValPadH, ref img);
+                }
+                catch
+                {
+                    //meta.embedLMap(Encoding.UTF8.GetString(EMI.GetPropertyItem(315).Value), ref img);
+                    meta.embedPadding(encryptedMarkedImage.ValPadW, encryptedMarkedImage.ValPadH, ref img);
+                }
+
+                /*
                 try
                 {
                     meta.embedAll(pbDI.Image.GetPropertyItem(800).Value, pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value, pbDI.Image.GetPropertyItem(315).Value, ref img);
@@ -358,7 +378,7 @@ namespace MyProgram
                 catch
                 {
                     meta.embedPadding(encryptedMarkedImage.ValPadW, encryptedMarkedImage.ValPadH, ref img);
-                }
+                }*/
                 /* Show */
                 pbDI.Image = img;
                 ss.saveImage(img, "DecryptedImage.png");
@@ -413,6 +433,7 @@ namespace MyProgram
                     meta.embedPadding(markedImage.ValPadW, markedImage.ValPadH, ref img);
 
                 }
+                //img.RemovePropertyItem(800);
                 ss.saveImage(img, "5. ShifftedImageAfExtraction.png");
             }
         }

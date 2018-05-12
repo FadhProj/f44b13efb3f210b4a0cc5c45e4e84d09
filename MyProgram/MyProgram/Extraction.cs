@@ -26,43 +26,72 @@ namespace MyProgram
 
         public void histShiffting(ref Iimage img)
         {
-            int n = 0;
-            Rectangle rect = new Rectangle(0, 0, img.Image.Width, img.Image.Height);
-            BitmapData bmpData = img.Image.LockBits(rect, ImageLockMode.ReadWrite, img.Image.PixelFormat);
-
-            IntPtr ptr = bmpData.Scan0;
-
-            int bytes = Math.Abs(bmpData.Stride) * img.Image.Height;
-            byte[] rgbValues = new byte[bytes];
-
-
-            Marshal.Copy(ptr, rgbValues, 0, bytes);
-
-            for (int i = 0; i < rgbValues.Length; i += 4)
+            int R, G, B;
+            for (int y = 0; y < img.Image.Height; y++)
             {
-                byte pixelValue = (byte)((rgbValues[i] + rgbValues[i + 1] + rgbValues[i + 2]) / 3);
-                if (pixelValue == 254 && L[n].Equals("1"))
+                for (int x = 0; x < img.Image.Width; x++)
                 {
-                    rgbValues[i] = 255; rgbValues[i + 1] = rgbValues[i + 2] = 255;
-                    n++;
-                }
-                else if (pixelValue == 1 && L[n].Equals("1"))
-                {
-                    rgbValues[i] = 0; rgbValues[i + 1] = rgbValues[i + 2] = 0;
-                    n++;
-                }
-                else if ((pixelValue == 1) || (pixelValue == 254))
-                {
-                    n++;
+                    R = img.Image.GetPixel(x, y).R;
+                    G = img.Image.GetPixel(x, y).G;
+                    B = img.Image.GetPixel(x, y).B;
+                    int pixelValue = (R + G + B) / 3;
+                    int n = 0;
+                    if (pixelValue == 254 && L[n].Equals("1"))
+                    {
+                        img.Image.SetPixel(x, y, Color.FromArgb(255, 255, 255));
+                        n++;
+                    }
+                    else if (pixelValue == 1 && L[n].Equals("1"))
+                    {
+                        img.Image.SetPixel(x, y, Color.FromArgb(0, 0, 0));
+                        n++;
+                    }
+                    else if ((pixelValue == 1) || (pixelValue == 254))
+                    {
+                        n++;
+                    }
                 }
             }
-            Marshal.Copy(rgbValues, 0, ptr, bytes);
-
-
-            img.Image.UnlockBits(bmpData);
         }
+            /*public void histShiffting(ref Iimage img)
+            {
+                int n = 0;
+                Rectangle rect = new Rectangle(0, 0, img.Image.Width, img.Image.Height);
+                BitmapData bmpData = img.Image.LockBits(rect, ImageLockMode.ReadWrite, img.Image.PixelFormat);
 
-        public string BinaryToString(string data)
+                IntPtr ptr = bmpData.Scan0;
+
+                int bytes = Math.Abs(bmpData.Stride) * img.Image.Height;
+                byte[] rgbValues = new byte[bytes];
+
+
+                Marshal.Copy(ptr, rgbValues, 0, bytes);
+
+                for (int i = 0; i < rgbValues.Length; i += 4)
+                {
+                    byte pixelValue = (byte)((rgbValues[i] + rgbValues[i + 1] + rgbValues[i + 2]) / 3);
+                    if (pixelValue == 254 && L[n].Equals("1"))
+                    {
+                        rgbValues[i] = 255; rgbValues[i + 1] = rgbValues[i + 2] = 255;
+                        n++;
+                    }
+                    else if (pixelValue == 1 && L[n].Equals("1"))
+                    {
+                        rgbValues[i] = 0; rgbValues[i + 1] = rgbValues[i + 2] = 0;
+                        n++;
+                    }
+                    else if ((pixelValue == 1) || (pixelValue == 254))
+                    {
+                        n++;
+                    }
+                }
+                Marshal.Copy(rgbValues, 0, ptr, bytes);
+
+
+                img.Image.UnlockBits(bmpData);
+            }*/
+
+            public string BinaryToString(string data)
         {
             List<Byte> byteList = new List<Byte>();
 
