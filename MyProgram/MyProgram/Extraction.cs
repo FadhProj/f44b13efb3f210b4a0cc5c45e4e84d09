@@ -18,6 +18,7 @@ namespace MyProgram
         {
             this.L = L;
             extrac(ref img, ref msg);
+            //extrac1X2(ref img, ref msg);
 
             histShiffting(ref img);
         }
@@ -53,45 +54,9 @@ namespace MyProgram
                 }
             }
         }
-            /*public void histShiffting(ref Iimage img)
-            {
-                int n = 0;
-                Rectangle rect = new Rectangle(0, 0, img.Image.Width, img.Image.Height);
-                BitmapData bmpData = img.Image.LockBits(rect, ImageLockMode.ReadWrite, img.Image.PixelFormat);
+       
 
-                IntPtr ptr = bmpData.Scan0;
-
-                int bytes = Math.Abs(bmpData.Stride) * img.Image.Height;
-                byte[] rgbValues = new byte[bytes];
-
-
-                Marshal.Copy(ptr, rgbValues, 0, bytes);
-
-                for (int i = 0; i < rgbValues.Length; i += 4)
-                {
-                    byte pixelValue = (byte)((rgbValues[i] + rgbValues[i + 1] + rgbValues[i + 2]) / 3);
-                    if (pixelValue == 254 && L[n].Equals("1"))
-                    {
-                        rgbValues[i] = 255; rgbValues[i + 1] = rgbValues[i + 2] = 255;
-                        n++;
-                    }
-                    else if (pixelValue == 1 && L[n].Equals("1"))
-                    {
-                        rgbValues[i] = 0; rgbValues[i + 1] = rgbValues[i + 2] = 0;
-                        n++;
-                    }
-                    else if ((pixelValue == 1) || (pixelValue == 254))
-                    {
-                        n++;
-                    }
-                }
-                Marshal.Copy(rgbValues, 0, ptr, bytes);
-
-
-                img.Image.UnlockBits(bmpData);
-            }*/
-
-            public string BinaryToString(string data)
+        public string BinaryToString(string data)
         {
             List<Byte> byteList = new List<Byte>();
 
@@ -118,24 +83,21 @@ namespace MyProgram
                         R = img.Image.GetPixel(valM + j, valN + i).R;
                         G = img.Image.GetPixel(valM + j, valN + i).G;
                         B = img.Image.GetPixel(valM + j, valN + i).B;
-                        Cbi = R;// (R + G + B) / 3;
-                        Cb1 = img.Image.GetPixel(valM, valN).R;// (img.Image.GetPixel(valM, valN).R + img.Image.GetPixel(valM, valN).G + img.Image.GetPixel(valM, valN).B) / 3;
+                        Cbi = (R + G + B) / 3;
+                        Cb1 = (img.Image.GetPixel(valM, valN).R + img.Image.GetPixel(valM, valN).G + img.Image.GetPixel(valM, valN).B) / 3;
                         diff = Cbi - Cb1;
 
                         if (!(i == 0 && j == 0))
                         {
                             if (diff == 0 || diff == -1)
                             {
-                                Console.Write("0");
                                 binMsg += "0";
                             }
                             else if (diff == 1 || diff == -2)
                             {
-                                Console.Write("1");
                                 binMsg += "1";
                             }
-                            else
-                                Console.Write("_");
+                           
 
 
                             if (diff > 0)
@@ -151,14 +113,59 @@ namespace MyProgram
                         }
                     }
                 }
-                Console.Write(" - ");
             }
-            Console.WriteLine("");
-            Console.WriteLine(binMsg);
             binMsg = binMsg.Substring(binMsg.IndexOf("11111111") + 8);
-            Console.WriteLine(binMsg);
             msg = BinaryToString(binMsg);
-            Console.WriteLine(msg);
+
+
+        }
+
+        public void extrac1X2(ref Iimage img, ref string msg)
+        {
+            int diff, R, G, B, n = 0;
+            int valM, valN, Cbi, Cb1;
+            string binMsg = "";
+
+            for (int i = 0; i < img.Image.Height - 1; i++)
+            {
+                for (int j = 0; j < img.Image.Width - 1; j += 2)
+                {
+
+                    R = img.Image.GetPixel(1 + j, i).R;
+                    G = img.Image.GetPixel(1 + j, i).G;
+                    B = img.Image.GetPixel(1 + j, i).B;
+                    Cbi = (R + G + B) / 3;
+                    Cb1 = (img.Image.GetPixel(j, i).R + img.Image.GetPixel(j, i).G + img.Image.GetPixel(j, i).B) / 3;
+                    diff = Cbi - Cb1;
+
+
+                    if (diff == 0 || diff == -1)
+                    {
+                        binMsg += "0";
+                    }
+                    else if (diff == 1 || diff == -2)
+                    {
+                        binMsg += "1";
+                    }
+                   
+
+
+                    if (diff > 0)
+                    {
+                        R -= 1; G -= 1; B -= 1;
+                        img.Image.SetPixel(1 + j, i, Color.FromArgb(R, G, B));
+                    }
+                    else if (diff < -1)
+                    {
+                        R += 1; G += 1; B += 1;
+                        img.Image.SetPixel(1 + j, i, Color.FromArgb(R, G, B));
+                    }
+
+                }
+            }
+
+            binMsg = binMsg.Substring(binMsg.IndexOf("11111111") + 8);
+            msg = BinaryToString(binMsg);
 
 
         }

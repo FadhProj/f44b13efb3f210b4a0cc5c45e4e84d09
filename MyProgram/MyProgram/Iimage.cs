@@ -156,17 +156,7 @@ namespace MyProgram
                     split = j;
             }
 
-            foreach (var item in B)
-            {
-                Console.Write(item + "  ");
-            }
-            Console.WriteLine("");
-
-            foreach (var item in M) 
-            {
-                Console.Write(item + "  ");
-            }
-            Console.WriteLine("");
+          
             this.valPadW = new int[split];
             this.valPadH = new int[M.Length - split - 1];
             for (int i = 0; i < split; i++)
@@ -175,13 +165,11 @@ namespace MyProgram
                 if (M[i] == 1)
                 {
                     ValPadW[i] = z - 1;
-                    Console.Write(ValPadW[i]);
                 }
                 else
                     ValPadW[i] = z;
                 
             }
-            Console.WriteLine();
             int l = 0;
 
             for (int i = split; i < B.Length - 1; i++)
@@ -246,7 +234,6 @@ namespace MyProgram
                     
                     for (int x = 0; x < image.Width; x++)
                     {
-                        //Console.WriteLine("{0} {1} {2} ", valPadH[h], valPadH[h + 1], valPadH[h + 2]);
                         image.SetPixel(x, y, Color.FromArgb(valPadH[h], valPadH[h], valPadH[h]));
                         h+=1;
                        // h += 3;

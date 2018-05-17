@@ -1,0 +1,3 @@
+Key : 2342342
+Max : 66378 bit
+Message : 26960 bit

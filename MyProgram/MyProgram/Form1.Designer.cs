@@ -39,7 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbStart = new System.Windows.Forms.TextBox();
             this.tbMax = new System.Windows.Forms.TextBox();
-            this.btEmbed = new System.Windows.Forms.Button();
             this.btOpenEMM = new System.Windows.Forms.Button();
             this.rtbEMM = new System.Windows.Forms.RichTextBox();
             this.pbEMM = new System.Windows.Forms.PictureBox();
@@ -55,10 +54,23 @@
             this.rtbMeta = new System.Windows.Forms.RichTextBox();
             this.pbMeta = new System.Windows.Forms.PictureBox();
             this.tbCC = new System.Windows.Forms.TabPage();
+            this.tbPSNR = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbMSE = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbW2 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbH2 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbW1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbH1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.btChoose = new System.Windows.Forms.Button();
-            this.rtbCC = new System.Windows.Forms.RichTextBox();
-            this.pbCC2 = new System.Windows.Forms.PictureBox();
-            this.pbCC1 = new System.Windows.Forms.PictureBox();
+            this.pbNI = new System.Windows.Forms.PictureBox();
+            this.pbOI = new System.Windows.Forms.PictureBox();
             this.tbDesc = new System.Windows.Forms.TabPage();
             this.tbH = new System.Windows.Forms.TextBox();
             this.tbW = new System.Windows.Forms.TextBox();
@@ -81,8 +93,8 @@
             this.tpMetadata.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMeta)).BeginInit();
             this.tbCC.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCC2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCC1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNI)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOI)).BeginInit();
             this.tbDesc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbDes)).BeginInit();
             this.SuspendLayout();
@@ -160,7 +172,6 @@
             this.tpEmbed.Controls.Add(this.label1);
             this.tpEmbed.Controls.Add(this.tbStart);
             this.tpEmbed.Controls.Add(this.tbMax);
-            this.tpEmbed.Controls.Add(this.btEmbed);
             this.tpEmbed.Controls.Add(this.btOpenEMM);
             this.tpEmbed.Controls.Add(this.rtbEMM);
             this.tpEmbed.Controls.Add(this.pbEMM);
@@ -202,17 +213,6 @@
             this.tbMax.ReadOnly = true;
             this.tbMax.Size = new System.Drawing.Size(91, 20);
             this.tbMax.TabIndex = 5;
-            // 
-            // btEmbed
-            // 
-            this.btEmbed.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btEmbed.Location = new System.Drawing.Point(615, 376);
-            this.btEmbed.Name = "btEmbed";
-            this.btEmbed.Size = new System.Drawing.Size(75, 23);
-            this.btEmbed.TabIndex = 4;
-            this.btEmbed.Text = "Embed";
-            this.btEmbed.UseVisualStyleBackColor = false;
-            this.btEmbed.Click += new System.EventHandler(this.btEmbed_Click);
             // 
             // btOpenEMM
             // 
@@ -362,19 +362,150 @@
             // tbCC
             // 
             this.tbCC.BackColor = System.Drawing.Color.LightGray;
+            this.tbCC.Controls.Add(this.tbPSNR);
+            this.tbCC.Controls.Add(this.label9);
+            this.tbCC.Controls.Add(this.tbMSE);
+            this.tbCC.Controls.Add(this.label10);
+            this.tbCC.Controls.Add(this.tbW2);
+            this.tbCC.Controls.Add(this.label7);
+            this.tbCC.Controls.Add(this.tbH2);
+            this.tbCC.Controls.Add(this.label8);
+            this.tbCC.Controls.Add(this.tbW1);
+            this.tbCC.Controls.Add(this.label6);
+            this.tbCC.Controls.Add(this.tbH1);
+            this.tbCC.Controls.Add(this.label5);
+            this.tbCC.Controls.Add(this.label4);
+            this.tbCC.Controls.Add(this.label3);
             this.tbCC.Controls.Add(this.btChoose);
-            this.tbCC.Controls.Add(this.rtbCC);
-            this.tbCC.Controls.Add(this.pbCC2);
-            this.tbCC.Controls.Add(this.pbCC1);
+            this.tbCC.Controls.Add(this.pbNI);
+            this.tbCC.Controls.Add(this.pbOI);
             this.tbCC.Location = new System.Drawing.Point(4, 22);
             this.tbCC.Name = "tbCC";
             this.tbCC.Size = new System.Drawing.Size(697, 403);
             this.tbCC.TabIndex = 5;
-            this.tbCC.Text = "Check Correlation";
+            this.tbCC.Text = "Check";
+            // 
+            // tbPSNR
+            // 
+            this.tbPSNR.Location = new System.Drawing.Point(49, 345);
+            this.tbPSNR.Name = "tbPSNR";
+            this.tbPSNR.Size = new System.Drawing.Size(100, 20);
+            this.tbPSNR.TabIndex = 17;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(5, 349);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(37, 13);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "PSNR";
+            // 
+            // tbMSE
+            // 
+            this.tbMSE.Location = new System.Drawing.Point(49, 319);
+            this.tbMSE.Name = "tbMSE";
+            this.tbMSE.Size = new System.Drawing.Size(100, 20);
+            this.tbMSE.TabIndex = 15;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(5, 323);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(30, 13);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "MSE";
+            // 
+            // tbW2
+            // 
+            this.tbW2.Location = new System.Drawing.Point(569, 269);
+            this.tbW2.Name = "tbW2";
+            this.tbW2.Size = new System.Drawing.Size(100, 20);
+            this.tbW2.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(525, 273);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Width";
+            // 
+            // tbH2
+            // 
+            this.tbH2.Location = new System.Drawing.Point(409, 269);
+            this.tbH2.Name = "tbH2";
+            this.tbH2.Size = new System.Drawing.Size(100, 20);
+            this.tbH2.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(365, 273);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Height";
+            // 
+            // tbW1
+            // 
+            this.tbW1.Location = new System.Drawing.Point(209, 269);
+            this.tbW1.Name = "tbW1";
+            this.tbW1.Size = new System.Drawing.Size(100, 20);
+            this.tbW1.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(165, 273);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Width";
+            // 
+            // tbH1
+            // 
+            this.tbH1.Location = new System.Drawing.Point(49, 269);
+            this.tbH1.Name = "tbH1";
+            this.tbH1.Size = new System.Drawing.Size(100, 20);
+            this.tbH1.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(5, 273);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Height";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Location = new System.Drawing.Point(502, 14);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 15);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Noisy Image";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label3.Location = new System.Drawing.Point(113, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 15);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Original Image";
             // 
             // btChoose
             // 
-            this.btChoose.Location = new System.Drawing.Point(607, 244);
+            this.btChoose.Location = new System.Drawing.Point(607, 349);
             this.btChoose.Name = "btChoose";
             this.btChoose.Size = new System.Drawing.Size(87, 51);
             this.btChoose.TabIndex = 3;
@@ -382,36 +513,28 @@
             this.btChoose.UseVisualStyleBackColor = true;
             this.btChoose.Click += new System.EventHandler(this.btChoose_Click);
             // 
-            // rtbCC
+            // pbNI
             // 
-            this.rtbCC.Location = new System.Drawing.Point(4, 244);
-            this.rtbCC.Name = "rtbCC";
-            this.rtbCC.Size = new System.Drawing.Size(596, 156);
-            this.rtbCC.TabIndex = 2;
-            this.rtbCC.Text = "";
+            this.pbNI.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
+            this.pbNI.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pbNI.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbNI.Location = new System.Drawing.Point(356, 33);
+            this.pbNI.Name = "pbNI";
+            this.pbNI.Size = new System.Drawing.Size(338, 233);
+            this.pbNI.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbNI.TabIndex = 1;
+            this.pbNI.TabStop = false;
             // 
-            // pbCC2
+            // pbOI
             // 
-            this.pbCC2.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
-            this.pbCC2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pbCC2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbCC2.Location = new System.Drawing.Point(356, 4);
-            this.pbCC2.Name = "pbCC2";
-            this.pbCC2.Size = new System.Drawing.Size(338, 233);
-            this.pbCC2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbCC2.TabIndex = 1;
-            this.pbCC2.TabStop = false;
-            // 
-            // pbCC1
-            // 
-            this.pbCC1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pbCC1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbCC1.Location = new System.Drawing.Point(4, 4);
-            this.pbCC1.Name = "pbCC1";
-            this.pbCC1.Size = new System.Drawing.Size(338, 233);
-            this.pbCC1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbCC1.TabIndex = 0;
-            this.pbCC1.TabStop = false;
+            this.pbOI.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pbOI.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbOI.Location = new System.Drawing.Point(4, 33);
+            this.pbOI.Name = "pbOI";
+            this.pbOI.Size = new System.Drawing.Size(338, 233);
+            this.pbOI.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbOI.TabIndex = 0;
+            this.pbOI.TabStop = false;
             // 
             // tbDesc
             // 
@@ -535,8 +658,9 @@
             this.tpMetadata.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbMeta)).EndInit();
             this.tbCC.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbCC2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCC1)).EndInit();
+            this.tbCC.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNI)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOI)).EndInit();
             this.tbDesc.ResumeLayout(false);
             this.tbDesc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbDes)).EndInit();
@@ -555,7 +679,6 @@
         private System.Windows.Forms.Button btExtract;
         private System.Windows.Forms.RichTextBox rtbEM;
         private System.Windows.Forms.PictureBox pbEM;
-        private System.Windows.Forms.Button btEmbed;
         private System.Windows.Forms.Button btOpenEMM;
         private System.Windows.Forms.RichTextBox rtbEMM;
         private System.Windows.Forms.PictureBox pbEMM;
@@ -572,9 +695,8 @@
         private System.Windows.Forms.PictureBox pbMeta;
         private System.Windows.Forms.Button btDate;
         private System.Windows.Forms.TabPage tbCC;
-        private System.Windows.Forms.RichTextBox rtbCC;
-        private System.Windows.Forms.PictureBox pbCC2;
-        private System.Windows.Forms.PictureBox pbCC1;
+        private System.Windows.Forms.PictureBox pbNI;
+        private System.Windows.Forms.PictureBox pbOI;
         private System.Windows.Forms.Button btChoose;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbStart;
@@ -588,6 +710,20 @@
         private System.Windows.Forms.TextBox tbFN;
         private System.Windows.Forms.Label lbFN;
         private System.Windows.Forms.PictureBox pbDes;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbPSNR;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbMSE;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbW2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbH2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tbW1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbH1;
+        private System.Windows.Forms.Label label5;
     }
 }
 

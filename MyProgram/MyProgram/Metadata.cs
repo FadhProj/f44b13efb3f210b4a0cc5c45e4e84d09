@@ -90,23 +90,16 @@ namespace MyProgram
         public void embedLMap(string itemD, ref Bitmap image)
         {
             PropertyItem itemm = PI[0];
-            Console.WriteLine(itemD);
             string sTmp = itemD + " ";
             var itemData = System.Text.Encoding.UTF8.GetBytes(sTmp);
             itemData[itemData.Length - 1] = 0;// Strings must be null terminated or they will run together
-            //Console.WriteLine(itemData.Length);
             itemm.Type = 2; //String (ASCII)
             itemm.Id = 315; // Author(s), 315 is mapped to the "Authors" field
             itemm.Len = itemData.Length; // Number of items in the byte array
             itemm.Value = itemData; // The byte array
             image.SetPropertyItem(itemm); // Assign / add to the bitmap
             
-            /*Console.WriteLine(itemData);
-            foreach (var item in itemData)
-            {
-                Console.Write(item);
-
-            }*/
+          
            
         }
 

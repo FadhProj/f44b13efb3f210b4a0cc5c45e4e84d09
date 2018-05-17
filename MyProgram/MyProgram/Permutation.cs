@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Collections;
 using System.Numerics;
+using System.Windows.Forms;
 
 
 namespace MyProgram
@@ -20,15 +21,14 @@ namespace MyProgram
             p = primeNumber(image.Blok);
             for (int i = 0; i < image.Blok; i++)
             {
-                //Console.WriteLine(i);
                 z = BigInteger.Pow(5, (i + 69) % (p - 2));
                 d = z % p;
                 if (d < image.Blok)
                 {
                     swapBlok(i, (int)d, ref image);
                 }
-
-
+                //MessageBox.Show(string.Format("blok {0} from {1} ", i, image.Blok));
+                
             }
 
         }
@@ -37,7 +37,6 @@ namespace MyProgram
             p = primeNumber(image.Blok);
             for (int i = image.Blok - 1; i >= 0; i--)
             {
-                //Console.WriteLine(i);
                 z = BigInteger.Pow(5, (i + 69) % (p - 2));
                 d = z % p;
                 if (d < image.Blok)
