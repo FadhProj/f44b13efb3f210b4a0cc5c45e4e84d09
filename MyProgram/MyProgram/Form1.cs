@@ -63,8 +63,6 @@ namespace MyProgram
 
             /* Get Key from input user */
             /* or From metadata */
-
-
             key = tbKey.Text;
 
             if (key != "")
@@ -97,6 +95,7 @@ namespace MyProgram
                         Console.WriteLine("Convert to Grayscale on Process");
                         OI = ConvertToGrayscale(OI);
                         ss.saveImage(OI, "1. GrayscaleImage");
+                        ss.saveTxt("detail", "=================================");
                         ss.saveTxt("detail","Key : " + key.ToString());
                     }
 
@@ -232,11 +231,14 @@ namespace MyProgram
                     em.Start = 0;
                 else
                     em.Start = Convert.ToInt16(tbStart.Text);
+                ss.saveTxt2("Text embeding", msg);
                 em.embed(ref shifftingImage, msg);
                 //em.embed1X2(ref shifftingImage, msg);
                 tbMax.Text = em.Max.ToString();
-                ss.saveTxt("detail", "Max : " + em.Max.ToString()+" bit");
-                ss.saveTxt("detail", "Message : " + em.LenMsg.ToString() + " bit");
+                ss.saveTxt("detail", "Embeding Capacity : " + em.Max.ToString()+" bit");
+                ss.saveTxt("detail", "Len Message Embeding : " + em.LenMsg.ToString() + " bit");
+                ss.saveTxt("detail", "=================================");
+
 
                 /* Close Padding */
                 shifftingImage.closePadding(true);
@@ -340,6 +342,7 @@ namespace MyProgram
         private void btExtract_Click(object sender, EventArgs e)
         {
             Bitmap EMI = null;
+         
 
             OpenFileDialog open = new OpenFileDialog
             {
@@ -364,8 +367,10 @@ namespace MyProgram
                 L = L.Substring(0, L.Length - 1);
                 //Console.WriteLine("");
                 Extraction ex = new Extraction(ref markedImage, L, ref massage);
-                Console.WriteLine(massage);
-                Console.WriteLine(massage.Trim(new Char[] { '?', '*', '.' }));
+                lbLen.Text = ex.LenMsg.ToString();
+                ss.saveTxt("detail", "Len Message Extraction : " + ex.LenMsg.ToString() + " bit");
+                ss.saveTxt("detail", "=================================");
+                ss.saveTxt2("Extraction Message", massage);
                 rtbEM.Text = massage;
 
                 /* Close Padding */
@@ -491,6 +496,24 @@ namespace MyProgram
             return (1.0 / (W * H)) * tmp;
         }
 
+        private void btX_Click(object sender, EventArgs e)
+        {
+            pbDI.Image = null;
+            pbEI.Image = null;
+            pbEM.Image = null;
+            pbEMM.Image = null;
+            pbMeta.Image = null;
+            pbOI.Image = null;
+            pbNI.Image = null;
+            rtbEM.Text = "";
+            rtbEMM.Text = "";
+            rtbMeta.Text = "";
+
+            tbKey.Text = "";
+            tbMax.Text = "";
+            tbStart.Text = "";
+        }
+
        
 
         private double PSNR(double MSE)
@@ -515,7 +538,7 @@ namespace MyProgram
             rtbEM.Text = "";
             rtbEMM.Text = "";
             rtbMeta.Text = "";
-
+            lbLen.Text = "";
             tbKey.Text = "";
             tbMax.Text = "";
             tbStart.Text = "";

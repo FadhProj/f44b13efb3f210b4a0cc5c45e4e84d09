@@ -1,0 +1,7 @@
+Embeding Capacity : 346925 bit
+Len Message Embeding : 361168 bit
+=================================
+Len Message Extraction : 346917 bit
+=================================
+Len Message Extraction : 346917 bit
+=================================

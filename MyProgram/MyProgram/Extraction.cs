@@ -13,7 +13,7 @@ namespace MyProgram
     class Extraction
     {
         private string L;
-
+        private int lenMsg;
         public Extraction(ref Iimage img, string L, ref string msg)
         {
             this.L = L;
@@ -24,6 +24,7 @@ namespace MyProgram
         }
 
         public string L1 { get => L; set => L = value; }
+        public int LenMsg { get => lenMsg; set => lenMsg = value; }
 
         public void histShiffting(ref Iimage img)
         {
@@ -115,6 +116,7 @@ namespace MyProgram
                 }
             }
             binMsg = binMsg.Substring(binMsg.IndexOf("11111111") + 8);
+            LenMsg = binMsg.Length;
             msg = BinaryToString(binMsg);
 
 
@@ -165,7 +167,9 @@ namespace MyProgram
             }
 
             binMsg = binMsg.Substring(binMsg.IndexOf("11111111") + 8);
+            LenMsg = binMsg.Length;
             msg = BinaryToString(binMsg);
+            LenMsg = msg.Length * 8;
 
 
         }

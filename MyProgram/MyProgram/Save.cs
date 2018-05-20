@@ -100,7 +100,38 @@ namespace MyProgram
             }
         }
 
+        public void saveTxt2(string fileName, string item)
+        {
+            // Use Combine again to add the file name to the path.
+            //path = System.IO.Path.Combine(path, fileName);
+            // Verify the path that you have constructed.
+            //Console.WriteLine("Path to my file: {0}\n", System.IO.Path.Combine(path, fileName));
+            try
+            {
+                int i = 0;
 
+                if (!File.Exists(System.IO.Path.Combine(path2, fileName + ".txt")))
+                {
+                    File.AppendAllText(System.IO.Path.Combine(path2, fileName + ".txt"), item + Environment.NewLine);
+
+                }
+                else
+                {
+                    while (File.Exists(System.IO.Path.Combine(path2, fileName + i.ToString() + ".txt")))
+                    {
+                        i++;
+                    }
+                    File.AppendAllText(System.IO.Path.Combine(path2, fileName + i.ToString() + ".txt"), item + Environment.NewLine);
+
+                }
+
+            }
+            catch (Exception ee)
+            {
+
+                Console.WriteLine("The process failed: {0}", ee.ToString());
+            }
+        }
 
     }
 }
