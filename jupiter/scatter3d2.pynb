@@ -1,0 +1,55 @@
+#image_path = "Example4.png"
+
+#import Tkinter
+#import tkFileDialog
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import pyplot
+
+from PIL import Image
+import numpy as np
+
+
+def main():
+
+    '''Tkinter.Tk().withdraw() # Close the root window
+    in_path = tkFileDialog.askopenfilename()
+    print in_path'''
+
+    fig = pyplot.figure()
+    axis = fig.add_subplot(1, 1, 1, projection="3d") # 3D plot with scalar values in each axis
+
+    im = Image.open("D:/fadhlan/f44b13efb3f210b4a0cc5c45e4e84d09/Ma Test/20000/Example 1/1.1 StreamImage.png")
+    #p,q=im.getdata(0).size
+    a = [i for i in range(20)]
+    b = []
+    for i in
+    w,h = im.size
+    '''for i in range(0,w):
+        for j in range(0,h):
+
+            print im.getpixel((i,j))'''
+    #print list(im.getdata(1))
+
+'''
+    x= np.linspace(0,p,p).astype(int)
+    y= np.linspace(0,q,q).astype(int)
+    xv,yv = np.meshgrid(x,y)
+    #x, y, b = list(xv, xv, list(im.getdata(0)))
+
+    axis.scatter(yv, xv, list(im.getdata(0)), c="skyblue", marker="o")
+    axis.set_xlabel("X")
+    axis.set_ylabel("Y")
+    axis.set_zlabel("Pixel Value")
+    pyplot.show()
+'''
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+
