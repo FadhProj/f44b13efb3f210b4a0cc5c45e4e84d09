@@ -1,0 +1,10 @@
+E:\0TugasAkhir\Program\elgamal\obj\Debug\netcoreapp2.0\elgamal.csproj.CoreCompileInputs.cache
+E:\0TugasAkhir\Program\elgamal\obj\Debug\netcoreapp2.0\elgamal.AssemblyInfoInputs.cache
+E:\0TugasAkhir\Program\elgamal\obj\Debug\netcoreapp2.0\elgamal.AssemblyInfo.cs
+E:\0TugasAkhir\Program\elgamal\bin\Debug\netcoreapp2.0\elgamal.deps.json
+E:\0TugasAkhir\Program\elgamal\bin\Debug\netcoreapp2.0\elgamal.runtimeconfig.json
+E:\0TugasAkhir\Program\elgamal\bin\Debug\netcoreapp2.0\elgamal.runtimeconfig.dev.json
+E:\0TugasAkhir\Program\elgamal\bin\Debug\netcoreapp2.0\elgamal.dll
+E:\0TugasAkhir\Program\elgamal\bin\Debug\netcoreapp2.0\elgamal.pdb
+E:\0TugasAkhir\Program\elgamal\obj\Debug\netcoreapp2.0\elgamal.dll
+E:\0TugasAkhir\Program\elgamal\obj\Debug\netcoreapp2.0\elgamal.pdb
