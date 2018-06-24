@@ -13,35 +13,47 @@ namespace MyProgram
 {
     class Permutation
     {
-        int p, a;
-        BigInteger z, d;
+        
         int toBig = 0;
+
+        int P, G;
+        BigInteger Yi;
+        List<int> factor;
+
         public Permutation(ref Iimage image)
         {
-            p = primeNumber(image.Blok);
+            factor = new List<int>();
+            P = primeNumber(image.Blok);
+            FindFactors(P-1);
+
+            G = gNumber();
             for (int i = 0; i < image.Blok; i++)
             {
-                z = BigInteger.Pow(5, (i + 69) % (p - 2));
-                d = z % p;
-                if (d < image.Blok)
+                Yi = (BigInteger.Pow(G,i)) % P;
+                Console.WriteLine(Yi);
+                if (Yi < image.Blok)
                 {
-                    swapBlok(i, (int)d, ref image);
+                    swapBlok(i, (int)Yi, ref image);
                 }
                 //MessageBox.Show(string.Format("blok {0} from {1} ", i, image.Blok));
-                
+
             }
 
         }
+
         public Permutation(ref Iimage image, bool t)
         {
-            p = primeNumber(image.Blok);
+            factor = new List<int>();
+            P = primeNumber(image.Blok);
+            FindFactors(P - 1);
+
+            G = gNumber();
             for (int i = image.Blok - 1; i >= 0; i--)
             {
-                z = BigInteger.Pow(5, (i + 69) % (p - 2));
-                d = z % p;
-                if (d < image.Blok)
+                Yi = (BigInteger.Pow(G, i)) % P;
+                if (Yi < image.Blok)
                 {
-                    swapBlok(i, (int)d, ref image);
+                    swapBlok(i, (int)Yi, ref image);
                 }
 
 
@@ -53,6 +65,7 @@ namespace MyProgram
         public void swapBlok(int blok1, int blok2, ref Iimage image)
         {
             Color tmp;
+
             tmp = image.Image.GetPixel(image.DefBlok[blok1].M + 0, image.DefBlok[blok1].N + 0);
             image.Image.SetPixel(image.DefBlok[blok1].M + 0, image.DefBlok[blok1].N + 0, image.Image.GetPixel(image.DefBlok[blok2].M + 0, image.DefBlok[blok2].N + 0));
             image.Image.SetPixel(image.DefBlok[blok2].M + 0, image.DefBlok[blok2].N + 0, tmp);
@@ -91,18 +104,20 @@ namespace MyProgram
 
         }
 
+        //Get Prime Number
         public int primeNumber(int number)
         {
-            for (int i = number; i > 0; i--)
+            for (int i = number; i > 0; i++)
             {
                 if (this.isPrime(i))
                 {
                     return i;
                 }
             }
-            return 0; //????
+            return -1; //????
         }
 
+        //Check Is prime
         public bool isPrime(int number)
         {
             for (int i = 2; i < (int)Math.Sqrt(number); i++)
@@ -111,6 +126,75 @@ namespace MyProgram
                 {
                     return false;
                 }
+            }
+            return true;
+        }
+
+        // Return the number's prime factors.
+        private void FindFactors(int num)
+        {
+            //List<int> result = new List<int>();
+            // Take out the 2s.
+            while (num % 2 == 0)
+            {
+                factor.Add(2);
+                num /= 2;
+            }
+            // Take out other primes.
+            int fac = 3;
+            while (fac * fac <= num)
+            {
+                if (num % fac == 0)
+                {
+                    // This is a factor.
+                    factor.Add(fac);
+                    num /= fac;
+                }
+                else
+                {
+                    // Go to the next odd number.
+                    fac += 2;
+                }
+            }
+            // If num is not 1, then whatever is left is prime.
+            if (num > 1) factor.Add(num);
+
+            //factor = result;
+        }
+
+        //Get G number
+        public int gNumber()
+        {
+            bool check = false;
+            int G = 2;
+            while (!check)
+            {
+                Console.Write("{0} adalah ", G);
+                check = checkGNumber();
+                G++;
+            }
+            return G - 1;
+        }
+
+        //Checl G number for some prime number
+        public bool checkGNumber()
+        {
+            int freq = 1;
+            for (int i = 0; i < factor.Count; i++)
+            {
+                if (i != 0 && (factor[i] == factor[i - 1]))
+                {
+                    freq++;
+                }
+                else
+                {
+                    freq = 1;
+                }
+                int O = P - 1, qi = (int)(Math.Pow(factor[i], freq));
+                int w = (int)Math.Pow(G, (O / qi)) % P;
+                if (w == 1)
+                    return false;
+
             }
             return true;
         }

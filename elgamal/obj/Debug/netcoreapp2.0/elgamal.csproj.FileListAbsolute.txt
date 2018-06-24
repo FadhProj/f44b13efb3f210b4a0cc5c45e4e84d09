@@ -8,3 +8,13 @@ E:\0TugasAkhir\Program\elgamal\bin\Debug\netcoreapp2.0\elgamal.dll
 E:\0TugasAkhir\Program\elgamal\bin\Debug\netcoreapp2.0\elgamal.pdb
 E:\0TugasAkhir\Program\elgamal\obj\Debug\netcoreapp2.0\elgamal.dll
 E:\0TugasAkhir\Program\elgamal\obj\Debug\netcoreapp2.0\elgamal.pdb
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\bin\Debug\netcoreapp2.0\elgamal.deps.json
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\bin\Debug\netcoreapp2.0\elgamal.runtimeconfig.json
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\bin\Debug\netcoreapp2.0\elgamal.runtimeconfig.dev.json
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\bin\Debug\netcoreapp2.0\elgamal.dll
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\bin\Debug\netcoreapp2.0\elgamal.pdb
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\obj\Debug\netcoreapp2.0\elgamal.csproj.CoreCompileInputs.cache
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\obj\Debug\netcoreapp2.0\elgamal.AssemblyInfoInputs.cache
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\obj\Debug\netcoreapp2.0\elgamal.AssemblyInfo.cs
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\obj\Debug\netcoreapp2.0\elgamal.dll
+D:\fadhlan\f44b13efb3f210b4a0cc5c45e4e84d09\elgamal\obj\Debug\netcoreapp2.0\elgamal.pdb

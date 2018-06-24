@@ -664,24 +664,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fadhlan putranto\\.nuget\\packages\\": {},
+    "C:\\Users\\vlouchi\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\0TugasAkhir\\Program\\elgamal\\elgamal.csproj",
+      "projectUniqueName": "D:\\fadhlan\\f44b13efb3f210b4a0cc5c45e4e84d09\\elgamal\\elgamal.csproj",
       "projectName": "elgamal",
-      "projectPath": "E:\\0TugasAkhir\\Program\\elgamal\\elgamal.csproj",
-      "packagesPath": "C:\\Users\\fadhlan putranto\\.nuget\\packages\\",
-      "outputPath": "E:\\0TugasAkhir\\Program\\elgamal\\obj\\",
+      "projectPath": "D:\\fadhlan\\f44b13efb3f210b4a0cc5c45e4e84d09\\elgamal\\elgamal.csproj",
+      "packagesPath": "C:\\Users\\vlouchi\\.nuget\\packages\\",
+      "outputPath": "D:\\fadhlan\\f44b13efb3f210b4a0cc5c45e4e84d09\\elgamal\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\fadhlan putranto\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\vlouchi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
