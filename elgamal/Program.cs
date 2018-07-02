@@ -83,6 +83,14 @@ namespace elgamal
             }
             return true;
         }
+
+        static Random _r = new Random();
+        static void F(int numm)
+        {
+            int n = _r.Next(numm);
+            // Can return 0, 1, 2, 3, or 4
+            Console.WriteLine(n);
+        }
         static void Main(string[] args)
         {
             var watch = new System.Diagnostics.Stopwatch();
@@ -107,8 +115,8 @@ namespace elgamal
             //int G = System.Convert.ToInt32(Console.ReadLine());
             
             bool check = false;
-            int G = 2;
-            while(!check)
+            int G = 2, i = 0;
+            while(i<10)
             {
                 Console.Write("{0} adalah ",G);
                 check = checkGNumber(factor,G,prime);
@@ -116,13 +124,29 @@ namespace elgamal
                     Console.WriteLine("Generator Number");
                 else
                     Console.WriteLine("Bukan Generator Number");
-                G++;
+                G++;i++;
             }
             //bool check = checkGNumber(factor,G,prime);
             
                 
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+
+            F(number);
+            F(number);
+            F(number);
+            F(number);
+            F(number);
+            F(number);
+
+            Console.WriteLine();
+            // ... Create new Random object.
+            Random a = new Random();
+            // ... Get three random numbers.
+            //     Always 5, 6, 7, 8 or 9.
+            Console.WriteLine(a.Next(0, number));
+            Console.WriteLine(a.Next(0, number));
+            Console.WriteLine(a.Next(0, number));
         }
     }
 }

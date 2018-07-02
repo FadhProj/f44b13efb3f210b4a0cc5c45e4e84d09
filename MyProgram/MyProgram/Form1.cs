@@ -17,6 +17,7 @@ namespace MyProgram
         byte[] cek, cek1;
         string L;
         string K;
+        int[] kk;
         List<int> ke1, ke2;
         public Form1()
         {
@@ -124,7 +125,16 @@ namespace MyProgram
 
                     /* 2. Permutation Block Image */
                     Console.WriteLine("Permutation Block Image on Process");
-                    Permutation pr = new Permutation(ref originalImage);
+
+                    Random a = new Random();
+                    kk = new int[originalImage.Blok];
+                    for (int i = 0; i < originalImage.Blok; i++)
+                    {
+                        kk[i] = a.Next(0, originalImage.Blok);
+                    }
+                    //kk = { 12, 54, 5, 6, 3, 5, 48, 7, 654, 5, 2, 5654, 56, 565, 4, 56, 6214, 56, 6, 23156, 2, 56, 6, 546, 4, 665, 665, 26, 54, 6532, 656, 5426, 656, 56, 565, 2, 6266, 56, 6, 56, 26, 6, 6, 65, 62, 65, 62 };
+                    Permutation pr = new Permutation(ref originalImage,kk);
+                    Console.WriteLine(originalImage.Blok);
 
                     /* Close Padding */
                     originalImage.closePadding(true);
@@ -304,7 +314,8 @@ namespace MyProgram
                 encryptedMarkedImage.addPadding(pbDI.Image.GetPropertyItem(305).Value, pbDI.Image.GetPropertyItem(33432).Value);
 
 
-                Permutation pr = new Permutation(ref encryptedMarkedImage, true);
+                //Permutation pr = new Permutation(ref encryptedMarkedImage, true);
+                Permutation pr = new Permutation(ref encryptedMarkedImage,kk, true);
 
                 StreamChipper sc = new StreamChipper(K);
                 sc.PRGA(ref encryptedMarkedImage);

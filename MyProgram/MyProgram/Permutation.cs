@@ -26,11 +26,14 @@ namespace MyProgram
             P = primeNumber(image.Blok);
             FindFactors(P-1);
 
+            Console.WriteLine("Width : {0} Height : {1} blok : {2}", image.Image.Width, image.Image.Height,image.Blok);
+
             G = gNumber();
+            Console.WriteLine(G);
             for (int i = 0; i < image.Blok; i++)
             {
                 Yi = (BigInteger.Pow(G,i)) % P;
-                Console.WriteLine(Yi);
+                Console.WriteLine("{0}      {1}" ,i,Yi);
                 if (Yi < image.Blok)
                 {
                     swapBlok(i, (int)Yi, ref image);
@@ -60,8 +63,26 @@ namespace MyProgram
             }
         }
 
+        public Permutation(ref Iimage image, int[] key)
+        {
+            for (int i = 0; i < image.Blok; i++)
+            {
+                Console.WriteLine("{0} {1}", i, key[i % key.Length]);
+                swapBlok(i, key[i % key.Length], ref image);
+            }
+        }
 
-       
+        public Permutation(ref Iimage image, int[] key, bool t)
+        {
+            for (int i = image.Blok; i >= 0 ; i--)
+            {
+                Console.WriteLine("{0} {1}", i, key[i % key.Length]);
+                swapBlok(i, key[i % key.Length], ref image);
+            }
+        }
+
+
+
         public void swapBlok(int blok1, int blok2, ref Iimage image)
         {
             Color tmp;
@@ -166,10 +187,10 @@ namespace MyProgram
         public int gNumber()
         {
             bool check = false;
-            int G = 2;
+            int G = 3;
             while (!check)
             {
-                Console.Write("{0} adalah ", G);
+                //Console.Write("{0} adalah ", G);
                 check = checkGNumber();
                 G++;
             }

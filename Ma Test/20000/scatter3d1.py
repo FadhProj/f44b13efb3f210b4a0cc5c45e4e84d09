@@ -18,7 +18,7 @@ def main():
     fig = pyplot.figure(figsize=(10,8))
     axis = fig.add_subplot(111, projection="3d") # 3D plot with scalar values in each axis
 
-    im = Image.open("D:/fadhlan/f44b13efb3f210b4a0cc5c45e4e84d09/MyProgram/MyProgram/bin/Debug/Hasil/Jun. 12, 2018 0-26-46/1. GrayscaleImage.png")
+    im = Image.open("D:/fadhlan/f44b13efb3f210b4a0cc5c45e4e84d09/MyProgram/MyProgram/bin/Debug/Hasil/Jul. 02, 2018 12-41-45/1.2 EncryptedImage.png")
     #p,q=im.getdata(0).size
     
     '''for j in range(5):
