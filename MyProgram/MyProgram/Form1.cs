@@ -21,12 +21,14 @@ namespace MyProgram
         List<int> ke1, ke2;
         public Form1()
         {
+            ClassKey kkk = new ClassKey();
             InitializeComponent();
             date = DateTime.Now;
             tbDate.Text = date.ToString();
             int[] a = { 1, 2, 3, 4, 5 };
             string s = a.ToString();
             ss = new Save(date);
+            kk = kkk.Key;
         }
         //================================================================================================================
         //  GrayScale
@@ -127,11 +129,11 @@ namespace MyProgram
                     Console.WriteLine("Permutation Block Image on Process");
 
                     Random a = new Random();
-                    kk = new int[originalImage.Blok];
-                    for (int i = 0; i < originalImage.Blok; i++)
-                    {
-                        kk[i] = a.Next(0, originalImage.Blok);
-                    }
+                    //kk = new int[originalImage.Blok];
+                    //for (int i = 0; i < originalImage.Blok; i++)
+                    //{
+                    //    kk[i] = a.Next(0, originalImage.Blok);
+                    //}
                     //kk = { 12, 54, 5, 6, 3, 5, 48, 7, 654, 5, 2, 5654, 56, 565, 4, 56, 6214, 56, 6, 23156, 2, 56, 6, 546, 4, 665, 665, 26, 54, 6532, 656, 5426, 656, 56, 565, 2, 6266, 56, 6, 56, 26, 6, 6, 65, 62, 65, 62 };
                     Permutation pr = new Permutation(ref originalImage,kk);
                     Console.WriteLine(originalImage.Blok);
@@ -374,6 +376,7 @@ namespace MyProgram
                 markedImage.addPadding(pbEM.Image.GetPropertyItem(305).Value, pbEM.Image.GetPropertyItem(33432).Value);
 
                 //====================================
+                Console.WriteLine("Extraction message on Process");
                 L = Encoding.UTF8.GetString(pbEM.Image.GetPropertyItem(315).Value);
                 L = L.Substring(0, L.Length - 1);
                 //Console.WriteLine("");

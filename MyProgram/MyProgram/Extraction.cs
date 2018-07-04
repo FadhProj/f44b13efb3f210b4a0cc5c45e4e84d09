@@ -19,7 +19,7 @@ namespace MyProgram
             this.L = L;
             extrac(ref img, ref msg);
             //extrac1X2(ref img, ref msg);
-
+            Console.WriteLine("extrac");
             histShiffting(ref img);
         }
 
@@ -75,6 +75,7 @@ namespace MyProgram
             string binMsg = "";
             for (int blok = 0; blok < img.Blok; blok++)
             {
+                //Console.WriteLine(blok);
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)

@@ -1,0 +1,3 @@
+Embeding Capacity : 719018 bit
+Len Message Embeding : 160528 bit
+=================================

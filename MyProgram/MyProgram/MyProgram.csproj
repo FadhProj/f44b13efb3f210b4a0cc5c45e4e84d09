@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassKey.cs" />
     <Compile Include="Embeding.cs" />
     <Compile Include="Extraction.cs" />
     <Compile Include="Form1.cs">

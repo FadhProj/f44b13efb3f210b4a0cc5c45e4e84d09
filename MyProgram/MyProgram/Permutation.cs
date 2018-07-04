@@ -67,17 +67,17 @@ namespace MyProgram
         {
             for (int i = 0; i < image.Blok; i++)
             {
-                Console.WriteLine("{0} {1}", i, key[i % key.Length]);
+                //Console.WriteLine("{0} {1}", i, key[i % key.Length]);
                 swapBlok(i, key[i % key.Length], ref image);
             }
         }
 
         public Permutation(ref Iimage image, int[] key, bool t)
         {
-            for (int i = image.Blok; i >= 0 ; i--)
+            for (int i = image.Blok-1; i >= 0 ; i--)
             {
-                Console.WriteLine("{0} {1}", i, key[i % key.Length]);
-                swapBlok(i, key[i % key.Length], ref image);
+                //Console.WriteLine("{0} {1}", i, key[i]);
+                swapBlok(i, key[i], ref image);
             }
         }
 

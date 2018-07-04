@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Numerics;
+using System.IO;
 
 namespace elgamal
 {
@@ -144,9 +145,17 @@ namespace elgamal
             Random a = new Random();
             // ... Get three random numbers.
             //     Always 5, 6, 7, 8 or 9.
-            Console.WriteLine(a.Next(0, number));
-            Console.WriteLine(a.Next(0, number));
-            Console.WriteLine(a.Next(0, number));
+            string s = "{ ";
+            for (int j = 0; j < 116964; j++)
+            {
+                      s += a.Next(0, 116964).ToString() + ", ";
+                      Console.WriteLine(j+" ");
+                     
+            }
+
+            s += "} ";
+            //Console.WriteLine(s);
+            File.AppendAllText(System.IO.Path.Combine(Directory.GetCurrentDirectory(),"key.txt"),s );
         }
     }
 }
