@@ -1,0 +1,2 @@
+Max : 176035 bit
+Message : 160528 bit

@@ -1,0 +1,7 @@
+=================================
+Key : 987654321
+Embeding Capacity : 99713 bit
+Len Message Embeding : 160528 bit
+=================================
+Len Message Extraction : 99705 bit
+=================================
